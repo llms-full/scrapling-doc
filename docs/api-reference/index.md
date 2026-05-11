@@ -176,6 +176,123 @@ Pre-warm the robots.txt cache for a list of seed URLs concurrently.
 - `urls`: Seed URLs whose domains should be pre-fetched (one per domain).
 - `sid`: Session ID to use for the robots.txt fetch requests.
 
+<a id="scrapling.spiders.templates.crawler"></a>
+
+# scrapling.spiders.templates.crawler
+
+Generic spider templates that build on the `Spider` base.
+
+<a id="scrapling.spiders.templates.crawler.CrawlRule"></a>
+
+## CrawlRule Objects
+
+```python
+@dataclass
+class CrawlRule()
+```
+
+Rule for `CrawlSpider`: extract links from a response and dispatch them.
+
+**Arguments**:
+
+- `link_extractor`: `LinkExtractor` that produces URLs from each response.
+- `callback`: Bound method on the spider to call for each matched URL.
+Falls back to the spider's default ``parse()`` by default.
+- `priority`: Override the priority of the requests that will be dispatched.
+- `process_request`: Optional bound method to mutate each `Request` before
+it is yielded. Signature: ``(request, response) -> request``. Use it to
+add headers, change priority, or filter requests.
+
+<a id="scrapling.spiders.templates.crawler.CrawlSpider"></a>
+
+## CrawlSpider Objects
+
+```python
+class CrawlSpider(Spider)
+```
+
+A generic spider that can extract and follow links automatically based on crawl rules.
+
+Override `rules()` to return a list of `CrawlRule`s.
+
+You can start from it and override it as needed for more custom functionality, or just implement your own spider.
+
+<a id="scrapling.spiders.templates.crawler.CrawlSpider.rules"></a>
+
+#### rules
+
+```python
+def rules() -> List[CrawlRule]
+```
+
+Override to define link-following rules.
+
+<a id="scrapling.spiders.templates.sitemap"></a>
+
+# scrapling.spiders.templates.sitemap
+
+Sitemap template spider.
+
+<a id="scrapling.spiders.templates.sitemap.SitemapResult"></a>
+
+## SitemapResult Objects
+
+```python
+@dataclass
+class SitemapResult()
+```
+
+Parsed sitemap body.
+
+`urls` holds the entries from a `<urlset>`; `sitemaps` holds child sitemap
+URLs from a `<sitemapindex>` (each of which is fetched recursively).
+
+<a id="scrapling.spiders.templates.sitemap.SitemapSpider"></a>
+
+## SitemapSpider Objects
+
+```python
+class SitemapSpider(Spider)
+```
+
+A Spider that seeds a crawl from sitemap(s), and follows the rules.
+
+Override `rules()` to return a list of `CrawlRule`s.
+
+If there are no rules provided, all non-sitemap urls will be redirected to `parse()`, which must be overridden or it will raise `NotImplementedError`.
+
+:cvar sitemap_urls: Explicit list of sitemap (or robots.txt) URLs to fetch.
+:cvar sitemap_follow: `LinkExtractor` filtering which child sitemaps inside a
+    `<sitemapindex>` to descend into. ``None`` means descend into all.
+:cvar sitemap_alternate_links: When enabled, alternate-language URLs are also
+    routed through `rules()`.
+
+<a id="scrapling.spiders.templates.sitemap.SitemapSpider.rules"></a>
+
+#### rules
+
+```python
+def rules() -> List[CrawlRule]
+```
+
+Override to define dispatch rules for sitemap URLs.
+
+<a id="scrapling.spiders.templates.sitemap.SitemapSpider.parse"></a>
+
+#### parse
+
+```python
+async def parse(
+    response: "Response"
+) -> AsyncGenerator[Union[Dict[str, Any], Request, None], None]
+```
+
+Default callback for processing responses
+
+<a id="scrapling.spiders.templates"></a>
+
+# scrapling.spiders.templates
+
 <a id="scrapling.spiders.cache"></a>
 
 # scrapling.spiders.cache
@@ -403,6 +520,68 @@ async def cleanup() -> None
 ```
 
 Delete checkpoint file after successful completion.
+
+<a id="scrapling.spiders.links"></a>
+
+# scrapling.spiders.links
+
+Pure URL discovery primitive
+
+<a id="scrapling.spiders.links.LinkExtractor"></a>
+
+## LinkExtractor Objects
+
+```python
+class LinkExtractor()
+```
+
+Extracts and filters URLs from a `Response` (or a single URL via `matches`).
+
+All matching is regex-based; allow/deny patterns can be plain strings (compiled
+with `re.compile`) or pre-compiled `re.Pattern` objects, individually or as an
+iterable.
+
+**Arguments**:
+
+- `allow`: Regex pattern(s) URLs must match to be kept. String, compiled `re.Pattern`,
+or an iterable of either. Empty means match all.
+- `deny`: Regex pattern(s) URLs must NOT match. Takes precedence over `allow`.
+- `allow_domains`: Domain(s) to keep. Matches the exact host or any subdomain
+(e.g. `"example.com"` matches `"api.example.com"`). String or iterable.
+- `deny_domains`: Domain(s) to exclude. Same matching rules as `allow_domains`.
+- `restrict_css`: CSS selectors to scope DOM extraction to. Empty means whole page.
+- `restrict_xpath`: XPath selectors to scope DOM extraction to. Empty means whole page.
+- `tags`: Element tags to look for links in. Default ("a", "area").
+- `attrs`: Attributes on those tags to read URLs from. Default ("href",).
+- `canonicalize`: Canonicalize URLs (sort query params, normalize path). Default True.
+- `strip`: Strip whitespace from extracted URLs. Default True.
+- `keep_fragment`: Preserve the URL fragment when canonicalizing. Default False.
+- `deny_extensions`: File extensions to drop. Default `IGNORED_EXTENSIONS`.
+- `process`: A function to do a process on the values extracted before using them. Return None to drop any value.
+
+<a id="scrapling.spiders.links.LinkExtractor.extract"></a>
+
+#### extract
+
+```python
+def extract(response: "Response") -> List[str]
+```
+
+Return absolute, filtered, deduped URLs from `response`.
+
+<a id="scrapling.spiders.links.LinkExtractor.matches"></a>
+
+#### matches
+
+```python
+def matches(url: str) -> bool
+```
+
+URL-only filter (no response extraction).
+
+Applies allow/deny/allow_domains/deny_domains/deny_extensions to a single URL.
+Used by `SitemapSpider` to dispatch sitemap URLs through `CrawlRule`s without
+needing a `Response`.
 
 <a id="scrapling.spiders.engine"></a>
 
@@ -2527,7 +2706,7 @@ Return a single-element list containing this element's serialized string.
 ```python
 def relocate(
         element: Union[Dict, HtmlElement, "Selector"],
-        percentage: int = 0,
+        percentage: int = 40,
         selector_type: bool = False) -> Union[List[HtmlElement], "Selectors"]
 ```
 
@@ -2554,7 +2733,7 @@ def css(selector: str,
         identifier: str = "",
         adaptive: bool = False,
         auto_save: bool = False,
-        percentage: int = 0) -> "Selectors"
+        percentage: int = 40) -> "Selectors"
 ```
 
 Search the current tree with CSS3 selectors
@@ -2587,7 +2766,7 @@ def xpath(selector: str,
           identifier: str = "",
           adaptive: bool = False,
           auto_save: bool = False,
-          percentage: int = 0,
+          percentage: int = 40,
           **kwargs: Any) -> "Selectors"
 ```
 
@@ -2839,7 +3018,7 @@ The `Selectors` class is a subclass of the builtin ``List`` class, which provide
 def xpath(selector: str,
           identifier: str = "",
           auto_save: bool = False,
-          percentage: int = 0,
+          percentage: int = 40,
           **kwargs: Any) -> "Selectors"
 ```
 
@@ -2875,7 +3054,7 @@ number unless you must know what you are doing!
 def css(selector: str,
         identifier: str = "",
         auto_save: bool = False,
-        percentage: int = 0) -> "Selectors"
+        percentage: int = 40) -> "Selectors"
 ```
 
 Call the ``.css()`` method for each element in this list and return
