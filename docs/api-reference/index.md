@@ -12,6 +12,1558 @@ def __dir__() -> list[str]
 
 Support for dir() and autocomplete.
 
+<a id="scrapling.core._shell_signatures"></a>
+
+# scrapling.core.\_shell\_signatures
+
+<a id="scrapling.core.shell"></a>
+
+# scrapling.core.shell
+
+<a id="scrapling.core.shell.CurlParser"></a>
+
+## CurlParser Objects
+
+```python
+class CurlParser()
+```
+
+Builds the argument parser for relevant curl flags from DevTools.
+
+<a id="scrapling.core.shell.CurlParser.parse"></a>
+
+#### parse
+
+```python
+def parse(curl_command: str) -> Optional[Request]
+```
+
+Parses the curl command string into a structured context for Fetcher.
+
+<a id="scrapling.core.shell.CustomShell"></a>
+
+## CustomShell Objects
+
+```python
+class CustomShell()
+```
+
+A custom IPython shell with minimal dependencies
+
+<a id="scrapling.core.shell.CustomShell.init_components"></a>
+
+#### init\_components
+
+```python
+def init_components()
+```
+
+Initialize application components
+
+<a id="scrapling.core.shell.CustomShell.banner"></a>
+
+#### banner
+
+```python
+@staticmethod
+def banner()
+```
+
+Create a custom banner for the shell
+
+<a id="scrapling.core.shell.CustomShell.update_page"></a>
+
+#### update\_page
+
+```python
+def update_page(result)
+```
+
+Update the current page and add to pages history
+
+<a id="scrapling.core.shell.CustomShell.create_wrapper"></a>
+
+#### create\_wrapper
+
+```python
+def create_wrapper(func: Callable,
+                   get_signature: bool = True,
+                   signature_name: Optional[str] = None) -> Callable
+```
+
+Create a wrapper that preserves function signature but updates page
+
+<a id="scrapling.core.shell.CustomShell.get_namespace"></a>
+
+#### get\_namespace
+
+```python
+def get_namespace()
+```
+
+Create a namespace with application-specific objects
+
+<a id="scrapling.core.shell.CustomShell.show_help"></a>
+
+#### show\_help
+
+```python
+def show_help()
+```
+
+Show help information
+
+<a id="scrapling.core.shell.CustomShell.start"></a>
+
+#### start
+
+```python
+def start()
+```
+
+Start the interactive shell
+
+<a id="scrapling.core.shell.Convertor"></a>
+
+## Convertor Objects
+
+```python
+class Convertor()
+```
+
+Utils for the extract shell command
+
+<a id="scrapling.core.shell.Convertor.write_content_to_file"></a>
+
+#### write\_content\_to\_file
+
+```python
+@classmethod
+def write_content_to_file(cls,
+                          page: Selector,
+                          filename: str,
+                          css_selector: Optional[str] = None,
+                          main_content_only: bool = False) -> None
+```
+
+Write a Selector's content to a file
+
+<a id="scrapling.core"></a>
+
+# scrapling.core
+
+<a id="scrapling.core.utils"></a>
+
+# scrapling.core.utils
+
+<a id="scrapling.core.utils._shell"></a>
+
+# scrapling.core.utils.\_shell
+
+<a id="scrapling.core.utils._utils"></a>
+
+# scrapling.core.utils.\_utils
+
+<a id="scrapling.core.utils._utils.setup_logger"></a>
+
+#### setup\_logger
+
+```python
+@lru_cache(1, typed=True)
+def setup_logger()
+```
+
+Create and configure a logger with a standard format.
+
+**Returns**:
+
+logging.Logger: Configured logger instance
+
+<a id="scrapling.core.utils._utils.set_logger"></a>
+
+#### set\_logger
+
+```python
+def set_logger(logger: logging.Logger) -> Token
+```
+
+Set the current context logger. Returns token for reset.
+
+<a id="scrapling.core.utils._utils.reset_logger"></a>
+
+#### reset\_logger
+
+```python
+def reset_logger(token: Token) -> None
+```
+
+Reset logger to previous state using token.
+
+<a id="scrapling.core.ai"></a>
+
+# scrapling.core.ai
+
+<a id="scrapling.core.ai.ResponseModel"></a>
+
+## ResponseModel Objects
+
+```python
+class ResponseModel(BaseModel)
+```
+
+Request's response information structure.
+
+<a id="scrapling.core.ai.SessionInfo"></a>
+
+## SessionInfo Objects
+
+```python
+class SessionInfo(BaseModel)
+```
+
+Information about an open browser session.
+
+<a id="scrapling.core.ai.SessionCreatedModel"></a>
+
+## SessionCreatedModel Objects
+
+```python
+class SessionCreatedModel(SessionInfo)
+```
+
+Response returned when a new session is created.
+
+<a id="scrapling.core.ai.SessionClosedModel"></a>
+
+## SessionClosedModel Objects
+
+```python
+class SessionClosedModel(BaseModel)
+```
+
+Response returned when a session is closed.
+
+<a id="scrapling.core.ai._SessionEntry"></a>
+
+## \_SessionEntry Objects
+
+```python
+@dataclass
+class _SessionEntry()
+```
+
+<a id="scrapling.core.ai._SessionEntry.session"></a>
+
+#### session
+
+AsyncDynamicSession | AsyncStealthySession
+
+<a id="scrapling.core.ai.ScraplingMCPServer"></a>
+
+## ScraplingMCPServer Objects
+
+```python
+class ScraplingMCPServer()
+```
+
+<a id="scrapling.core.ai.ScraplingMCPServer.open_session"></a>
+
+#### open\_session
+
+```python
+async def open_session(
+        session_type: SessionType,
+        session_id: Optional[str] = None,
+        headless: bool = True,
+        google_search: bool = True,
+        real_chrome: bool = False,
+        wait: int | float = 0,
+        proxy: Optional[str | Dict[str, str]] = None,
+        timezone_id: str | None = None,
+        locale: str | None = None,
+        extra_headers: Optional[Dict[str, str]] = None,
+        useragent: Optional[str] = None,
+        cdp_url: Optional[str] = None,
+        timeout: int | float = 30000,
+        disable_resources: bool = False,
+        wait_selector: Optional[str] = None,
+        cookies: Sequence[SetCookieParam] | None = None,
+        network_idle: bool = False,
+        wait_selector_state: SelectorWaitStates = "attached",
+        max_pages: int = 5,
+        hide_canvas: bool = False,
+        block_webrtc: bool = False,
+        allow_webgl: bool = True,
+        solve_cloudflare: bool = False,
+        additional_args: Optional[Dict] = None) -> SessionCreatedModel
+```
+
+Open a persistent browser session that can be reused across multiple fetch calls.
+
+This avoids the overhead of launching a new browser for each request.
+Use close_session to close the session when done, and list_sessions to see all active sessions.
+
+**Arguments**:
+
+- `session_type`: The type of session to open. Use "dynamic" for standard Playwright browser, or "stealthy" for anti-bot bypass with fingerprint spoofing.
+- `session_id`: Optional custom session ID. If not provided, a random 12-character hex ID will be generated. Useful for naming sessions for easier management.
+- `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
+- `google_search`: Enabled by default, Scrapling will set a Google referer header.
+- `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
+- `wait`: The time (milliseconds) the fetcher will wait after everything finishes before closing the page and returning the Response object.
+- `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
+- `timezone_id`: Changes the timezone of the browser. Defaults to the system timezone.
+- `locale`: Specify user locale, for example, `en-GB`, `de-DE`, etc.
+- `extra_headers`: A dictionary of extra headers to add to the request.
+- `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
+- `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
+- `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000.
+- `disable_resources`: Drop requests for unnecessary resources for a speed boost.
+- `wait_selector`: Wait for a specific CSS selector to be in a specific state.
+- `cookies`: Set cookies for the session. It should be in a dictionary format that Playwright accepts.
+- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
+- `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
+- `max_pages`: Maximum number of concurrent pages/tabs in the browser. Defaults to 5. Higher values allow more parallel fetches.
+- `hide_canvas`: (Stealthy only) Add random noise to canvas operations to prevent fingerprinting.
+- `block_webrtc`: (Stealthy only) Forces WebRTC to respect proxy settings to prevent local IP address leak.
+- `allow_webgl`: (Stealthy only) Enabled by default. Disabling WebGL is not recommended as many WAFs now check if WebGL is enabled.
+- `solve_cloudflare`: (Stealthy only) Solves all types of the Cloudflare's Turnstile/Interstitial challenges.
+- `additional_args`: (Stealthy only) Additional arguments to be passed to Playwright's context as additional settings.
+
+<a id="scrapling.core.ai.ScraplingMCPServer.close_session"></a>
+
+#### close\_session
+
+```python
+async def close_session(session_id: str) -> SessionClosedModel
+```
+
+Close a persistent browser session and free its resources.
+
+**Arguments**:
+
+- `session_id`: The unique identifier of the session to close. Use list_sessions to see active sessions.
+
+<a id="scrapling.core.ai.ScraplingMCPServer.list_sessions"></a>
+
+#### list\_sessions
+
+```python
+async def list_sessions() -> List[SessionInfo]
+```
+
+List all active browser sessions with their details.
+
+<a id="scrapling.core.ai.ScraplingMCPServer.screenshot"></a>
+
+#### screenshot
+
+```python
+async def screenshot(
+        url: str,
+        session_id: str,
+        image_type: ScreenshotType = "png",
+        full_page: bool = False,
+        quality: Optional[int] = None,
+        wait: int | float = 0,
+        wait_selector: Optional[str] = None,
+        wait_selector_state: SelectorWaitStates = "attached",
+        network_idle: bool = False,
+        timeout: int | float = 30000) -> List[ImageContent | TextContent]
+```
+
+Capture a screenshot of a web page using an existing browser session and return it as an image.
+
+A browser session must be opened first with `open_session` (either `dynamic` or `stealthy`); the session ID is then passed here.
+
+**Arguments**:
+
+- `url`: The URL to navigate to and capture.
+- `session_id`: ID of an open browser session created with `open_session`.
+- `image_type`: Image format. Defaults to "png". Use "jpeg" for smaller file sizes.
+- `full_page`: When True, captures the full scrollable page instead of just the viewport. Defaults to False.
+- `quality`: Image quality (0-100) for JPEG only. Raises if passed with `image_type="png"`.
+- `wait`: Time in milliseconds to wait after page load before capturing. Defaults to 0.
+- `wait_selector`: Optional CSS selector to wait for before capturing.
+- `wait_selector_state`: State to wait for the selector. Defaults to "attached".
+- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
+- `timeout`: Timeout in milliseconds for page operations. Defaults to 30,000.
+
+<a id="scrapling.core.ai.ScraplingMCPServer.get"></a>
+
+#### get
+
+```python
+@staticmethod
+async def get(url: str,
+              impersonate: ImpersonateType = "chrome",
+              extraction_type: extraction_types = "markdown",
+              css_selector: Optional[str] = None,
+              main_content_only: bool = True,
+              params: Optional[Dict] = None,
+              headers: Optional[Mapping[str, Optional[str]]] = None,
+              cookies: Optional[Dict[str, str]] = None,
+              timeout: Optional[int | float] = 30,
+              follow_redirects: FollowRedirects = "safe",
+              max_redirects: int = 30,
+              retries: Optional[int] = 3,
+              retry_delay: Optional[int] = 1,
+              proxy: Optional[str] = None,
+              proxy_auth: Optional[Dict[str, str]] = None,
+              auth: Optional[Dict[str, str]] = None,
+              verify: Optional[bool] = True,
+              http3: Optional[bool] = False,
+              stealthy_headers: Optional[bool] = True) -> ResponseModel
+```
+
+Make GET HTTP request to a URL and return a structured output of the result.
+
+Note: This is only suitable for low-mid protection levels. For high-protection levels or websites that require JS loading, use the other tools directly.
+Note: If the `css_selector` resolves to more than one element, all the elements will be returned.
+
+**Arguments**:
+
+- `url`: The URL to request.
+- `impersonate`: Browser version to impersonate its fingerprint. It's using the latest chrome version by default.
+- `extraction_type`: The type of content to extract from the page. Defaults to "markdown". Options are:
+- Markdown will convert the page content to Markdown format.
+- HTML will return the raw HTML content of the page.
+- Text will return the text content of the page.
+- `css_selector`: CSS selector to extract the content from the page. If main_content_only is True, then it will be executed on the main content of the page. Defaults to None.
+- `main_content_only`: Whether to extract only the main content of the page. Defaults to True. The main content here is the data inside the `<body>` tag.
+- `params`: Query string parameters for the request.
+- `headers`: Headers to include in the request.
+- `cookies`: Cookies to use in the request.
+- `timeout`: Number of seconds to wait before timing out.
+- `follow_redirects`: Whether to follow redirects. Defaults to "safe", which follows redirects but rejects those targeting internal/private IPs (SSRF protection).
+Pass True to follow all redirects without restriction.
+- `max_redirects`: Maximum number of redirects. Default 30, use -1 for unlimited.
+- `retries`: Number of retry attempts. Defaults to 3.
+- `retry_delay`: Number of seconds to wait between retry attempts. Defaults to 1 second.
+- `proxy`: Proxy URL to use. Format: "http://username:password@localhost:8030".
+Cannot be used together with the `proxies` parameter.
+- `proxy_auth`: HTTP basic auth for proxy in dictionary format with `username` and `password` keys.
+- `auth`: HTTP basic auth in dictionary format with `username` and `password` keys.
+- `verify`: Whether to verify HTTPS certificates.
+- `http3`: Whether to use HTTP3. Defaults to False. It might be problematic if used it with `impersonate`.
+- `stealthy_headers`: If enabled (default), it creates and adds real browser headers. It also sets a Google referer header.
+
+<a id="scrapling.core.ai.ScraplingMCPServer.bulk_get"></a>
+
+#### bulk\_get
+
+```python
+@staticmethod
+async def bulk_get(
+        urls: List[str],
+        impersonate: ImpersonateType = "chrome",
+        extraction_type: extraction_types = "markdown",
+        css_selector: Optional[str] = None,
+        main_content_only: bool = True,
+        params: Optional[Dict] = None,
+        headers: Optional[Mapping[str, Optional[str]]] = None,
+        cookies: Optional[Dict[str, str]] = None,
+        timeout: Optional[int | float] = 30,
+        follow_redirects: FollowRedirects = "safe",
+        max_redirects: int = 30,
+        retries: Optional[int] = 3,
+        retry_delay: Optional[int] = 1,
+        proxy: Optional[str] = None,
+        proxy_auth: Optional[Dict[str, str]] = None,
+        auth: Optional[Dict[str, str]] = None,
+        verify: Optional[bool] = True,
+        http3: Optional[bool] = False,
+        stealthy_headers: Optional[bool] = True) -> List[ResponseModel]
+```
+
+Make GET HTTP request to a group of URLs and for each URL, return a structured output of the result.
+
+Note: This is only suitable for low-mid protection levels. For high-protection levels or websites that require JS loading, use the other tools directly.
+Note: If the `css_selector` resolves to more than one element, all the elements will be returned.
+
+**Arguments**:
+
+- `urls`: A list of the URLs to request.
+- `impersonate`: Browser version to impersonate its fingerprint. It's using the latest chrome version by default.
+- `extraction_type`: The type of content to extract from the page. Defaults to "markdown". Options are:
+- Markdown will convert the page content to Markdown format.
+- HTML will return the raw HTML content of the page.
+- Text will return the text content of the page.
+- `css_selector`: CSS selector to extract the content from the page. If main_content_only is True, then it will be executed on the main content of the page. Defaults to None.
+- `main_content_only`: Whether to extract only the main content of the page. Defaults to True. The main content here is the data inside the `<body>` tag.
+- `params`: Query string parameters for the request.
+- `headers`: Headers to include in the request.
+- `cookies`: Cookies to use in the request.
+- `timeout`: Number of seconds to wait before timing out.
+- `follow_redirects`: Whether to follow redirects. Defaults to "safe", which follows redirects but rejects those targeting internal/private IPs (SSRF protection).
+Pass True to follow all redirects without restriction.
+- `max_redirects`: Maximum number of redirects. Default 30, use -1 for unlimited.
+- `retries`: Number of retry attempts. Defaults to 3.
+- `retry_delay`: Number of seconds to wait between retry attempts. Defaults to 1 second.
+- `proxy`: Proxy URL to use. Format: "http://username:password@localhost:8030".
+Cannot be used together with the `proxies` parameter.
+- `proxy_auth`: HTTP basic auth for proxy in dictionary format with `username` and `password` keys.
+- `auth`: HTTP basic auth in dictionary format with `username` and `password` keys.
+- `verify`: Whether to verify HTTPS certificates.
+- `http3`: Whether to use HTTP3. Defaults to False. It might be problematic if used it with `impersonate`.
+- `stealthy_headers`: If enabled (default), it creates and adds real browser headers. It also sets a Google referer header.
+
+<a id="scrapling.core.ai.ScraplingMCPServer.fetch"></a>
+
+#### fetch
+
+```python
+async def fetch(url: str,
+                extraction_type: extraction_types = "markdown",
+                css_selector: Optional[str] = None,
+                main_content_only: bool = True,
+                headless: bool = True,
+                google_search: bool = True,
+                real_chrome: bool = False,
+                wait: int | float = 0,
+                proxy: Optional[str | Dict[str, str]] = None,
+                timezone_id: str | None = None,
+                locale: str | None = None,
+                extra_headers: Optional[Dict[str, str]] = None,
+                useragent: Optional[str] = None,
+                cdp_url: Optional[str] = None,
+                timeout: int | float = 30000,
+                disable_resources: bool = False,
+                wait_selector: Optional[str] = None,
+                cookies: Sequence[SetCookieParam] | None = None,
+                network_idle: bool = False,
+                wait_selector_state: SelectorWaitStates = "attached",
+                session_id: Optional[str] = None) -> ResponseModel
+```
+
+Use playwright to open a browser to fetch a URL and return a structured output of the result.
+
+Note: This is only suitable for low-mid protection levels.
+Note: If the `css_selector` resolves to more than one element, all the elements will be returned.
+Note: If a `session_id` is provided (from open_session), the browser session will be reused instead of creating a new one.
+    When using a session, browser-level params (headless, proxy, locale, etc.) are ignored since they were set at session creation time.
+
+**Arguments**:
+
+- `url`: The URL to request.
+- `extraction_type`: The type of content to extract from the page. Defaults to "markdown". Options are:
+- Markdown will convert the page content to Markdown format.
+- HTML will return the raw HTML content of the page.
+- Text will return the text content of the page.
+- `css_selector`: CSS selector to extract the content from the page. If main_content_only is True, then it will be executed on the main content of the page. Defaults to None.
+- `main_content_only`: Whether to extract only the main content of the page. Defaults to True. The main content here is the data inside the `<body>` tag.
+- `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
+- `disable_resources`: Drop requests for unnecessary resources for a speed boost.
+Requests dropped are of type `font`, `image`, `media`, `beacon`, `object`, `imageset`, `texttrack`, `websocket`, `csp_report`, and `stylesheet`.
+- `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
+- `cookies`: Set cookies for the next request. It should be in a dictionary format that Playwright accepts.
+- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
+- `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000
+- `wait`: The time (milliseconds) the fetcher will wait after everything finishes before closing the page and returning the ` Response ` object.
+- `wait_selector`: Wait for a specific CSS selector to be in a specific state.
+- `timezone_id`: Changes the timezone of the browser. Defaults to the system timezone.
+- `locale`: Specify user locale, for example, `en-GB`, `de-DE`, etc. Locale will affect navigator.language value, Accept-Language request header value as well as number and date formatting
+rules. Defaults to the system default locale.
+- `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
+- `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
+- `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
+- `google_search`: Enabled by default, Scrapling will set a Google referer header.
+- `extra_headers`: A dictionary of extra headers to add to the request. _The referer set by `google_search` takes priority over the referer set here if used together._
+- `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
+- `session_id`: Optional session ID from open_session. If provided, reuses the existing browser session instead of creating a new one.
+
+<a id="scrapling.core.ai.ScraplingMCPServer.bulk_fetch"></a>
+
+#### bulk\_fetch
+
+```python
+async def bulk_fetch(urls: List[str],
+                     extraction_type: extraction_types = "markdown",
+                     css_selector: Optional[str] = None,
+                     main_content_only: bool = True,
+                     headless: bool = True,
+                     google_search: bool = True,
+                     real_chrome: bool = False,
+                     wait: int | float = 0,
+                     proxy: Optional[str | Dict[str, str]] = None,
+                     timezone_id: str | None = None,
+                     locale: str | None = None,
+                     extra_headers: Optional[Dict[str, str]] = None,
+                     useragent: Optional[str] = None,
+                     cdp_url: Optional[str] = None,
+                     timeout: int | float = 30000,
+                     disable_resources: bool = False,
+                     wait_selector: Optional[str] = None,
+                     cookies: Sequence[SetCookieParam] | None = None,
+                     network_idle: bool = False,
+                     wait_selector_state: SelectorWaitStates = "attached",
+                     session_id: Optional[str] = None) -> List[ResponseModel]
+```
+
+Use playwright to open a browser, then fetch a group of URLs at the same time, and for each page return a structured output of the result.
+
+Note: This is only suitable for low-mid protection levels.
+Note: If the `css_selector` resolves to more than one element, all the elements will be returned.
+Note: If a `session_id` is provided (from open_session), the browser session will be reused instead of creating a new one.
+    When using a session, browser-level params (headless, proxy, locale, etc.) are ignored since they were set at session creation time.
+
+**Arguments**:
+
+- `urls`: A list of the URLs to request.
+- `extraction_type`: The type of content to extract from the page. Defaults to "markdown". Options are:
+- Markdown will convert the page content to Markdown format.
+- HTML will return the raw HTML content of the page.
+- Text will return the text content of the page.
+- `css_selector`: CSS selector to extract the content from the page. If main_content_only is True, then it will be executed on the main content of the page. Defaults to None.
+- `main_content_only`: Whether to extract only the main content of the page. Defaults to True. The main content here is the data inside the `<body>` tag.
+- `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
+- `disable_resources`: Drop requests for unnecessary resources for a speed boost.
+Requests dropped are of type `font`, `image`, `media`, `beacon`, `object`, `imageset`, `texttrack`, `websocket`, `csp_report`, and `stylesheet`.
+- `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
+- `cookies`: Set cookies for the next request. It should be in a dictionary format that Playwright accepts.
+- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
+- `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000
+- `wait`: The time (milliseconds) the fetcher will wait after everything finishes before closing the page and returning the ` Response ` object.
+- `wait_selector`: Wait for a specific CSS selector to be in a specific state.
+- `timezone_id`: Changes the timezone of the browser. Defaults to the system timezone.
+- `locale`: Specify user locale, for example, `en-GB`, `de-DE`, etc. Locale will affect navigator.language value, Accept-Language request header value as well as number and date formatting
+rules. Defaults to the system default locale.
+- `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
+- `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
+- `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
+- `google_search`: Enabled by default, Scrapling will set a Google referer header.
+- `extra_headers`: A dictionary of extra headers to add to the request. _The referer set by `google_search` takes priority over the referer set here if used together._
+- `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
+- `session_id`: Optional session ID from open_session. If provided, reuses the existing browser session instead of creating a new one.
+
+<a id="scrapling.core.ai.ScraplingMCPServer.stealthy_fetch"></a>
+
+#### stealthy\_fetch
+
+```python
+async def stealthy_fetch(url: str,
+                         extraction_type: extraction_types = "markdown",
+                         css_selector: Optional[str] = None,
+                         main_content_only: bool = True,
+                         headless: bool = True,
+                         google_search: bool = True,
+                         real_chrome: bool = False,
+                         wait: int | float = 0,
+                         proxy: Optional[str | Dict[str, str]] = None,
+                         timezone_id: str | None = None,
+                         locale: str | None = None,
+                         extra_headers: Optional[Dict[str, str]] = None,
+                         useragent: Optional[str] = None,
+                         hide_canvas: bool = False,
+                         cdp_url: Optional[str] = None,
+                         timeout: int | float = 30000,
+                         disable_resources: bool = False,
+                         wait_selector: Optional[str] = None,
+                         cookies: Sequence[SetCookieParam] | None = None,
+                         network_idle: bool = False,
+                         wait_selector_state: SelectorWaitStates = "attached",
+                         block_webrtc: bool = False,
+                         allow_webgl: bool = True,
+                         solve_cloudflare: bool = False,
+                         additional_args: Optional[Dict] = None,
+                         session_id: Optional[str] = None) -> ResponseModel
+```
+
+Use the stealthy fetcher to fetch a URL and return a structured output of the result.
+
+Note: This is the only suitable fetcher for high protection levels.
+Note: If the `css_selector` resolves to more than one element, all the elements will be returned.
+Note: If a `session_id` is provided (from open_session), the browser session will be reused instead of creating a new one.
+    When using a session, browser-level params (headless, proxy, locale, etc.) are ignored since they were set at session creation time.
+
+**Arguments**:
+
+- `url`: The URL to request.
+- `extraction_type`: The type of content to extract from the page. Defaults to "markdown". Options are:
+- Markdown will convert the page content to Markdown format.
+- HTML will return the raw HTML content of the page.
+- Text will return the text content of the page.
+- `css_selector`: CSS selector to extract the content from the page. If main_content_only is True, then it will be executed on the main content of the page. Defaults to None.
+- `main_content_only`: Whether to extract only the main content of the page. Defaults to True. The main content here is the data inside the `<body>` tag.
+- `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
+- `disable_resources`: Drop requests for unnecessary resources for a speed boost.
+Requests dropped are of type `font`, `image`, `media`, `beacon`, `object`, `imageset`, `texttrack`, `websocket`, `csp_report`, and `stylesheet`.
+- `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
+- `cookies`: Set cookies for the next request.
+- `solve_cloudflare`: Solves all types of the Cloudflare's Turnstile/Interstitial challenges before returning the response to you.
+- `allow_webgl`: Enabled by default. Disabling WebGL is not recommended as many WAFs now check if WebGL is enabled.
+- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
+- `wait`: The time (milliseconds) the fetcher will wait after everything finishes before closing the page and returning the ` Response ` object.
+- `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000
+- `wait_selector`: Wait for a specific CSS selector to be in a specific state.
+- `timezone_id`: Changes the timezone of the browser. Defaults to the system timezone.
+- `locale`: Specify user locale, for example, `en-GB`, `de-DE`, etc. Locale will affect navigator.language value, Accept-Language request header value as well as number and date formatting
+rules. Defaults to the system default locale.
+- `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
+- `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
+- `hide_canvas`: Add random noise to canvas operations to prevent fingerprinting.
+- `block_webrtc`: Forces WebRTC to respect proxy settings to prevent local IP address leak.
+- `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
+- `google_search`: Enabled by default, Scrapling will set a Google referer header.
+- `extra_headers`: A dictionary of extra headers to add to the request. _The referer set by `google_search` takes priority over the referer set here if used together._
+- `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
+- `additional_args`: Additional arguments to be passed to Playwright's context as additional settings, and it takes higher priority than Scrapling's settings.
+- `session_id`: Optional session ID from open_session. If provided, reuses the existing browser session instead of creating a new one.
+
+<a id="scrapling.core.ai.ScraplingMCPServer.bulk_stealthy_fetch"></a>
+
+#### bulk\_stealthy\_fetch
+
+```python
+async def bulk_stealthy_fetch(
+        urls: List[str],
+        extraction_type: extraction_types = "markdown",
+        css_selector: Optional[str] = None,
+        main_content_only: bool = True,
+        headless: bool = True,
+        google_search: bool = True,
+        real_chrome: bool = False,
+        wait: int | float = 0,
+        proxy: Optional[str | Dict[str, str]] = None,
+        timezone_id: str | None = None,
+        locale: str | None = None,
+        extra_headers: Optional[Dict[str, str]] = None,
+        useragent: Optional[str] = None,
+        hide_canvas: bool = False,
+        cdp_url: Optional[str] = None,
+        timeout: int | float = 30000,
+        disable_resources: bool = False,
+        wait_selector: Optional[str] = None,
+        cookies: Sequence[SetCookieParam] | None = None,
+        network_idle: bool = False,
+        wait_selector_state: SelectorWaitStates = "attached",
+        block_webrtc: bool = False,
+        allow_webgl: bool = True,
+        solve_cloudflare: bool = False,
+        additional_args: Optional[Dict] = None,
+        session_id: Optional[str] = None) -> List[ResponseModel]
+```
+
+Use the stealthy fetcher to fetch a group of URLs at the same time, and for each page return a structured output of the result.
+
+Note: This is the only suitable fetcher for high protection levels.
+Note: If the `css_selector` resolves to more than one element, all the elements will be returned.
+Note: If a `session_id` is provided (from open_session), the browser session will be reused instead of creating a new one.
+    When using a session, browser-level params (headless, proxy, locale, etc.) are ignored since they were set at session creation time.
+
+**Arguments**:
+
+- `urls`: A list of the URLs to request.
+- `extraction_type`: The type of content to extract from the page. Defaults to "markdown". Options are:
+- Markdown will convert the page content to Markdown format.
+- HTML will return the raw HTML content of the page.
+- Text will return the text content of the page.
+- `css_selector`: CSS selector to extract the content from the page. If main_content_only is True, then it will be executed on the main content of the page. Defaults to None.
+- `main_content_only`: Whether to extract only the main content of the page. Defaults to True. The main content here is the data inside the `<body>` tag.
+- `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
+- `disable_resources`: Drop requests for unnecessary resources for a speed boost.
+Requests dropped are of type `font`, `image`, `media`, `beacon`, `object`, `imageset`, `texttrack`, `websocket`, `csp_report`, and `stylesheet`.
+- `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
+- `cookies`: Set cookies for the next request.
+- `solve_cloudflare`: Solves all types of the Cloudflare's Turnstile/Interstitial challenges before returning the response to you.
+- `allow_webgl`: Enabled by default. Disabling WebGL is not recommended as many WAFs now check if WebGL is enabled.
+- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
+- `wait`: The time (milliseconds) the fetcher will wait after everything finishes before closing the page and returning the ` Response ` object.
+- `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000
+- `wait_selector`: Wait for a specific CSS selector to be in a specific state.
+- `timezone_id`: Changes the timezone of the browser. Defaults to the system timezone.
+- `locale`: Specify user locale, for example, `en-GB`, `de-DE`, etc. Locale will affect navigator.language value, Accept-Language request header value as well as number and date formatting
+rules. Defaults to the system default locale.
+- `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
+- `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
+- `hide_canvas`: Add random noise to canvas operations to prevent fingerprinting.
+- `block_webrtc`: Forces WebRTC to respect proxy settings to prevent local IP address leak.
+- `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
+- `google_search`: Enabled by default, Scrapling will set a Google referer header.
+- `extra_headers`: A dictionary of extra headers to add to the request. _The referer set by `google_search` takes priority over the referer set here if used together._
+- `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
+- `additional_args`: Additional arguments to be passed to Playwright's context as additional settings, and it takes higher priority than Scrapling's settings.
+- `session_id`: Optional session ID from open_session. If provided, reuses the existing browser session instead of creating a new one.
+
+<a id="scrapling.core.ai.ScraplingMCPServer.serve"></a>
+
+#### serve
+
+```python
+def serve(http: bool, host: str, port: int)
+```
+
+Serve the MCP server.
+
+<a id="scrapling.core.mixins"></a>
+
+# scrapling.core.mixins
+
+<a id="scrapling.core.mixins.SelectorsGeneration"></a>
+
+## SelectorsGeneration Objects
+
+```python
+class SelectorsGeneration()
+```
+
+Functions for generating selectors
+Trying to generate selectors like Firefox or maybe cleaner ones!? Ehm
+Inspiration: https://searchfox.org/mozilla-central/source/devtools/shared/inspector/css-logic.js#591
+
+<a id="scrapling.core.mixins.SelectorsGeneration.generate_css_selector"></a>
+
+#### generate\_css\_selector
+
+```python
+@property
+def generate_css_selector() -> str
+```
+
+Generate a CSS selector for the current element
+
+**Returns**:
+
+A string of the generated selector.
+
+<a id="scrapling.core.mixins.SelectorsGeneration.generate_full_css_selector"></a>
+
+#### generate\_full\_css\_selector
+
+```python
+@property
+def generate_full_css_selector() -> str
+```
+
+Generate a complete CSS selector for the current element
+
+**Returns**:
+
+A string of the generated selector.
+
+<a id="scrapling.core.mixins.SelectorsGeneration.generate_xpath_selector"></a>
+
+#### generate\_xpath\_selector
+
+```python
+@property
+def generate_xpath_selector() -> str
+```
+
+Generate an XPath selector for the current element
+
+**Returns**:
+
+A string of the generated selector.
+
+<a id="scrapling.core.mixins.SelectorsGeneration.generate_full_xpath_selector"></a>
+
+#### generate\_full\_xpath\_selector
+
+```python
+@property
+def generate_full_xpath_selector() -> str
+```
+
+Generate a complete XPath selector for the current element
+
+**Returns**:
+
+A string of the generated selector.
+
+<a id="scrapling.core.custom_types"></a>
+
+# scrapling.core.custom\_types
+
+<a id="scrapling.core.custom_types.TextHandler"></a>
+
+## TextHandler Objects
+
+```python
+class TextHandler(str)
+```
+
+Extends standard Python string by adding more functionality
+
+<a id="scrapling.core.custom_types.TextHandler.sort"></a>
+
+#### sort
+
+```python
+def sort(reverse: bool = False) -> Union[str, "TextHandler"]
+```
+
+Return a sorted version of the string
+
+<a id="scrapling.core.custom_types.TextHandler.clean"></a>
+
+#### clean
+
+```python
+def clean(remove_entities=False) -> Union[str, "TextHandler"]
+```
+
+Return a new version of the string after removing all white spaces and consecutive spaces
+
+<a id="scrapling.core.custom_types.TextHandler.json"></a>
+
+#### json
+
+```python
+def json() -> Dict
+```
+
+Return JSON response if the response is jsonable otherwise throw error
+
+<a id="scrapling.core.custom_types.TextHandler.re"></a>
+
+#### re
+
+```python
+def re(regex: str | Pattern,
+       replace_entities: bool = True,
+       clean_match: bool = False,
+       case_sensitive: bool = True,
+       check_match: bool = False) -> Union["TextHandlers", bool]
+```
+
+Apply the given regex to the current text and return a list of strings with the matches.
+
+**Arguments**:
+
+- `regex`: Can be either a compiled regular expression or a string.
+- `replace_entities`: If enabled character entity references are replaced by their corresponding character
+- `clean_match`: If enabled, this will ignore all whitespaces and consecutive spaces while matching
+- `case_sensitive`: If disabled, function will set the regex to ignore the letters-case while compiling it
+- `check_match`: Used to quickly check if this regex matches or not without any operations on the results
+
+<a id="scrapling.core.custom_types.TextHandler.re_first"></a>
+
+#### re\_first
+
+```python
+def re_first(regex: str | Pattern,
+             default: Any = None,
+             replace_entities: bool = True,
+             clean_match: bool = False,
+             case_sensitive: bool = True) -> "TextHandler"
+```
+
+Apply the given regex to text and return the first match if found, otherwise return the default value.
+
+**Arguments**:
+
+- `regex`: Can be either a compiled regular expression or a string.
+- `default`: The default value to be returned if there is no match
+- `replace_entities`: If enabled character entity references are replaced by their corresponding character
+- `clean_match`: If enabled, this will ignore all whitespaces and consecutive spaces while matching
+- `case_sensitive`: If disabled, function will set the regex to ignore the letters-case while compiling it
+
+<a id="scrapling.core.custom_types.TextHandlers"></a>
+
+## TextHandlers Objects
+
+```python
+class TextHandlers(List[TextHandler])
+```
+
+The :class:`TextHandlers` class is a subclass of the builtin ``List`` class, which provides a few additional methods.
+
+<a id="scrapling.core.custom_types.TextHandlers.re"></a>
+
+#### re
+
+```python
+def re(regex: str | Pattern,
+       replace_entities: bool = True,
+       clean_match: bool = False,
+       case_sensitive: bool = True) -> "TextHandlers"
+```
+
+Call the ``.re()`` method for each element in this list and return
+
+their results flattened as TextHandlers.
+
+**Arguments**:
+
+- `regex`: Can be either a compiled regular expression or a string.
+- `replace_entities`: If enabled character entity references are replaced by their corresponding character
+- `clean_match`: if enabled, this will ignore all whitespaces and consecutive spaces while matching
+- `case_sensitive`: if disabled, the function will set the regex to ignore the letters-case while compiling it
+
+<a id="scrapling.core.custom_types.TextHandlers.re_first"></a>
+
+#### re\_first
+
+```python
+def re_first(regex: str | Pattern,
+             default: Any = None,
+             replace_entities: bool = True,
+             clean_match: bool = False,
+             case_sensitive: bool = True) -> TextHandler
+```
+
+Call the ``.re_first()`` method for each element in this list and return
+
+the first result or the default value otherwise.
+
+**Arguments**:
+
+- `regex`: Can be either a compiled regular expression or a string.
+- `default`: The default value to be returned if there is no match
+- `replace_entities`: If enabled character entity references are replaced by their corresponding character
+- `clean_match`: If enabled, this will ignore all whitespaces and consecutive spaces while matching
+- `case_sensitive`: If disabled, function will set the regex to ignore the letters-case while compiling it
+
+<a id="scrapling.core.custom_types.TextHandlers.get"></a>
+
+#### get
+
+```python
+def get(default=None)
+```
+
+Returns the first item of the current list
+
+**Arguments**:
+
+- `default`: the default value to return if the current list is empty
+
+<a id="scrapling.core.custom_types.AttributesHandler"></a>
+
+## AttributesHandler Objects
+
+```python
+class AttributesHandler(Mapping[str, _TextHandlerType])
+```
+
+A read-only mapping to use instead of the standard dictionary for the speed boost, but at the same time I use it to add more functionalities.
+If the standard dictionary is needed, convert this class to a dictionary with the `dict` function
+
+<a id="scrapling.core.custom_types.AttributesHandler.get"></a>
+
+#### get
+
+```python
+def get(key: str, default: Any = None) -> _TextHandlerType
+```
+
+Acts like the standard dictionary `.get()` method
+
+<a id="scrapling.core.custom_types.AttributesHandler.search_values"></a>
+
+#### search\_values
+
+```python
+def search_values(
+        keyword: str,
+        partial: bool = False) -> Generator["AttributesHandler", None, None]
+```
+
+Search current attributes by values and return a dictionary of each matching item
+
+**Arguments**:
+
+- `keyword`: The keyword to search for in the attribute values
+- `partial`: If True, the function will search if keyword in each value instead of perfect match
+
+<a id="scrapling.core.custom_types.AttributesHandler.json_string"></a>
+
+#### json\_string
+
+```python
+@property
+def json_string() -> bytes
+```
+
+Convert current attributes to JSON bytes if the attributes are JSON serializable otherwise throws error
+
+<a id="scrapling.core._types"></a>
+
+# scrapling.core.\_types
+
+Type definitions for type checking purposes.
+
+<a id="scrapling.core.storage"></a>
+
+# scrapling.core.storage
+
+<a id="scrapling.core.storage.StorageSystemMixin"></a>
+
+## StorageSystemMixin Objects
+
+```python
+class StorageSystemMixin(ABC)
+```
+
+<a id="scrapling.core.storage.StorageSystemMixin.__init__"></a>
+
+#### \_\_init\_\_
+
+```python
+def __init__(url: Optional[str] = None)
+```
+
+**Arguments**:
+
+- `url`: URL of the website we are working on to separate it from other websites data
+
+<a id="scrapling.core.storage.StorageSystemMixin.save"></a>
+
+#### save
+
+```python
+@abstractmethod
+def save(element: HtmlElement, identifier: str) -> None
+```
+
+Saves the element's unique properties to the storage for retrieval and relocation later
+
+**Arguments**:
+
+- `element`: The element itself which we want to save to storage.
+- `identifier`: This is the identifier that will be used to retrieve the element later from the storage. See
+the docs for more info.
+
+<a id="scrapling.core.storage.StorageSystemMixin.retrieve"></a>
+
+#### retrieve
+
+```python
+@abstractmethod
+def retrieve(identifier: str) -> Optional[Dict]
+```
+
+Using the identifier, we search the storage and return the unique properties of the element
+
+**Arguments**:
+
+- `identifier`: This is the identifier that will be used to retrieve the element from the storage. See
+the docs for more info.
+
+**Returns**:
+
+A dictionary of the unique properties
+
+<a id="scrapling.core.storage.SQLiteStorageSystem"></a>
+
+## SQLiteStorageSystem Objects
+
+```python
+@lru_cache(1, typed=True)
+class SQLiteStorageSystem(StorageSystemMixin)
+```
+
+The recommended system to use, it's race condition safe and thread safe.
+Mainly built, so the library can run in threaded frameworks like scrapy or threaded tools
+> It's optimized for threaded applications, but running it without threads shouldn't make it slow.
+
+<a id="scrapling.core.storage.SQLiteStorageSystem.__init__"></a>
+
+#### \_\_init\_\_
+
+```python
+def __init__(storage_file: str, url: Optional[str] = None)
+```
+
+**Arguments**:
+
+- `storage_file`: File to be used to store elements' data.
+- `url`: URL of the website we are working on to separate it from other websites data
+
+<a id="scrapling.core.storage.SQLiteStorageSystem.save"></a>
+
+#### save
+
+```python
+def save(element: HtmlElement, identifier: str) -> None
+```
+
+Saves the elements unique properties to the storage for retrieval and relocation later
+
+**Arguments**:
+
+- `element`: The element itself which we want to save to storage.
+- `identifier`: This is the identifier that will be used to retrieve the element later from the storage. See
+the docs for more info.
+
+<a id="scrapling.core.storage.SQLiteStorageSystem.retrieve"></a>
+
+#### retrieve
+
+```python
+def retrieve(identifier: str) -> Optional[Dict[str, Any]]
+```
+
+Using the identifier, we search the storage and return the unique properties of the element
+
+**Arguments**:
+
+- `identifier`: This is the identifier that will be used to retrieve the element from the storage. See
+the docs for more info.
+
+**Returns**:
+
+A dictionary of the unique properties
+
+<a id="scrapling.core.storage.SQLiteStorageSystem.close"></a>
+
+#### close
+
+```python
+def close()
+```
+
+Close all connections. It will be useful when with some things like scrapy Spider.closed() function/signal
+
+<a id="scrapling.core.storage.SQLiteStorageSystem.__del__"></a>
+
+#### \_\_del\_\_
+
+```python
+def __del__()
+```
+
+To ensure all connections are closed when the object is destroyed.
+
+<a id="scrapling.core.translator"></a>
+
+# scrapling.core.translator
+
+Most of this file is an adapted version of the parsel library's translator with some modifications simply for 1 important reason...
+
+To add pseudo-elements ``::text`` and ``::attr(ATTR_NAME)`` so we match the Parsel/Scrapy selectors format which will be important in future releases but most importantly...
+
+So you don't have to learn a new selectors/api method like what bs4 done with soupsieve :)
+
+    If you want to learn about this, head to https://cssselect.readthedocs.io/en/latest/`cssselect.FunctionalPseudoElement`
+
+<a id="scrapling.core.translator.TranslatorMixin"></a>
+
+## TranslatorMixin Objects
+
+```python
+class TranslatorMixin()
+```
+
+This mixin adds support to CSS pseudo elements via dynamic dispatch.
+
+Currently supported pseudo-elements are ``::text`` and ``::attr(ATTR_NAME)``.
+
+<a id="scrapling.core.translator.TranslatorMixin.xpath_pseudo_element"></a>
+
+#### xpath\_pseudo\_element
+
+```python
+def xpath_pseudo_element(xpath: OriginalXPathExpr,
+                         pseudo_element: PseudoElement) -> OriginalXPathExpr
+```
+
+Dispatch method that transforms XPath to support the pseudo-element.
+
+<a id="scrapling.core.translator.TranslatorMixin.xpath_attr_functional_pseudo_element"></a>
+
+#### xpath\_attr\_functional\_pseudo\_element
+
+```python
+@staticmethod
+def xpath_attr_functional_pseudo_element(
+        xpath: OriginalXPathExpr,
+        function: FunctionalPseudoElement) -> XPathExpr
+```
+
+Support selecting attribute values using ::attr() pseudo-element
+
+<a id="scrapling.core.translator.TranslatorMixin.xpath_text_simple_pseudo_element"></a>
+
+#### xpath\_text\_simple\_pseudo\_element
+
+```python
+@staticmethod
+def xpath_text_simple_pseudo_element(xpath: OriginalXPathExpr) -> XPathExpr
+```
+
+Support selecting text nodes using ::text pseudo-element
+
+<a id="scrapling.core.translator.css_to_xpath"></a>
+
+#### css\_to\_xpath
+
+```python
+@lru_cache(maxsize=256)
+def css_to_xpath(query: str) -> str
+```
+
+Return the translated XPath version of a given CSS query
+
+<a id="scrapling.fetchers.chrome"></a>
+
+# scrapling.fetchers.chrome
+
+<a id="scrapling.fetchers.chrome.DynamicFetcher"></a>
+
+## DynamicFetcher Objects
+
+```python
+class DynamicFetcher(BaseFetcher)
+```
+
+A `Fetcher` that provide many options to fetch/load websites' pages through chromium-based browsers.
+
+<a id="scrapling.fetchers.chrome.DynamicFetcher.fetch"></a>
+
+#### fetch
+
+```python
+@classmethod
+def fetch(cls, url: str, **kwargs: Unpack[PlaywrightSession]) -> Response
+```
+
+Opens up a browser and do your request based on your chosen options below.
+
+**Arguments**:
+
+- `url`: Target url.
+- `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
+- `disable_resources`: Drop requests for unnecessary resources for a speed boost.
+- `blocked_domains`: A set of domain names to block requests to. Subdomains are also matched (e.g., ``"example.com"`` blocks ``"sub.example.com"`` too).
+- `block_ads`: Block requests to ~3,500 known ad/tracking domains. Can be combined with ``blocked_domains``.
+- `dns_over_https`: Route DNS queries through Cloudflare's DNS-over-HTTPS to prevent DNS leaks when using proxies.
+- `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
+- `cookies`: Set cookies for the next request.
+- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
+- `load_dom`: Enabled by default, wait for all JavaScript on page(s) to fully load and execute.
+- `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000
+- `wait`: The time (milliseconds) the fetcher will wait after everything finishes before closing the page and returning the Response object.
+- `page_action`: Added for automation. A function that takes the `page` object, runs after navigation, and does the automation you need.
+- `page_setup`: A function that takes the `page` object, runs before navigation. Use it to register event listeners or routes that must be set up before the page loads.
+- `wait_selector`: Wait for a specific CSS selector to be in a specific state.
+- `init_script`: An absolute path to a JavaScript file to be executed on page creation with this request.
+- `locale`: Set the locale for the browser if wanted. Defaults to the system default locale.
+- `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
+- `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
+- `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
+- `google_search`: Enabled by default, Scrapling will set a Google referer header.
+- `extra_headers`: A dictionary of extra headers to add to the request.
+- `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
+- `extra_flags`: A list of additional browser flags to pass to the browser on launch.
+- `selector_config`: The arguments that will be passed in the end while creating the final Selector's class.
+- `additional_args`: Additional arguments to be passed to Playwright's context as additional settings.
+
+**Returns**:
+
+A `Response` object.
+
+<a id="scrapling.fetchers.chrome.DynamicFetcher.async_fetch"></a>
+
+#### async\_fetch
+
+```python
+@classmethod
+async def async_fetch(cls, url: str,
+                      **kwargs: Unpack[PlaywrightSession]) -> Response
+```
+
+Opens up a browser and do your request based on your chosen options below.
+
+**Arguments**:
+
+- `url`: Target url.
+- `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
+- `disable_resources`: Drop requests for unnecessary resources for a speed boost.
+- `blocked_domains`: A set of domain names to block requests to. Subdomains are also matched (e.g., ``"example.com"`` blocks ``"sub.example.com"`` too).
+- `block_ads`: Block requests to ~3,500 known ad/tracking domains. Can be combined with ``blocked_domains``.
+- `dns_over_https`: Route DNS queries through Cloudflare's DNS-over-HTTPS to prevent DNS leaks when using proxies.
+- `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
+- `cookies`: Set cookies for the next request.
+- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
+- `load_dom`: Enabled by default, wait for all JavaScript on page(s) to fully load and execute.
+- `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000
+- `wait`: The time (milliseconds) the fetcher will wait after everything finishes before closing the page and returning the Response object.
+- `page_action`: Added for automation. A function that takes the `page` object, runs after navigation, and does the automation you need.
+- `page_setup`: A function that takes the `page` object, runs before navigation. Use it to register event listeners or routes that must be set up before the page loads.
+- `wait_selector`: Wait for a specific CSS selector to be in a specific state.
+- `init_script`: An absolute path to a JavaScript file to be executed on page creation with this request.
+- `locale`: Set the locale for the browser if wanted. Defaults to the system default locale.
+- `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
+- `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
+- `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
+- `google_search`: Enabled by default, Scrapling will set a Google referer header.
+- `extra_headers`: A dictionary of extra headers to add to the request.
+- `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
+- `extra_flags`: A list of additional browser flags to pass to the browser on launch.
+- `selector_config`: The arguments that will be passed in the end while creating the final Selector's class.
+- `additional_args`: Additional arguments to be passed to Playwright's context as additional settings.
+
+**Returns**:
+
+A `Response` object.
+
+<a id="scrapling.fetchers.chrome.PlayWrightFetcher"></a>
+
+#### PlayWrightFetcher
+
+For backward-compatibility
+
+<a id="scrapling.fetchers"></a>
+
+# scrapling.fetchers
+
+<a id="scrapling.fetchers.__dir__"></a>
+
+#### \_\_dir\_\_
+
+```python
+def __dir__() -> list[str]
+```
+
+Support for dir() and autocomplete.
+
+<a id="scrapling.fetchers.requests"></a>
+
+# scrapling.fetchers.requests
+
+<a id="scrapling.fetchers.requests.Fetcher"></a>
+
+## Fetcher Objects
+
+```python
+class Fetcher(BaseFetcher)
+```
+
+A basic `Fetcher` class type that can only do basic GET, POST, PUT, and DELETE HTTP requests based on `curl_cffi`.
+
+<a id="scrapling.fetchers.requests.AsyncFetcher"></a>
+
+## AsyncFetcher Objects
+
+```python
+class AsyncFetcher(BaseFetcher)
+```
+
+A basic `Fetcher` class type that can only do basic GET, POST, PUT, and DELETE HTTP requests based on `curl_cffi`.
+
+<a id="scrapling.fetchers.stealth_chrome"></a>
+
+# scrapling.fetchers.stealth\_chrome
+
+<a id="scrapling.fetchers.stealth_chrome.StealthyFetcher"></a>
+
+## StealthyFetcher Objects
+
+```python
+class StealthyFetcher(BaseFetcher)
+```
+
+A `Fetcher` class type which is a completely stealthy built on top of Chromium.
+
+It works as real browsers passing almost all online tests/protections with many customization options.
+
+<a id="scrapling.fetchers.stealth_chrome.StealthyFetcher.fetch"></a>
+
+#### fetch
+
+```python
+@classmethod
+def fetch(cls, url: str, **kwargs: Unpack[StealthSession]) -> Response
+```
+
+Opens up a browser and do your request based on your chosen options below.
+
+**Arguments**:
+
+- `url`: Target url.
+- `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
+- `disable_resources`: Drop requests for unnecessary resources for a speed boost.
+Requests dropped are of type `font`, `image`, `media`, `beacon`, `object`, `imageset`, `texttrack`, `websocket`, `csp_report`, and `stylesheet`.
+- `blocked_domains`: A set of domain names to block requests to. Subdomains are also matched (e.g., ``"example.com"`` blocks ``"sub.example.com"`` too).
+- `block_ads`: Block requests to ~3,500 known ad/tracking domains. Can be combined with ``blocked_domains``.
+- `dns_over_https`: Route DNS queries through Cloudflare's DNS-over-HTTPS to prevent DNS leaks when using proxies.
+- `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
+- `cookies`: Set cookies for the next request.
+- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
+- `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000
+- `wait`: The time (milliseconds) the fetcher will wait after everything finishes before closing the page and returning the ` Response ` object.
+- `page_action`: Added for automation. A function that takes the `page` object, runs after navigation, and does the automation you need.
+- `page_setup`: A function that takes the `page` object, runs before navigation. Use it to register event listeners or routes that must be set up before the page loads.
+- `wait_selector`: Wait for a specific CSS selector to be in a specific state.
+- `init_script`: An absolute path to a JavaScript file to be executed on page creation for all pages in this session.
+- `locale`: Specify user locale, for example, `en-GB`, `de-DE`, etc. Locale will affect navigator.language value, Accept-Language request header value as well as number and date formatting
+rules. Defaults to the system default locale.
+- `timezone_id`: Changes the timezone of the browser. Defaults to the system timezone.
+- `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
+- `solve_cloudflare`: Solves all types of the Cloudflare's Turnstile/Interstitial challenges before returning the response to you.
+- `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
+- `hide_canvas`: Add random noise to canvas operations to prevent fingerprinting.
+- `block_webrtc`: Forces WebRTC to respect proxy settings to prevent local IP address leak.
+- `allow_webgl`: Enabled by default. Disabling it disables WebGL and WebGL 2.0 support entirely. Disabling WebGL is not recommended as many WAFs now check if WebGL is enabled.
+- `load_dom`: Enabled by default, wait for all JavaScript on page(s) to fully load and execute.
+- `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
+- `google_search`: Enabled by default, Scrapling will set a Google referer header.
+- `extra_headers`: A dictionary of extra headers to add to the request. _The referer set by `google_search` takes priority over the referer set here if used together._
+- `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
+- `user_data_dir`: Path to a User Data Directory, which stores browser session data like cookies and local storage. The default is to create a temporary directory.
+- `extra_flags`: A list of additional browser flags to pass to the browser on launch.
+- `selector_config`: The arguments that will be passed in the end while creating the final Selector's class.
+- `additional_args`: Additional arguments to be passed to Playwright's context as additional settings, and it takes higher priority than Scrapling's settings.
+
+**Returns**:
+
+A `Response` object.
+
+<a id="scrapling.fetchers.stealth_chrome.StealthyFetcher.async_fetch"></a>
+
+#### async\_fetch
+
+```python
+@classmethod
+async def async_fetch(cls, url: str,
+                      **kwargs: Unpack[StealthSession]) -> Response
+```
+
+Opens up a browser and do your request based on your chosen options below.
+
+**Arguments**:
+
+- `url`: Target url.
+- `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
+- `disable_resources`: Drop requests for unnecessary resources for a speed boost.
+Requests dropped are of type `font`, `image`, `media`, `beacon`, `object`, `imageset`, `texttrack`, `websocket`, `csp_report`, and `stylesheet`.
+- `blocked_domains`: A set of domain names to block requests to. Subdomains are also matched (e.g., ``"example.com"`` blocks ``"sub.example.com"`` too).
+- `block_ads`: Block requests to ~3,500 known ad/tracking domains. Can be combined with ``blocked_domains``.
+- `dns_over_https`: Route DNS queries through Cloudflare's DNS-over-HTTPS to prevent DNS leaks when using proxies.
+- `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
+- `cookies`: Set cookies for the next request.
+- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
+- `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000
+- `wait`: The time (milliseconds) the fetcher will wait after everything finishes before closing the page and returning the ` Response ` object.
+- `page_action`: Added for automation. A function that takes the `page` object, runs after navigation, and does the automation you need.
+- `page_setup`: A function that takes the `page` object, runs before navigation. Use it to register event listeners or routes that must be set up before the page loads.
+- `wait_selector`: Wait for a specific CSS selector to be in a specific state.
+- `init_script`: An absolute path to a JavaScript file to be executed on page creation for all pages in this session.
+- `locale`: Specify user locale, for example, `en-GB`, `de-DE`, etc. Locale will affect navigator.language value, Accept-Language request header value as well as number and date formatting
+rules. Defaults to the system default locale.
+- `timezone_id`: Changes the timezone of the browser. Defaults to the system timezone.
+- `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
+- `solve_cloudflare`: Solves all types of the Cloudflare's Turnstile/Interstitial challenges before returning the response to you.
+- `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
+- `hide_canvas`: Add random noise to canvas operations to prevent fingerprinting.
+- `block_webrtc`: Forces WebRTC to respect proxy settings to prevent local IP address leak.
+- `allow_webgl`: Enabled by default. Disabling it disables WebGL and WebGL 2.0 support entirely. Disabling WebGL is not recommended as many WAFs now check if WebGL is enabled.
+- `load_dom`: Enabled by default, wait for all JavaScript on page(s) to fully load and execute.
+- `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
+- `google_search`: Enabled by default, Scrapling will set a Google referer header.
+- `extra_headers`: A dictionary of extra headers to add to the request. _The referer set by `google_search` takes priority over the referer set here if used together._
+- `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
+- `user_data_dir`: Path to a User Data Directory, which stores browser session data like cookies and local storage. The default is to create a temporary directory.
+- `extra_flags`: A list of additional browser flags to pass to the browser on launch.
+- `selector_config`: The arguments that will be passed in the end while creating the final Selector's class.
+- `additional_args`: Additional arguments to be passed to Playwright's context as additional settings, and it takes higher priority than Scrapling's settings.
+
+**Returns**:
+
+A `Response` object.
+
 <a id="scrapling.parser"></a>
 
 # scrapling.parser
@@ -834,1539 +2386,23 @@ def length() -> int
 
 Returns the length of the current list
 
-<a id="scrapling.fetchers.stealth_chrome"></a>
+<a id="scrapling.engines"></a>
 
-# scrapling.fetchers.stealth\_chrome
+# scrapling.engines
 
-<a id="scrapling.fetchers.stealth_chrome.StealthyFetcher"></a>
+<a id="scrapling.engines._browsers._base"></a>
 
-## StealthyFetcher Objects
+# scrapling.engines.\_browsers.\_base
 
-```python
-class StealthyFetcher(BaseFetcher)
-```
-
-A `Fetcher` class type which is a completely stealthy built on top of Chromium.
-
-It works as real browsers passing almost all online tests/protections with many customization options.
-
-<a id="scrapling.fetchers.stealth_chrome.StealthyFetcher.fetch"></a>
-
-#### fetch
-
-```python
-@classmethod
-def fetch(cls, url: str, **kwargs: Unpack[StealthSession]) -> Response
-```
-
-Opens up a browser and do your request based on your chosen options below.
-
-**Arguments**:
-
-- `url`: Target url.
-- `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
-- `disable_resources`: Drop requests for unnecessary resources for a speed boost.
-Requests dropped are of type `font`, `image`, `media`, `beacon`, `object`, `imageset`, `texttrack`, `websocket`, `csp_report`, and `stylesheet`.
-- `blocked_domains`: A set of domain names to block requests to. Subdomains are also matched (e.g., ``"example.com"`` blocks ``"sub.example.com"`` too).
-- `block_ads`: Block requests to ~3,500 known ad/tracking domains. Can be combined with ``blocked_domains``.
-- `dns_over_https`: Route DNS queries through Cloudflare's DNS-over-HTTPS to prevent DNS leaks when using proxies.
-- `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
-- `cookies`: Set cookies for the next request.
-- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
-- `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000
-- `wait`: The time (milliseconds) the fetcher will wait after everything finishes before closing the page and returning the ` Response ` object.
-- `page_action`: Added for automation. A function that takes the `page` object, runs after navigation, and does the automation you need.
-- `page_setup`: A function that takes the `page` object, runs before navigation. Use it to register event listeners or routes that must be set up before the page loads.
-- `wait_selector`: Wait for a specific CSS selector to be in a specific state.
-- `init_script`: An absolute path to a JavaScript file to be executed on page creation for all pages in this session.
-- `locale`: Specify user locale, for example, `en-GB`, `de-DE`, etc. Locale will affect navigator.language value, Accept-Language request header value as well as number and date formatting
-rules. Defaults to the system default locale.
-- `timezone_id`: Changes the timezone of the browser. Defaults to the system timezone.
-- `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
-- `solve_cloudflare`: Solves all types of the Cloudflare's Turnstile/Interstitial challenges before returning the response to you.
-- `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
-- `hide_canvas`: Add random noise to canvas operations to prevent fingerprinting.
-- `block_webrtc`: Forces WebRTC to respect proxy settings to prevent local IP address leak.
-- `allow_webgl`: Enabled by default. Disabling it disables WebGL and WebGL 2.0 support entirely. Disabling WebGL is not recommended as many WAFs now check if WebGL is enabled.
-- `load_dom`: Enabled by default, wait for all JavaScript on page(s) to fully load and execute.
-- `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
-- `google_search`: Enabled by default, Scrapling will set a Google referer header.
-- `extra_headers`: A dictionary of extra headers to add to the request. _The referer set by `google_search` takes priority over the referer set here if used together._
-- `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
-- `user_data_dir`: Path to a User Data Directory, which stores browser session data like cookies and local storage. The default is to create a temporary directory.
-- `extra_flags`: A list of additional browser flags to pass to the browser on launch.
-- `selector_config`: The arguments that will be passed in the end while creating the final Selector's class.
-- `additional_args`: Additional arguments to be passed to Playwright's context as additional settings, and it takes higher priority than Scrapling's settings.
-
-**Returns**:
-
-A `Response` object.
-
-<a id="scrapling.fetchers.stealth_chrome.StealthyFetcher.async_fetch"></a>
-
-#### async\_fetch
-
-```python
-@classmethod
-async def async_fetch(cls, url: str,
-                      **kwargs: Unpack[StealthSession]) -> Response
-```
-
-Opens up a browser and do your request based on your chosen options below.
-
-**Arguments**:
-
-- `url`: Target url.
-- `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
-- `disable_resources`: Drop requests for unnecessary resources for a speed boost.
-Requests dropped are of type `font`, `image`, `media`, `beacon`, `object`, `imageset`, `texttrack`, `websocket`, `csp_report`, and `stylesheet`.
-- `blocked_domains`: A set of domain names to block requests to. Subdomains are also matched (e.g., ``"example.com"`` blocks ``"sub.example.com"`` too).
-- `block_ads`: Block requests to ~3,500 known ad/tracking domains. Can be combined with ``blocked_domains``.
-- `dns_over_https`: Route DNS queries through Cloudflare's DNS-over-HTTPS to prevent DNS leaks when using proxies.
-- `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
-- `cookies`: Set cookies for the next request.
-- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
-- `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000
-- `wait`: The time (milliseconds) the fetcher will wait after everything finishes before closing the page and returning the ` Response ` object.
-- `page_action`: Added for automation. A function that takes the `page` object, runs after navigation, and does the automation you need.
-- `page_setup`: A function that takes the `page` object, runs before navigation. Use it to register event listeners or routes that must be set up before the page loads.
-- `wait_selector`: Wait for a specific CSS selector to be in a specific state.
-- `init_script`: An absolute path to a JavaScript file to be executed on page creation for all pages in this session.
-- `locale`: Specify user locale, for example, `en-GB`, `de-DE`, etc. Locale will affect navigator.language value, Accept-Language request header value as well as number and date formatting
-rules. Defaults to the system default locale.
-- `timezone_id`: Changes the timezone of the browser. Defaults to the system timezone.
-- `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
-- `solve_cloudflare`: Solves all types of the Cloudflare's Turnstile/Interstitial challenges before returning the response to you.
-- `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
-- `hide_canvas`: Add random noise to canvas operations to prevent fingerprinting.
-- `block_webrtc`: Forces WebRTC to respect proxy settings to prevent local IP address leak.
-- `allow_webgl`: Enabled by default. Disabling it disables WebGL and WebGL 2.0 support entirely. Disabling WebGL is not recommended as many WAFs now check if WebGL is enabled.
-- `load_dom`: Enabled by default, wait for all JavaScript on page(s) to fully load and execute.
-- `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
-- `google_search`: Enabled by default, Scrapling will set a Google referer header.
-- `extra_headers`: A dictionary of extra headers to add to the request. _The referer set by `google_search` takes priority over the referer set here if used together._
-- `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
-- `user_data_dir`: Path to a User Data Directory, which stores browser session data like cookies and local storage. The default is to create a temporary directory.
-- `extra_flags`: A list of additional browser flags to pass to the browser on launch.
-- `selector_config`: The arguments that will be passed in the end while creating the final Selector's class.
-- `additional_args`: Additional arguments to be passed to Playwright's context as additional settings, and it takes higher priority than Scrapling's settings.
-
-**Returns**:
-
-A `Response` object.
-
-<a id="scrapling.fetchers.chrome"></a>
-
-# scrapling.fetchers.chrome
-
-<a id="scrapling.fetchers.chrome.DynamicFetcher"></a>
-
-## DynamicFetcher Objects
-
-```python
-class DynamicFetcher(BaseFetcher)
-```
-
-A `Fetcher` that provide many options to fetch/load websites' pages through chromium-based browsers.
-
-<a id="scrapling.fetchers.chrome.DynamicFetcher.fetch"></a>
-
-#### fetch
-
-```python
-@classmethod
-def fetch(cls, url: str, **kwargs: Unpack[PlaywrightSession]) -> Response
-```
-
-Opens up a browser and do your request based on your chosen options below.
-
-**Arguments**:
-
-- `url`: Target url.
-- `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
-- `disable_resources`: Drop requests for unnecessary resources for a speed boost.
-- `blocked_domains`: A set of domain names to block requests to. Subdomains are also matched (e.g., ``"example.com"`` blocks ``"sub.example.com"`` too).
-- `block_ads`: Block requests to ~3,500 known ad/tracking domains. Can be combined with ``blocked_domains``.
-- `dns_over_https`: Route DNS queries through Cloudflare's DNS-over-HTTPS to prevent DNS leaks when using proxies.
-- `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
-- `cookies`: Set cookies for the next request.
-- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
-- `load_dom`: Enabled by default, wait for all JavaScript on page(s) to fully load and execute.
-- `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000
-- `wait`: The time (milliseconds) the fetcher will wait after everything finishes before closing the page and returning the Response object.
-- `page_action`: Added for automation. A function that takes the `page` object, runs after navigation, and does the automation you need.
-- `page_setup`: A function that takes the `page` object, runs before navigation. Use it to register event listeners or routes that must be set up before the page loads.
-- `wait_selector`: Wait for a specific CSS selector to be in a specific state.
-- `init_script`: An absolute path to a JavaScript file to be executed on page creation with this request.
-- `locale`: Set the locale for the browser if wanted. Defaults to the system default locale.
-- `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
-- `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
-- `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
-- `google_search`: Enabled by default, Scrapling will set a Google referer header.
-- `extra_headers`: A dictionary of extra headers to add to the request.
-- `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
-- `extra_flags`: A list of additional browser flags to pass to the browser on launch.
-- `selector_config`: The arguments that will be passed in the end while creating the final Selector's class.
-- `additional_args`: Additional arguments to be passed to Playwright's context as additional settings.
-
-**Returns**:
-
-A `Response` object.
-
-<a id="scrapling.fetchers.chrome.DynamicFetcher.async_fetch"></a>
-
-#### async\_fetch
-
-```python
-@classmethod
-async def async_fetch(cls, url: str,
-                      **kwargs: Unpack[PlaywrightSession]) -> Response
-```
-
-Opens up a browser and do your request based on your chosen options below.
-
-**Arguments**:
-
-- `url`: Target url.
-- `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
-- `disable_resources`: Drop requests for unnecessary resources for a speed boost.
-- `blocked_domains`: A set of domain names to block requests to. Subdomains are also matched (e.g., ``"example.com"`` blocks ``"sub.example.com"`` too).
-- `block_ads`: Block requests to ~3,500 known ad/tracking domains. Can be combined with ``blocked_domains``.
-- `dns_over_https`: Route DNS queries through Cloudflare's DNS-over-HTTPS to prevent DNS leaks when using proxies.
-- `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
-- `cookies`: Set cookies for the next request.
-- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
-- `load_dom`: Enabled by default, wait for all JavaScript on page(s) to fully load and execute.
-- `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000
-- `wait`: The time (milliseconds) the fetcher will wait after everything finishes before closing the page and returning the Response object.
-- `page_action`: Added for automation. A function that takes the `page` object, runs after navigation, and does the automation you need.
-- `page_setup`: A function that takes the `page` object, runs before navigation. Use it to register event listeners or routes that must be set up before the page loads.
-- `wait_selector`: Wait for a specific CSS selector to be in a specific state.
-- `init_script`: An absolute path to a JavaScript file to be executed on page creation with this request.
-- `locale`: Set the locale for the browser if wanted. Defaults to the system default locale.
-- `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
-- `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
-- `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
-- `google_search`: Enabled by default, Scrapling will set a Google referer header.
-- `extra_headers`: A dictionary of extra headers to add to the request.
-- `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
-- `extra_flags`: A list of additional browser flags to pass to the browser on launch.
-- `selector_config`: The arguments that will be passed in the end while creating the final Selector's class.
-- `additional_args`: Additional arguments to be passed to Playwright's context as additional settings.
-
-**Returns**:
-
-A `Response` object.
-
-<a id="scrapling.fetchers.chrome.PlayWrightFetcher"></a>
-
-#### PlayWrightFetcher
-
-For backward-compatibility
-
-<a id="scrapling.fetchers"></a>
-
-# scrapling.fetchers
-
-<a id="scrapling.fetchers.__dir__"></a>
-
-#### \_\_dir\_\_
-
-```python
-def __dir__() -> list[str]
-```
-
-Support for dir() and autocomplete.
-
-<a id="scrapling.fetchers.requests"></a>
-
-# scrapling.fetchers.requests
-
-<a id="scrapling.fetchers.requests.Fetcher"></a>
-
-## Fetcher Objects
-
-```python
-class Fetcher(BaseFetcher)
-```
-
-A basic `Fetcher` class type that can only do basic GET, POST, PUT, and DELETE HTTP requests based on `curl_cffi`.
-
-<a id="scrapling.fetchers.requests.AsyncFetcher"></a>
-
-## AsyncFetcher Objects
-
-```python
-class AsyncFetcher(BaseFetcher)
-```
-
-A basic `Fetcher` class type that can only do basic GET, POST, PUT, and DELETE HTTP requests based on `curl_cffi`.
-
-<a id="scrapling.core.utils._shell"></a>
-
-# scrapling.core.utils.\_shell
-
-<a id="scrapling.core.utils"></a>
-
-# scrapling.core.utils
-
-<a id="scrapling.core.utils._utils"></a>
-
-# scrapling.core.utils.\_utils
-
-<a id="scrapling.core.utils._utils.setup_logger"></a>
-
-#### setup\_logger
-
-```python
-@lru_cache(1, typed=True)
-def setup_logger()
-```
-
-Create and configure a logger with a standard format.
-
-**Returns**:
-
-logging.Logger: Configured logger instance
-
-<a id="scrapling.core.utils._utils.set_logger"></a>
-
-#### set\_logger
-
-```python
-def set_logger(logger: logging.Logger) -> Token
-```
-
-Set the current context logger. Returns token for reset.
-
-<a id="scrapling.core.utils._utils.reset_logger"></a>
-
-#### reset\_logger
-
-```python
-def reset_logger(token: Token) -> None
-```
-
-Reset logger to previous state using token.
-
-<a id="scrapling.core.shell"></a>
-
-# scrapling.core.shell
-
-<a id="scrapling.core.shell.CurlParser"></a>
-
-## CurlParser Objects
-
-```python
-class CurlParser()
-```
-
-Builds the argument parser for relevant curl flags from DevTools.
-
-<a id="scrapling.core.shell.CurlParser.parse"></a>
-
-#### parse
-
-```python
-def parse(curl_command: str) -> Optional[Request]
-```
-
-Parses the curl command string into a structured context for Fetcher.
-
-<a id="scrapling.core.shell.CustomShell"></a>
-
-## CustomShell Objects
-
-```python
-class CustomShell()
-```
-
-A custom IPython shell with minimal dependencies
-
-<a id="scrapling.core.shell.CustomShell.init_components"></a>
-
-#### init\_components
-
-```python
-def init_components()
-```
-
-Initialize application components
-
-<a id="scrapling.core.shell.CustomShell.banner"></a>
-
-#### banner
-
-```python
-@staticmethod
-def banner()
-```
-
-Create a custom banner for the shell
-
-<a id="scrapling.core.shell.CustomShell.update_page"></a>
-
-#### update\_page
-
-```python
-def update_page(result)
-```
-
-Update the current page and add to pages history
-
-<a id="scrapling.core.shell.CustomShell.create_wrapper"></a>
-
-#### create\_wrapper
-
-```python
-def create_wrapper(func: Callable,
-                   get_signature: bool = True,
-                   signature_name: Optional[str] = None) -> Callable
-```
-
-Create a wrapper that preserves function signature but updates page
-
-<a id="scrapling.core.shell.CustomShell.get_namespace"></a>
-
-#### get\_namespace
-
-```python
-def get_namespace()
-```
-
-Create a namespace with application-specific objects
-
-<a id="scrapling.core.shell.CustomShell.show_help"></a>
-
-#### show\_help
-
-```python
-def show_help()
-```
-
-Show help information
-
-<a id="scrapling.core.shell.CustomShell.start"></a>
-
-#### start
-
-```python
-def start()
-```
-
-Start the interactive shell
-
-<a id="scrapling.core.shell.Convertor"></a>
-
-## Convertor Objects
-
-```python
-class Convertor()
-```
-
-Utils for the extract shell command
-
-<a id="scrapling.core.shell.Convertor.write_content_to_file"></a>
-
-#### write\_content\_to\_file
-
-```python
-@classmethod
-def write_content_to_file(cls,
-                          page: Selector,
-                          filename: str,
-                          css_selector: Optional[str] = None,
-                          main_content_only: bool = False) -> None
-```
-
-Write a Selector's content to a file
-
-<a id="scrapling.core.custom_types"></a>
-
-# scrapling.core.custom\_types
-
-<a id="scrapling.core.custom_types.TextHandler"></a>
-
-## TextHandler Objects
-
-```python
-class TextHandler(str)
-```
-
-Extends standard Python string by adding more functionality
-
-<a id="scrapling.core.custom_types.TextHandler.sort"></a>
-
-#### sort
-
-```python
-def sort(reverse: bool = False) -> Union[str, "TextHandler"]
-```
-
-Return a sorted version of the string
-
-<a id="scrapling.core.custom_types.TextHandler.clean"></a>
-
-#### clean
-
-```python
-def clean(remove_entities=False) -> Union[str, "TextHandler"]
-```
-
-Return a new version of the string after removing all white spaces and consecutive spaces
-
-<a id="scrapling.core.custom_types.TextHandler.json"></a>
-
-#### json
-
-```python
-def json() -> Dict
-```
-
-Return JSON response if the response is jsonable otherwise throw error
-
-<a id="scrapling.core.custom_types.TextHandler.re"></a>
-
-#### re
-
-```python
-def re(regex: str | Pattern,
-       replace_entities: bool = True,
-       clean_match: bool = False,
-       case_sensitive: bool = True,
-       check_match: bool = False) -> Union["TextHandlers", bool]
-```
-
-Apply the given regex to the current text and return a list of strings with the matches.
-
-**Arguments**:
-
-- `regex`: Can be either a compiled regular expression or a string.
-- `replace_entities`: If enabled character entity references are replaced by their corresponding character
-- `clean_match`: If enabled, this will ignore all whitespaces and consecutive spaces while matching
-- `case_sensitive`: If disabled, function will set the regex to ignore the letters-case while compiling it
-- `check_match`: Used to quickly check if this regex matches or not without any operations on the results
-
-<a id="scrapling.core.custom_types.TextHandler.re_first"></a>
-
-#### re\_first
-
-```python
-def re_first(regex: str | Pattern,
-             default: Any = None,
-             replace_entities: bool = True,
-             clean_match: bool = False,
-             case_sensitive: bool = True) -> "TextHandler"
-```
-
-Apply the given regex to text and return the first match if found, otherwise return the default value.
-
-**Arguments**:
-
-- `regex`: Can be either a compiled regular expression or a string.
-- `default`: The default value to be returned if there is no match
-- `replace_entities`: If enabled character entity references are replaced by their corresponding character
-- `clean_match`: If enabled, this will ignore all whitespaces and consecutive spaces while matching
-- `case_sensitive`: If disabled, function will set the regex to ignore the letters-case while compiling it
-
-<a id="scrapling.core.custom_types.TextHandlers"></a>
-
-## TextHandlers Objects
-
-```python
-class TextHandlers(List[TextHandler])
-```
-
-The :class:`TextHandlers` class is a subclass of the builtin ``List`` class, which provides a few additional methods.
-
-<a id="scrapling.core.custom_types.TextHandlers.re"></a>
-
-#### re
-
-```python
-def re(regex: str | Pattern,
-       replace_entities: bool = True,
-       clean_match: bool = False,
-       case_sensitive: bool = True) -> "TextHandlers"
-```
-
-Call the ``.re()`` method for each element in this list and return
-
-their results flattened as TextHandlers.
-
-**Arguments**:
-
-- `regex`: Can be either a compiled regular expression or a string.
-- `replace_entities`: If enabled character entity references are replaced by their corresponding character
-- `clean_match`: if enabled, this will ignore all whitespaces and consecutive spaces while matching
-- `case_sensitive`: if disabled, the function will set the regex to ignore the letters-case while compiling it
-
-<a id="scrapling.core.custom_types.TextHandlers.re_first"></a>
-
-#### re\_first
-
-```python
-def re_first(regex: str | Pattern,
-             default: Any = None,
-             replace_entities: bool = True,
-             clean_match: bool = False,
-             case_sensitive: bool = True) -> TextHandler
-```
-
-Call the ``.re_first()`` method for each element in this list and return
-
-the first result or the default value otherwise.
-
-**Arguments**:
-
-- `regex`: Can be either a compiled regular expression or a string.
-- `default`: The default value to be returned if there is no match
-- `replace_entities`: If enabled character entity references are replaced by their corresponding character
-- `clean_match`: If enabled, this will ignore all whitespaces and consecutive spaces while matching
-- `case_sensitive`: If disabled, function will set the regex to ignore the letters-case while compiling it
-
-<a id="scrapling.core.custom_types.TextHandlers.get"></a>
-
-#### get
-
-```python
-def get(default=None)
-```
-
-Returns the first item of the current list
-
-**Arguments**:
-
-- `default`: the default value to return if the current list is empty
-
-<a id="scrapling.core.custom_types.AttributesHandler"></a>
-
-## AttributesHandler Objects
-
-```python
-class AttributesHandler(Mapping[str, _TextHandlerType])
-```
-
-A read-only mapping to use instead of the standard dictionary for the speed boost, but at the same time I use it to add more functionalities.
-If the standard dictionary is needed, convert this class to a dictionary with the `dict` function
-
-<a id="scrapling.core.custom_types.AttributesHandler.get"></a>
-
-#### get
-
-```python
-def get(key: str, default: Any = None) -> _TextHandlerType
-```
-
-Acts like the standard dictionary `.get()` method
-
-<a id="scrapling.core.custom_types.AttributesHandler.search_values"></a>
-
-#### search\_values
-
-```python
-def search_values(
-        keyword: str,
-        partial: bool = False) -> Generator["AttributesHandler", None, None]
-```
-
-Search current attributes by values and return a dictionary of each matching item
-
-**Arguments**:
-
-- `keyword`: The keyword to search for in the attribute values
-- `partial`: If True, the function will search if keyword in each value instead of perfect match
-
-<a id="scrapling.core.custom_types.AttributesHandler.json_string"></a>
-
-#### json\_string
-
-```python
-@property
-def json_string() -> bytes
-```
-
-Convert current attributes to JSON bytes if the attributes are JSON serializable otherwise throws error
-
-<a id="scrapling.core.mixins"></a>
-
-# scrapling.core.mixins
-
-<a id="scrapling.core.mixins.SelectorsGeneration"></a>
-
-## SelectorsGeneration Objects
-
-```python
-class SelectorsGeneration()
-```
-
-Functions for generating selectors
-Trying to generate selectors like Firefox or maybe cleaner ones!? Ehm
-Inspiration: https://searchfox.org/mozilla-central/source/devtools/shared/inspector/css-logic.js#591
-
-<a id="scrapling.core.mixins.SelectorsGeneration.generate_css_selector"></a>
-
-#### generate\_css\_selector
-
-```python
-@property
-def generate_css_selector() -> str
-```
-
-Generate a CSS selector for the current element
-
-**Returns**:
-
-A string of the generated selector.
-
-<a id="scrapling.core.mixins.SelectorsGeneration.generate_full_css_selector"></a>
+<a id="scrapling.engines._browsers._base.SyncSession"></a>
 
-#### generate\_full\_css\_selector
+## SyncSession Objects
 
 ```python
-@property
-def generate_full_css_selector() -> str
+class SyncSession()
 ```
-
-Generate a complete CSS selector for the current element
-
-**Returns**:
-
-A string of the generated selector.
-
-<a id="scrapling.core.mixins.SelectorsGeneration.generate_xpath_selector"></a>
-
-#### generate\_xpath\_selector
-
-```python
-@property
-def generate_xpath_selector() -> str
-```
-
-Generate an XPath selector for the current element
-
-**Returns**:
-
-A string of the generated selector.
-
-<a id="scrapling.core.mixins.SelectorsGeneration.generate_full_xpath_selector"></a>
-
-#### generate\_full\_xpath\_selector
-
-```python
-@property
-def generate_full_xpath_selector() -> str
-```
-
-Generate a complete XPath selector for the current element
-
-**Returns**:
-
-A string of the generated selector.
-
-<a id="scrapling.core.ai"></a>
-
-# scrapling.core.ai
-
-<a id="scrapling.core.ai.ResponseModel"></a>
-
-## ResponseModel Objects
-
-```python
-class ResponseModel(BaseModel)
-```
-
-Request's response information structure.
-
-<a id="scrapling.core.ai.SessionInfo"></a>
-
-## SessionInfo Objects
-
-```python
-class SessionInfo(BaseModel)
-```
-
-Information about an open browser session.
-
-<a id="scrapling.core.ai.SessionCreatedModel"></a>
-
-## SessionCreatedModel Objects
-
-```python
-class SessionCreatedModel(SessionInfo)
-```
-
-Response returned when a new session is created.
-
-<a id="scrapling.core.ai.SessionClosedModel"></a>
-
-## SessionClosedModel Objects
-
-```python
-class SessionClosedModel(BaseModel)
-```
-
-Response returned when a session is closed.
-
-<a id="scrapling.core.ai._SessionEntry"></a>
-
-## \_SessionEntry Objects
-
-```python
-@dataclass
-class _SessionEntry()
-```
-
-<a id="scrapling.core.ai._SessionEntry.session"></a>
-
-#### session
-
-AsyncDynamicSession | AsyncStealthySession
-
-<a id="scrapling.core.ai.ScraplingMCPServer"></a>
-
-## ScraplingMCPServer Objects
-
-```python
-class ScraplingMCPServer()
-```
-
-<a id="scrapling.core.ai.ScraplingMCPServer.open_session"></a>
-
-#### open\_session
-
-```python
-async def open_session(
-        session_type: SessionType,
-        session_id: Optional[str] = None,
-        headless: bool = True,
-        google_search: bool = True,
-        real_chrome: bool = False,
-        wait: int | float = 0,
-        proxy: Optional[str | Dict[str, str]] = None,
-        timezone_id: str | None = None,
-        locale: str | None = None,
-        extra_headers: Optional[Dict[str, str]] = None,
-        useragent: Optional[str] = None,
-        cdp_url: Optional[str] = None,
-        timeout: int | float = 30000,
-        disable_resources: bool = False,
-        wait_selector: Optional[str] = None,
-        cookies: Sequence[SetCookieParam] | None = None,
-        network_idle: bool = False,
-        wait_selector_state: SelectorWaitStates = "attached",
-        max_pages: int = 5,
-        hide_canvas: bool = False,
-        block_webrtc: bool = False,
-        allow_webgl: bool = True,
-        solve_cloudflare: bool = False,
-        additional_args: Optional[Dict] = None) -> SessionCreatedModel
-```
-
-Open a persistent browser session that can be reused across multiple fetch calls.
-
-This avoids the overhead of launching a new browser for each request.
-Use close_session to close the session when done, and list_sessions to see all active sessions.
-
-**Arguments**:
-
-- `session_type`: The type of session to open. Use "dynamic" for standard Playwright browser, or "stealthy" for anti-bot bypass with fingerprint spoofing.
-- `session_id`: Optional custom session ID. If not provided, a random 12-character hex ID will be generated. Useful for naming sessions for easier management.
-- `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
-- `google_search`: Enabled by default, Scrapling will set a Google referer header.
-- `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
-- `wait`: The time (milliseconds) the fetcher will wait after everything finishes before closing the page and returning the Response object.
-- `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
-- `timezone_id`: Changes the timezone of the browser. Defaults to the system timezone.
-- `locale`: Specify user locale, for example, `en-GB`, `de-DE`, etc.
-- `extra_headers`: A dictionary of extra headers to add to the request.
-- `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
-- `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
-- `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000.
-- `disable_resources`: Drop requests for unnecessary resources for a speed boost.
-- `wait_selector`: Wait for a specific CSS selector to be in a specific state.
-- `cookies`: Set cookies for the session. It should be in a dictionary format that Playwright accepts.
-- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
-- `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
-- `max_pages`: Maximum number of concurrent pages/tabs in the browser. Defaults to 5. Higher values allow more parallel fetches.
-- `hide_canvas`: (Stealthy only) Add random noise to canvas operations to prevent fingerprinting.
-- `block_webrtc`: (Stealthy only) Forces WebRTC to respect proxy settings to prevent local IP address leak.
-- `allow_webgl`: (Stealthy only) Enabled by default. Disabling WebGL is not recommended as many WAFs now check if WebGL is enabled.
-- `solve_cloudflare`: (Stealthy only) Solves all types of the Cloudflare's Turnstile/Interstitial challenges.
-- `additional_args`: (Stealthy only) Additional arguments to be passed to Playwright's context as additional settings.
-
-<a id="scrapling.core.ai.ScraplingMCPServer.close_session"></a>
-
-#### close\_session
-
-```python
-async def close_session(session_id: str) -> SessionClosedModel
-```
-
-Close a persistent browser session and free its resources.
-
-**Arguments**:
-
-- `session_id`: The unique identifier of the session to close. Use list_sessions to see active sessions.
-
-<a id="scrapling.core.ai.ScraplingMCPServer.list_sessions"></a>
-
-#### list\_sessions
-
-```python
-async def list_sessions() -> List[SessionInfo]
-```
-
-List all active browser sessions with their details.
-
-<a id="scrapling.core.ai.ScraplingMCPServer.screenshot"></a>
-
-#### screenshot
-
-```python
-async def screenshot(
-        url: str,
-        session_id: str,
-        image_type: ScreenshotType = "png",
-        full_page: bool = False,
-        quality: Optional[int] = None,
-        wait: int | float = 0,
-        wait_selector: Optional[str] = None,
-        wait_selector_state: SelectorWaitStates = "attached",
-        network_idle: bool = False,
-        timeout: int | float = 30000) -> List[ImageContent | TextContent]
-```
-
-Capture a screenshot of a web page using an existing browser session and return it as an image.
-
-A browser session must be opened first with `open_session` (either `dynamic` or `stealthy`); the session ID is then passed here.
-
-**Arguments**:
-
-- `url`: The URL to navigate to and capture.
-- `session_id`: ID of an open browser session created with `open_session`.
-- `image_type`: Image format. Defaults to "png". Use "jpeg" for smaller file sizes.
-- `full_page`: When True, captures the full scrollable page instead of just the viewport. Defaults to False.
-- `quality`: Image quality (0-100) for JPEG only. Raises if passed with `image_type="png"`.
-- `wait`: Time in milliseconds to wait after page load before capturing. Defaults to 0.
-- `wait_selector`: Optional CSS selector to wait for before capturing.
-- `wait_selector_state`: State to wait for the selector. Defaults to "attached".
-- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
-- `timeout`: Timeout in milliseconds for page operations. Defaults to 30,000.
-
-<a id="scrapling.core.ai.ScraplingMCPServer.get"></a>
-
-#### get
-
-```python
-@staticmethod
-async def get(url: str,
-              impersonate: ImpersonateType = "chrome",
-              extraction_type: extraction_types = "markdown",
-              css_selector: Optional[str] = None,
-              main_content_only: bool = True,
-              params: Optional[Dict] = None,
-              headers: Optional[Mapping[str, Optional[str]]] = None,
-              cookies: Optional[Dict[str, str]] = None,
-              timeout: Optional[int | float] = 30,
-              follow_redirects: FollowRedirects = "safe",
-              max_redirects: int = 30,
-              retries: Optional[int] = 3,
-              retry_delay: Optional[int] = 1,
-              proxy: Optional[str] = None,
-              proxy_auth: Optional[Dict[str, str]] = None,
-              auth: Optional[Dict[str, str]] = None,
-              verify: Optional[bool] = True,
-              http3: Optional[bool] = False,
-              stealthy_headers: Optional[bool] = True) -> ResponseModel
-```
-
-Make GET HTTP request to a URL and return a structured output of the result.
-
-Note: This is only suitable for low-mid protection levels. For high-protection levels or websites that require JS loading, use the other tools directly.
-Note: If the `css_selector` resolves to more than one element, all the elements will be returned.
-
-**Arguments**:
-
-- `url`: The URL to request.
-- `impersonate`: Browser version to impersonate its fingerprint. It's using the latest chrome version by default.
-- `extraction_type`: The type of content to extract from the page. Defaults to "markdown". Options are:
-- Markdown will convert the page content to Markdown format.
-- HTML will return the raw HTML content of the page.
-- Text will return the text content of the page.
-- `css_selector`: CSS selector to extract the content from the page. If main_content_only is True, then it will be executed on the main content of the page. Defaults to None.
-- `main_content_only`: Whether to extract only the main content of the page. Defaults to True. The main content here is the data inside the `<body>` tag.
-- `params`: Query string parameters for the request.
-- `headers`: Headers to include in the request.
-- `cookies`: Cookies to use in the request.
-- `timeout`: Number of seconds to wait before timing out.
-- `follow_redirects`: Whether to follow redirects. Defaults to "safe", which follows redirects but rejects those targeting internal/private IPs (SSRF protection).
-Pass True to follow all redirects without restriction.
-- `max_redirects`: Maximum number of redirects. Default 30, use -1 for unlimited.
-- `retries`: Number of retry attempts. Defaults to 3.
-- `retry_delay`: Number of seconds to wait between retry attempts. Defaults to 1 second.
-- `proxy`: Proxy URL to use. Format: "http://username:password@localhost:8030".
-Cannot be used together with the `proxies` parameter.
-- `proxy_auth`: HTTP basic auth for proxy in dictionary format with `username` and `password` keys.
-- `auth`: HTTP basic auth in dictionary format with `username` and `password` keys.
-- `verify`: Whether to verify HTTPS certificates.
-- `http3`: Whether to use HTTP3. Defaults to False. It might be problematic if used it with `impersonate`.
-- `stealthy_headers`: If enabled (default), it creates and adds real browser headers. It also sets a Google referer header.
-
-<a id="scrapling.core.ai.ScraplingMCPServer.bulk_get"></a>
-
-#### bulk\_get
-
-```python
-@staticmethod
-async def bulk_get(
-        urls: List[str],
-        impersonate: ImpersonateType = "chrome",
-        extraction_type: extraction_types = "markdown",
-        css_selector: Optional[str] = None,
-        main_content_only: bool = True,
-        params: Optional[Dict] = None,
-        headers: Optional[Mapping[str, Optional[str]]] = None,
-        cookies: Optional[Dict[str, str]] = None,
-        timeout: Optional[int | float] = 30,
-        follow_redirects: FollowRedirects = "safe",
-        max_redirects: int = 30,
-        retries: Optional[int] = 3,
-        retry_delay: Optional[int] = 1,
-        proxy: Optional[str] = None,
-        proxy_auth: Optional[Dict[str, str]] = None,
-        auth: Optional[Dict[str, str]] = None,
-        verify: Optional[bool] = True,
-        http3: Optional[bool] = False,
-        stealthy_headers: Optional[bool] = True) -> List[ResponseModel]
-```
-
-Make GET HTTP request to a group of URLs and for each URL, return a structured output of the result.
-
-Note: This is only suitable for low-mid protection levels. For high-protection levels or websites that require JS loading, use the other tools directly.
-Note: If the `css_selector` resolves to more than one element, all the elements will be returned.
-
-**Arguments**:
-
-- `urls`: A list of the URLs to request.
-- `impersonate`: Browser version to impersonate its fingerprint. It's using the latest chrome version by default.
-- `extraction_type`: The type of content to extract from the page. Defaults to "markdown". Options are:
-- Markdown will convert the page content to Markdown format.
-- HTML will return the raw HTML content of the page.
-- Text will return the text content of the page.
-- `css_selector`: CSS selector to extract the content from the page. If main_content_only is True, then it will be executed on the main content of the page. Defaults to None.
-- `main_content_only`: Whether to extract only the main content of the page. Defaults to True. The main content here is the data inside the `<body>` tag.
-- `params`: Query string parameters for the request.
-- `headers`: Headers to include in the request.
-- `cookies`: Cookies to use in the request.
-- `timeout`: Number of seconds to wait before timing out.
-- `follow_redirects`: Whether to follow redirects. Defaults to "safe", which follows redirects but rejects those targeting internal/private IPs (SSRF protection).
-Pass True to follow all redirects without restriction.
-- `max_redirects`: Maximum number of redirects. Default 30, use -1 for unlimited.
-- `retries`: Number of retry attempts. Defaults to 3.
-- `retry_delay`: Number of seconds to wait between retry attempts. Defaults to 1 second.
-- `proxy`: Proxy URL to use. Format: "http://username:password@localhost:8030".
-Cannot be used together with the `proxies` parameter.
-- `proxy_auth`: HTTP basic auth for proxy in dictionary format with `username` and `password` keys.
-- `auth`: HTTP basic auth in dictionary format with `username` and `password` keys.
-- `verify`: Whether to verify HTTPS certificates.
-- `http3`: Whether to use HTTP3. Defaults to False. It might be problematic if used it with `impersonate`.
-- `stealthy_headers`: If enabled (default), it creates and adds real browser headers. It also sets a Google referer header.
-
-<a id="scrapling.core.ai.ScraplingMCPServer.fetch"></a>
-
-#### fetch
-
-```python
-async def fetch(url: str,
-                extraction_type: extraction_types = "markdown",
-                css_selector: Optional[str] = None,
-                main_content_only: bool = True,
-                headless: bool = True,
-                google_search: bool = True,
-                real_chrome: bool = False,
-                wait: int | float = 0,
-                proxy: Optional[str | Dict[str, str]] = None,
-                timezone_id: str | None = None,
-                locale: str | None = None,
-                extra_headers: Optional[Dict[str, str]] = None,
-                useragent: Optional[str] = None,
-                cdp_url: Optional[str] = None,
-                timeout: int | float = 30000,
-                disable_resources: bool = False,
-                wait_selector: Optional[str] = None,
-                cookies: Sequence[SetCookieParam] | None = None,
-                network_idle: bool = False,
-                wait_selector_state: SelectorWaitStates = "attached",
-                session_id: Optional[str] = None) -> ResponseModel
-```
-
-Use playwright to open a browser to fetch a URL and return a structured output of the result.
-
-Note: This is only suitable for low-mid protection levels.
-Note: If the `css_selector` resolves to more than one element, all the elements will be returned.
-Note: If a `session_id` is provided (from open_session), the browser session will be reused instead of creating a new one.
-    When using a session, browser-level params (headless, proxy, locale, etc.) are ignored since they were set at session creation time.
-
-**Arguments**:
-
-- `url`: The URL to request.
-- `extraction_type`: The type of content to extract from the page. Defaults to "markdown". Options are:
-- Markdown will convert the page content to Markdown format.
-- HTML will return the raw HTML content of the page.
-- Text will return the text content of the page.
-- `css_selector`: CSS selector to extract the content from the page. If main_content_only is True, then it will be executed on the main content of the page. Defaults to None.
-- `main_content_only`: Whether to extract only the main content of the page. Defaults to True. The main content here is the data inside the `<body>` tag.
-- `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
-- `disable_resources`: Drop requests for unnecessary resources for a speed boost.
-Requests dropped are of type `font`, `image`, `media`, `beacon`, `object`, `imageset`, `texttrack`, `websocket`, `csp_report`, and `stylesheet`.
-- `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
-- `cookies`: Set cookies for the next request. It should be in a dictionary format that Playwright accepts.
-- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
-- `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000
-- `wait`: The time (milliseconds) the fetcher will wait after everything finishes before closing the page and returning the ` Response ` object.
-- `wait_selector`: Wait for a specific CSS selector to be in a specific state.
-- `timezone_id`: Changes the timezone of the browser. Defaults to the system timezone.
-- `locale`: Specify user locale, for example, `en-GB`, `de-DE`, etc. Locale will affect navigator.language value, Accept-Language request header value as well as number and date formatting
-rules. Defaults to the system default locale.
-- `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
-- `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
-- `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
-- `google_search`: Enabled by default, Scrapling will set a Google referer header.
-- `extra_headers`: A dictionary of extra headers to add to the request. _The referer set by `google_search` takes priority over the referer set here if used together._
-- `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
-- `session_id`: Optional session ID from open_session. If provided, reuses the existing browser session instead of creating a new one.
-
-<a id="scrapling.core.ai.ScraplingMCPServer.bulk_fetch"></a>
-
-#### bulk\_fetch
-
-```python
-async def bulk_fetch(urls: List[str],
-                     extraction_type: extraction_types = "markdown",
-                     css_selector: Optional[str] = None,
-                     main_content_only: bool = True,
-                     headless: bool = True,
-                     google_search: bool = True,
-                     real_chrome: bool = False,
-                     wait: int | float = 0,
-                     proxy: Optional[str | Dict[str, str]] = None,
-                     timezone_id: str | None = None,
-                     locale: str | None = None,
-                     extra_headers: Optional[Dict[str, str]] = None,
-                     useragent: Optional[str] = None,
-                     cdp_url: Optional[str] = None,
-                     timeout: int | float = 30000,
-                     disable_resources: bool = False,
-                     wait_selector: Optional[str] = None,
-                     cookies: Sequence[SetCookieParam] | None = None,
-                     network_idle: bool = False,
-                     wait_selector_state: SelectorWaitStates = "attached",
-                     session_id: Optional[str] = None) -> List[ResponseModel]
-```
-
-Use playwright to open a browser, then fetch a group of URLs at the same time, and for each page return a structured output of the result.
-
-Note: This is only suitable for low-mid protection levels.
-Note: If the `css_selector` resolves to more than one element, all the elements will be returned.
-Note: If a `session_id` is provided (from open_session), the browser session will be reused instead of creating a new one.
-    When using a session, browser-level params (headless, proxy, locale, etc.) are ignored since they were set at session creation time.
-
-**Arguments**:
-
-- `urls`: A list of the URLs to request.
-- `extraction_type`: The type of content to extract from the page. Defaults to "markdown". Options are:
-- Markdown will convert the page content to Markdown format.
-- HTML will return the raw HTML content of the page.
-- Text will return the text content of the page.
-- `css_selector`: CSS selector to extract the content from the page. If main_content_only is True, then it will be executed on the main content of the page. Defaults to None.
-- `main_content_only`: Whether to extract only the main content of the page. Defaults to True. The main content here is the data inside the `<body>` tag.
-- `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
-- `disable_resources`: Drop requests for unnecessary resources for a speed boost.
-Requests dropped are of type `font`, `image`, `media`, `beacon`, `object`, `imageset`, `texttrack`, `websocket`, `csp_report`, and `stylesheet`.
-- `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
-- `cookies`: Set cookies for the next request. It should be in a dictionary format that Playwright accepts.
-- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
-- `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000
-- `wait`: The time (milliseconds) the fetcher will wait after everything finishes before closing the page and returning the ` Response ` object.
-- `wait_selector`: Wait for a specific CSS selector to be in a specific state.
-- `timezone_id`: Changes the timezone of the browser. Defaults to the system timezone.
-- `locale`: Specify user locale, for example, `en-GB`, `de-DE`, etc. Locale will affect navigator.language value, Accept-Language request header value as well as number and date formatting
-rules. Defaults to the system default locale.
-- `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
-- `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
-- `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
-- `google_search`: Enabled by default, Scrapling will set a Google referer header.
-- `extra_headers`: A dictionary of extra headers to add to the request. _The referer set by `google_search` takes priority over the referer set here if used together._
-- `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
-- `session_id`: Optional session ID from open_session. If provided, reuses the existing browser session instead of creating a new one.
-
-<a id="scrapling.core.ai.ScraplingMCPServer.stealthy_fetch"></a>
-
-#### stealthy\_fetch
-
-```python
-async def stealthy_fetch(url: str,
-                         extraction_type: extraction_types = "markdown",
-                         css_selector: Optional[str] = None,
-                         main_content_only: bool = True,
-                         headless: bool = True,
-                         google_search: bool = True,
-                         real_chrome: bool = False,
-                         wait: int | float = 0,
-                         proxy: Optional[str | Dict[str, str]] = None,
-                         timezone_id: str | None = None,
-                         locale: str | None = None,
-                         extra_headers: Optional[Dict[str, str]] = None,
-                         useragent: Optional[str] = None,
-                         hide_canvas: bool = False,
-                         cdp_url: Optional[str] = None,
-                         timeout: int | float = 30000,
-                         disable_resources: bool = False,
-                         wait_selector: Optional[str] = None,
-                         cookies: Sequence[SetCookieParam] | None = None,
-                         network_idle: bool = False,
-                         wait_selector_state: SelectorWaitStates = "attached",
-                         block_webrtc: bool = False,
-                         allow_webgl: bool = True,
-                         solve_cloudflare: bool = False,
-                         additional_args: Optional[Dict] = None,
-                         session_id: Optional[str] = None) -> ResponseModel
-```
-
-Use the stealthy fetcher to fetch a URL and return a structured output of the result.
-
-Note: This is the only suitable fetcher for high protection levels.
-Note: If the `css_selector` resolves to more than one element, all the elements will be returned.
-Note: If a `session_id` is provided (from open_session), the browser session will be reused instead of creating a new one.
-    When using a session, browser-level params (headless, proxy, locale, etc.) are ignored since they were set at session creation time.
-
-**Arguments**:
-
-- `url`: The URL to request.
-- `extraction_type`: The type of content to extract from the page. Defaults to "markdown". Options are:
-- Markdown will convert the page content to Markdown format.
-- HTML will return the raw HTML content of the page.
-- Text will return the text content of the page.
-- `css_selector`: CSS selector to extract the content from the page. If main_content_only is True, then it will be executed on the main content of the page. Defaults to None.
-- `main_content_only`: Whether to extract only the main content of the page. Defaults to True. The main content here is the data inside the `<body>` tag.
-- `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
-- `disable_resources`: Drop requests for unnecessary resources for a speed boost.
-Requests dropped are of type `font`, `image`, `media`, `beacon`, `object`, `imageset`, `texttrack`, `websocket`, `csp_report`, and `stylesheet`.
-- `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
-- `cookies`: Set cookies for the next request.
-- `solve_cloudflare`: Solves all types of the Cloudflare's Turnstile/Interstitial challenges before returning the response to you.
-- `allow_webgl`: Enabled by default. Disabling WebGL is not recommended as many WAFs now check if WebGL is enabled.
-- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
-- `wait`: The time (milliseconds) the fetcher will wait after everything finishes before closing the page and returning the ` Response ` object.
-- `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000
-- `wait_selector`: Wait for a specific CSS selector to be in a specific state.
-- `timezone_id`: Changes the timezone of the browser. Defaults to the system timezone.
-- `locale`: Specify user locale, for example, `en-GB`, `de-DE`, etc. Locale will affect navigator.language value, Accept-Language request header value as well as number and date formatting
-rules. Defaults to the system default locale.
-- `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
-- `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
-- `hide_canvas`: Add random noise to canvas operations to prevent fingerprinting.
-- `block_webrtc`: Forces WebRTC to respect proxy settings to prevent local IP address leak.
-- `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
-- `google_search`: Enabled by default, Scrapling will set a Google referer header.
-- `extra_headers`: A dictionary of extra headers to add to the request. _The referer set by `google_search` takes priority over the referer set here if used together._
-- `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
-- `additional_args`: Additional arguments to be passed to Playwright's context as additional settings, and it takes higher priority than Scrapling's settings.
-- `session_id`: Optional session ID from open_session. If provided, reuses the existing browser session instead of creating a new one.
-
-<a id="scrapling.core.ai.ScraplingMCPServer.bulk_stealthy_fetch"></a>
-
-#### bulk\_stealthy\_fetch
-
-```python
-async def bulk_stealthy_fetch(
-        urls: List[str],
-        extraction_type: extraction_types = "markdown",
-        css_selector: Optional[str] = None,
-        main_content_only: bool = True,
-        headless: bool = True,
-        google_search: bool = True,
-        real_chrome: bool = False,
-        wait: int | float = 0,
-        proxy: Optional[str | Dict[str, str]] = None,
-        timezone_id: str | None = None,
-        locale: str | None = None,
-        extra_headers: Optional[Dict[str, str]] = None,
-        useragent: Optional[str] = None,
-        hide_canvas: bool = False,
-        cdp_url: Optional[str] = None,
-        timeout: int | float = 30000,
-        disable_resources: bool = False,
-        wait_selector: Optional[str] = None,
-        cookies: Sequence[SetCookieParam] | None = None,
-        network_idle: bool = False,
-        wait_selector_state: SelectorWaitStates = "attached",
-        block_webrtc: bool = False,
-        allow_webgl: bool = True,
-        solve_cloudflare: bool = False,
-        additional_args: Optional[Dict] = None,
-        session_id: Optional[str] = None) -> List[ResponseModel]
-```
-
-Use the stealthy fetcher to fetch a group of URLs at the same time, and for each page return a structured output of the result.
-
-Note: This is the only suitable fetcher for high protection levels.
-Note: If the `css_selector` resolves to more than one element, all the elements will be returned.
-Note: If a `session_id` is provided (from open_session), the browser session will be reused instead of creating a new one.
-    When using a session, browser-level params (headless, proxy, locale, etc.) are ignored since they were set at session creation time.
-
-**Arguments**:
-
-- `urls`: A list of the URLs to request.
-- `extraction_type`: The type of content to extract from the page. Defaults to "markdown". Options are:
-- Markdown will convert the page content to Markdown format.
-- HTML will return the raw HTML content of the page.
-- Text will return the text content of the page.
-- `css_selector`: CSS selector to extract the content from the page. If main_content_only is True, then it will be executed on the main content of the page. Defaults to None.
-- `main_content_only`: Whether to extract only the main content of the page. Defaults to True. The main content here is the data inside the `<body>` tag.
-- `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
-- `disable_resources`: Drop requests for unnecessary resources for a speed boost.
-Requests dropped are of type `font`, `image`, `media`, `beacon`, `object`, `imageset`, `texttrack`, `websocket`, `csp_report`, and `stylesheet`.
-- `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
-- `cookies`: Set cookies for the next request.
-- `solve_cloudflare`: Solves all types of the Cloudflare's Turnstile/Interstitial challenges before returning the response to you.
-- `allow_webgl`: Enabled by default. Disabling WebGL is not recommended as many WAFs now check if WebGL is enabled.
-- `network_idle`: Wait for the page until there are no network connections for at least 500 ms.
-- `wait`: The time (milliseconds) the fetcher will wait after everything finishes before closing the page and returning the ` Response ` object.
-- `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000
-- `wait_selector`: Wait for a specific CSS selector to be in a specific state.
-- `timezone_id`: Changes the timezone of the browser. Defaults to the system timezone.
-- `locale`: Specify user locale, for example, `en-GB`, `de-DE`, etc. Locale will affect navigator.language value, Accept-Language request header value as well as number and date formatting
-rules. Defaults to the system default locale.
-- `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
-- `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
-- `hide_canvas`: Add random noise to canvas operations to prevent fingerprinting.
-- `block_webrtc`: Forces WebRTC to respect proxy settings to prevent local IP address leak.
-- `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
-- `google_search`: Enabled by default, Scrapling will set a Google referer header.
-- `extra_headers`: A dictionary of extra headers to add to the request. _The referer set by `google_search` takes priority over the referer set here if used together._
-- `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
-- `additional_args`: Additional arguments to be passed to Playwright's context as additional settings, and it takes higher priority than Scrapling's settings.
-- `session_id`: Optional session ID from open_session. If provided, reuses the existing browser session instead of creating a new one.
-
-<a id="scrapling.core.ai.ScraplingMCPServer.serve"></a>
-
-#### serve
-
-```python
-def serve(http: bool, host: str, port: int)
-```
-
-Serve the MCP server.
-
-<a id="scrapling.core.translator"></a>
-
-# scrapling.core.translator
-
-Most of this file is an adapted version of the parsel library's translator with some modifications simply for 1 important reason...
-
-To add pseudo-elements ``::text`` and ``::attr(ATTR_NAME)`` so we match the Parsel/Scrapy selectors format which will be important in future releases but most importantly...
-
-So you don't have to learn a new selectors/api method like what bs4 done with soupsieve :)
-
-    If you want to learn about this, head to https://cssselect.readthedocs.io/en/latest/`cssselect.FunctionalPseudoElement`
-
-<a id="scrapling.core.translator.TranslatorMixin"></a>
-
-## TranslatorMixin Objects
-
-```python
-class TranslatorMixin()
-```
-
-This mixin adds support to CSS pseudo elements via dynamic dispatch.
-
-Currently supported pseudo-elements are ``::text`` and ``::attr(ATTR_NAME)``.
-
-<a id="scrapling.core.translator.TranslatorMixin.xpath_pseudo_element"></a>
-
-#### xpath\_pseudo\_element
-
-```python
-def xpath_pseudo_element(xpath: OriginalXPathExpr,
-                         pseudo_element: PseudoElement) -> OriginalXPathExpr
-```
-
-Dispatch method that transforms XPath to support the pseudo-element.
-
-<a id="scrapling.core.translator.TranslatorMixin.xpath_attr_functional_pseudo_element"></a>
-
-#### xpath\_attr\_functional\_pseudo\_element
-
-```python
-@staticmethod
-def xpath_attr_functional_pseudo_element(
-        xpath: OriginalXPathExpr,
-        function: FunctionalPseudoElement) -> XPathExpr
-```
-
-Support selecting attribute values using ::attr() pseudo-element
-
-<a id="scrapling.core.translator.TranslatorMixin.xpath_text_simple_pseudo_element"></a>
-
-#### xpath\_text\_simple\_pseudo\_element
-
-```python
-@staticmethod
-def xpath_text_simple_pseudo_element(xpath: OriginalXPathExpr) -> XPathExpr
-```
-
-Support selecting text nodes using ::text pseudo-element
-
-<a id="scrapling.core.translator.css_to_xpath"></a>
-
-#### css\_to\_xpath
-
-```python
-@lru_cache(maxsize=256)
-def css_to_xpath(query: str) -> str
-```
-
-Return the translated XPath version of a given CSS query
-
-<a id="scrapling.core._shell_signatures"></a>
-
-# scrapling.core.\_shell\_signatures
-
-<a id="scrapling.core"></a>
-
-# scrapling.core
-
-<a id="scrapling.core._types"></a>
-
-# scrapling.core.\_types
-
-Type definitions for type checking purposes.
-
-<a id="scrapling.core.storage"></a>
-
-# scrapling.core.storage
-
-<a id="scrapling.core.storage.StorageSystemMixin"></a>
-
-## StorageSystemMixin Objects
-
-```python
-class StorageSystemMixin(ABC)
-```
-
-<a id="scrapling.core.storage.StorageSystemMixin.__init__"></a>
-
-#### \_\_init\_\_
-
-```python
-def __init__(url: Optional[str] = None)
-```
-
-**Arguments**:
-
-- `url`: URL of the website we are working on to separate it from other websites data
-
-<a id="scrapling.core.storage.StorageSystemMixin.save"></a>
-
-#### save
-
-```python
-@abstractmethod
-def save(element: HtmlElement, identifier: str) -> None
-```
-
-Saves the element's unique properties to the storage for retrieval and relocation later
-
-**Arguments**:
-
-- `element`: The element itself which we want to save to storage.
-- `identifier`: This is the identifier that will be used to retrieve the element later from the storage. See
-the docs for more info.
-
-<a id="scrapling.core.storage.StorageSystemMixin.retrieve"></a>
-
-#### retrieve
-
-```python
-@abstractmethod
-def retrieve(identifier: str) -> Optional[Dict]
-```
-
-Using the identifier, we search the storage and return the unique properties of the element
-
-**Arguments**:
-
-- `identifier`: This is the identifier that will be used to retrieve the element from the storage. See
-the docs for more info.
-
-**Returns**:
-
-A dictionary of the unique properties
-
-<a id="scrapling.core.storage.SQLiteStorageSystem"></a>
-
-## SQLiteStorageSystem Objects
-
-```python
-@lru_cache(1, typed=True)
-class SQLiteStorageSystem(StorageSystemMixin)
-```
-
-The recommended system to use, it's race condition safe and thread safe.
-Mainly built, so the library can run in threaded frameworks like scrapy or threaded tools
-> It's optimized for threaded applications, but running it without threads shouldn't make it slow.
-
-<a id="scrapling.core.storage.SQLiteStorageSystem.__init__"></a>
-
-#### \_\_init\_\_
-
-```python
-def __init__(storage_file: str, url: Optional[str] = None)
-```
-
-**Arguments**:
-
-- `storage_file`: File to be used to store elements' data.
-- `url`: URL of the website we are working on to separate it from other websites data
-
-<a id="scrapling.core.storage.SQLiteStorageSystem.save"></a>
-
-#### save
-
-```python
-def save(element: HtmlElement, identifier: str) -> None
-```
-
-Saves the elements unique properties to the storage for retrieval and relocation later
-
-**Arguments**:
-
-- `element`: The element itself which we want to save to storage.
-- `identifier`: This is the identifier that will be used to retrieve the element later from the storage. See
-the docs for more info.
-
-<a id="scrapling.core.storage.SQLiteStorageSystem.retrieve"></a>
-
-#### retrieve
-
-```python
-def retrieve(identifier: str) -> Optional[Dict[str, Any]]
-```
-
-Using the identifier, we search the storage and return the unique properties of the element
-
-**Arguments**:
-
-- `identifier`: This is the identifier that will be used to retrieve the element from the storage. See
-the docs for more info.
-
-**Returns**:
-
-A dictionary of the unique properties
 
-<a id="scrapling.core.storage.SQLiteStorageSystem.close"></a>
+<a id="scrapling.engines._browsers._base.SyncSession.close"></a>
 
 #### close
 
@@ -2374,219 +2410,154 @@ A dictionary of the unique properties
 def close()
 ```
 
-Close all connections. It will be useful when with some things like scrapy Spider.closed() function/signal
+Close all resources
 
-<a id="scrapling.core.storage.SQLiteStorageSystem.__del__"></a>
+<a id="scrapling.engines._browsers._base.SyncSession.get_pool_stats"></a>
 
-#### \_\_del\_\_
-
-```python
-def __del__()
-```
-
-To ensure all connections are closed when the object is destroyed.
-
-<a id="scrapling.cli"></a>
-
-# scrapling.cli
-
-<a id="scrapling.cli.extract"></a>
-
-#### extract
+#### get\_pool\_stats
 
 ```python
-@group(
-    help=
-    "Fetch web pages using various fetchers and extract full/selected HTML content as HTML, Markdown, or extract text content."
-)
-def extract()
+def get_pool_stats() -> Dict[str, int]
 ```
 
-Extract content from web pages and save to files
+Get statistics about the current page pool
 
-<a id="scrapling.cli.get"></a>
+<a id="scrapling.engines._browsers._base.AsyncSession"></a>
 
-#### get
+## AsyncSession Objects
 
 ```python
-@extract.command(
-    help=
-    f"Perform a GET request and save the content to a file.\n\n{__OUTPUT_FILE_HELP__}"
-)
-@argument("url", required=True)
-@argument("output_file", required=True)
-@_common_http_options
-def get(url, output_file, headers, cookies, timeout, proxy, css_selector,
-        params, follow_redirects, verify, impersonate, stealthy_headers,
-        ai_targeted)
+class AsyncSession()
 ```
 
-Perform a GET request and save the content to a file.
+<a id="scrapling.engines._browsers._base.AsyncSession.close"></a>
 
-<a id="scrapling.cli.post"></a>
-
-#### post
+#### close
 
 ```python
-@extract.command(
-    help=
-    f"Perform a POST request and save the content to a file.\n\n{__OUTPUT_FILE_HELP__}"
-)
-@argument("url", required=True)
-@argument("output_file", required=True)
-@_data_options
-@_common_http_options
-def post(url, output_file, data, json, headers, cookies, timeout, proxy,
-         css_selector, params, follow_redirects, verify, impersonate,
-         stealthy_headers, ai_targeted)
+async def close()
 ```
 
-Perform a POST request and save the content to a file.
+Close all resources
 
-<a id="scrapling.cli.put"></a>
+<a id="scrapling.engines._browsers._base.AsyncSession.get_pool_stats"></a>
 
-#### put
+#### get\_pool\_stats
 
 ```python
-@extract.command(
-    help=
-    f"Perform a PUT request and save the content to a file.\n\n{__OUTPUT_FILE_HELP__}"
-)
-@argument("url", required=True)
-@argument("output_file", required=True)
-@_data_options
-@_common_http_options
-def put(url, output_file, data, json, headers, cookies, timeout, proxy,
-        css_selector, params, follow_redirects, verify, impersonate,
-        stealthy_headers, ai_targeted)
+def get_pool_stats() -> Dict[str, int]
 ```
 
-Perform a PUT request and save the content to a file.
+Get statistics about the current page pool
 
-<a id="scrapling.cli.delete"></a>
+<a id="scrapling.engines._browsers"></a>
 
-#### delete
+# scrapling.engines.\_browsers
+
+<a id="scrapling.engines._browsers._page"></a>
+
+# scrapling.engines.\_browsers.\_page
+
+<a id="scrapling.engines._browsers._page.PageState"></a>
+
+#### PageState
+
+States that a page can be in
+
+<a id="scrapling.engines._browsers._page.PageInfo"></a>
+
+## PageInfo Objects
 
 ```python
-@extract.command(
-    help=
-    f"Perform a DELETE request and save the content to a file.\n\n{__OUTPUT_FILE_HELP__}"
-)
-@argument("url", required=True)
-@argument("output_file", required=True)
-@_common_http_options
-def delete(url, output_file, headers, cookies, timeout, proxy, css_selector,
-           params, follow_redirects, verify, impersonate, stealthy_headers,
-           ai_targeted)
+@dataclass
+class PageInfo(Generic[PageType])
 ```
 
-Perform a DELETE request and save the content to a file.
+Information about the page and its current state
 
-<a id="scrapling.cli.fetch"></a>
+<a id="scrapling.engines._browsers._page.PageInfo.mark_busy"></a>
 
-#### fetch
+#### mark\_busy
 
 ```python
-@extract.command(
-    help=
-    f"Use DynamicFetcher to fetch content with browser automation.\n\n{__OUTPUT_FILE_HELP__}"
-)
-@argument("url", required=True)
-@argument("output_file", required=True)
-@_common_browser_options
-def fetch(url, output_file, headless, disable_resources, network_idle, timeout,
-          wait, css_selector, wait_selector, locale, real_chrome, proxy,
-          extra_headers, ai_targeted, dns_over_https, block_ads)
+def mark_busy(url: str = "")
 ```
 
-Opens up a browser and fetch content using DynamicFetcher.
+Mark the page as busy
 
-<a id="scrapling.cli.stealthy_fetch"></a>
+<a id="scrapling.engines._browsers._page.PageInfo.mark_error"></a>
 
-#### stealthy\_fetch
+#### mark\_error
 
 ```python
-@extract.command(
-    help=
-    f"Use StealthyFetcher to fetch content with advanced stealth features.\n\n{__OUTPUT_FILE_HELP__}"
-)
-@argument("url", required=True)
-@argument("output_file", required=True)
-@option(
-    "--block-webrtc/--allow-webrtc",
-    default=False,
-    help="Block WebRTC entirely (default: False)",
-)
-@option(
-    "--solve-cloudflare/--no-solve-cloudflare",
-    default=False,
-    help="Solve Cloudflare challenges (default: False)",
-)
-@option("--allow-webgl/--block-webgl",
-        default=True,
-        help="Allow WebGL (default: True)")
-@option(
-    "--hide-canvas/--show-canvas",
-    default=False,
-    help="Add noise to canvas operations (default: False)",
-)
-@_common_browser_options
-def stealthy_fetch(url, output_file, headless, disable_resources, network_idle,
-                   timeout, wait, css_selector, wait_selector, locale,
-                   real_chrome, proxy, extra_headers, block_webrtc,
-                   solve_cloudflare, allow_webgl, hide_canvas, ai_targeted,
-                   dns_over_https, block_ads)
+def mark_error()
 ```
 
-Opens up a browser with advanced stealth features and fetch content using StealthyFetcher.
+Mark the page as having an error
 
-<a id="scrapling.engines._browsers._validators"></a>
+<a id="scrapling.engines._browsers._page.PageInfo.__eq__"></a>
 
-# scrapling.engines.\_browsers.\_validators
-
-<a id="scrapling.engines._browsers._validators.PlaywrightConfig"></a>
-
-## PlaywrightConfig Objects
+#### \_\_eq\_\_
 
 ```python
-class PlaywrightConfig(Struct)
+def __eq__(other_page)
 ```
 
-Configuration struct for validation
+Comparing this page to another page object.
 
-<a id="scrapling.engines._browsers._validators.PlaywrightConfig.proxy"></a>
+<a id="scrapling.engines._browsers._page.PagePool"></a>
 
-#### proxy
-
-The default value for proxy in Playwright's source is `None`
-
-<a id="scrapling.engines._browsers._validators.PlaywrightConfig.__post_init__"></a>
-
-#### \_\_post\_init\_\_
+## PagePool Objects
 
 ```python
-def __post_init__()
+class PagePool()
 ```
 
-Custom validation after msgspec validation
+Manages a pool of browser pages/tabs with state tracking
 
-<a id="scrapling.engines._browsers._validators.StealthConfig"></a>
+<a id="scrapling.engines._browsers._page.PagePool.add_page"></a>
 
-## StealthConfig Objects
+#### add\_page
 
 ```python
-class StealthConfig(PlaywrightConfig)
+def add_page(
+        page: SyncPage | AsyncPage
+) -> PageInfo[SyncPage] | PageInfo[AsyncPage]
 ```
 
-<a id="scrapling.engines._browsers._validators.StealthConfig.__post_init__"></a>
+Add a new page to the pool
 
-#### \_\_post\_init\_\_
+<a id="scrapling.engines._browsers._page.PagePool.pages_count"></a>
+
+#### pages\_count
 
 ```python
-def __post_init__()
+@property
+def pages_count() -> int
 ```
 
-Custom validation after msgspec validation
+Get the total number of pages
+
+<a id="scrapling.engines._browsers._page.PagePool.busy_count"></a>
+
+#### busy\_count
+
+```python
+@property
+def busy_count() -> int
+```
+
+Get the number of busy pages
+
+<a id="scrapling.engines._browsers._page.PagePool.cleanup_error_pages"></a>
+
+#### cleanup\_error\_pages
+
+```python
+def cleanup_error_pages()
+```
+
+Remove pages in error state
 
 <a id="scrapling.engines._browsers._controllers"></a>
 
@@ -2778,6 +2749,10 @@ Requests dropped are of type `font`, `image`, `media`, `beacon`, `object`, `imag
 **Returns**:
 
 A `Response` object.
+
+<a id="scrapling.engines._browsers._types"></a>
+
+# scrapling.engines.\_browsers.\_types
 
 <a id="scrapling.engines._browsers._stealth"></a>
 
@@ -2979,182 +2954,57 @@ Requests dropped are of type `font`, `image`, `media`, `beacon`, `object`, `imag
 
 A `Response` object.
 
-<a id="scrapling.engines._browsers"></a>
+<a id="scrapling.engines._browsers._validators"></a>
 
-# scrapling.engines.\_browsers
+# scrapling.engines.\_browsers.\_validators
 
-<a id="scrapling.engines._browsers._page"></a>
+<a id="scrapling.engines._browsers._validators.PlaywrightConfig"></a>
 
-# scrapling.engines.\_browsers.\_page
-
-<a id="scrapling.engines._browsers._page.PageState"></a>
-
-#### PageState
-
-States that a page can be in
-
-<a id="scrapling.engines._browsers._page.PageInfo"></a>
-
-## PageInfo Objects
+## PlaywrightConfig Objects
 
 ```python
-@dataclass
-class PageInfo(Generic[PageType])
+class PlaywrightConfig(Struct)
 ```
 
-Information about the page and its current state
+Configuration struct for validation
 
-<a id="scrapling.engines._browsers._page.PageInfo.mark_busy"></a>
+<a id="scrapling.engines._browsers._validators.PlaywrightConfig.proxy"></a>
 
-#### mark\_busy
+#### proxy
+
+The default value for proxy in Playwright's source is `None`
+
+<a id="scrapling.engines._browsers._validators.PlaywrightConfig.__post_init__"></a>
+
+#### \_\_post\_init\_\_
 
 ```python
-def mark_busy(url: str = "")
+def __post_init__()
 ```
 
-Mark the page as busy
+Custom validation after msgspec validation
 
-<a id="scrapling.engines._browsers._page.PageInfo.mark_error"></a>
+<a id="scrapling.engines._browsers._validators.StealthConfig"></a>
 
-#### mark\_error
+## StealthConfig Objects
 
 ```python
-def mark_error()
+class StealthConfig(PlaywrightConfig)
 ```
 
-Mark the page as having an error
+<a id="scrapling.engines._browsers._validators.StealthConfig.__post_init__"></a>
 
-<a id="scrapling.engines._browsers._page.PageInfo.__eq__"></a>
-
-#### \_\_eq\_\_
+#### \_\_post\_init\_\_
 
 ```python
-def __eq__(other_page)
+def __post_init__()
 ```
 
-Comparing this page to another page object.
-
-<a id="scrapling.engines._browsers._page.PagePool"></a>
-
-## PagePool Objects
-
-```python
-class PagePool()
-```
-
-Manages a pool of browser pages/tabs with state tracking
-
-<a id="scrapling.engines._browsers._page.PagePool.add_page"></a>
-
-#### add\_page
-
-```python
-def add_page(
-        page: SyncPage | AsyncPage
-) -> PageInfo[SyncPage] | PageInfo[AsyncPage]
-```
-
-Add a new page to the pool
-
-<a id="scrapling.engines._browsers._page.PagePool.pages_count"></a>
-
-#### pages\_count
-
-```python
-@property
-def pages_count() -> int
-```
-
-Get the total number of pages
-
-<a id="scrapling.engines._browsers._page.PagePool.busy_count"></a>
-
-#### busy\_count
-
-```python
-@property
-def busy_count() -> int
-```
-
-Get the number of busy pages
-
-<a id="scrapling.engines._browsers._page.PagePool.cleanup_error_pages"></a>
-
-#### cleanup\_error\_pages
-
-```python
-def cleanup_error_pages()
-```
-
-Remove pages in error state
-
-<a id="scrapling.engines._browsers._types"></a>
-
-# scrapling.engines.\_browsers.\_types
+Custom validation after msgspec validation
 
 <a id="scrapling.engines._browsers._config_tools"></a>
 
 # scrapling.engines.\_browsers.\_config\_tools
-
-<a id="scrapling.engines._browsers._base"></a>
-
-# scrapling.engines.\_browsers.\_base
-
-<a id="scrapling.engines._browsers._base.SyncSession"></a>
-
-## SyncSession Objects
-
-```python
-class SyncSession()
-```
-
-<a id="scrapling.engines._browsers._base.SyncSession.close"></a>
-
-#### close
-
-```python
-def close()
-```
-
-Close all resources
-
-<a id="scrapling.engines._browsers._base.SyncSession.get_pool_stats"></a>
-
-#### get\_pool\_stats
-
-```python
-def get_pool_stats() -> Dict[str, int]
-```
-
-Get statistics about the current page pool
-
-<a id="scrapling.engines._browsers._base.AsyncSession"></a>
-
-## AsyncSession Objects
-
-```python
-class AsyncSession()
-```
-
-<a id="scrapling.engines._browsers._base.AsyncSession.close"></a>
-
-#### close
-
-```python
-async def close()
-```
-
-Close all resources
-
-<a id="scrapling.engines._browsers._base.AsyncSession.get_pool_stats"></a>
-
-#### get\_pool\_stats
-
-```python
-def get_pool_stats() -> Dict[str, int]
-```
-
-Get statistics about the current page pool
 
 <a id="scrapling.engines.static"></a>
 
@@ -3616,9 +3466,205 @@ Creates and returns a new asynchronous Session.
 
 # scrapling.engines.constants
 
-<a id="scrapling.engines"></a>
+<a id="scrapling.engines.toolbelt.convertor"></a>
 
-# scrapling.engines
+# scrapling.engines.toolbelt.convertor
+
+<a id="scrapling.engines.toolbelt.convertor.ResponseFactory"></a>
+
+## ResponseFactory Objects
+
+```python
+class ResponseFactory()
+```
+
+Factory class for creating `Response` objects from various sources.
+
+This class provides multiple static and instance methods for building standardized `Response` objects
+from diverse input sources such as Playwright responses, asynchronous Playwright responses,
+and raw HTTP request responses. It supports handling response histories, constructing the proper
+response objects, and managing encoding, headers, cookies, and other attributes.
+
+<a id="scrapling.engines.toolbelt.convertor.ResponseFactory.from_playwright_response"></a>
+
+#### from\_playwright\_response
+
+```python
+@classmethod
+def from_playwright_response(cls,
+                             page: Optional[SyncPage],
+                             first_response: SyncResponse,
+                             final_response: Optional[SyncResponse],
+                             parser_arguments: Dict,
+                             meta: Optional[Dict] = None,
+                             xhr_captured: Optional[List[SyncResponse]] = None,
+                             collect_history: bool = True) -> Response
+```
+
+Transforms a Playwright response into an internal `Response` object, encapsulating
+
+the page's content, response status, headers, and relevant metadata.
+
+The function handles potential issues, such as empty or missing final responses,
+by falling back to the first response if necessary. Encoding and status text
+are also derived from the provided response headers or reasonable defaults.
+Additionally, the page content and cookies are extracted for further use.
+
+**Arguments**:
+
+- `page`: A synchronous Playwright `Page` instance that represents the current browser page. Required to retrieve the page's URL, cookies, and content.
+- `final_response`: The last response received for the given request from the Playwright instance. Typically used as the main response object to derive status, headers, and other metadata.
+- `first_response`: An earlier or initial Playwright `Response` object that may serve as a fallback response in the absence of the final one.
+- `parser_arguments`: A dictionary containing additional arguments needed for parsing or further customization of the returned `Response`. These arguments are dynamically unpacked into
+the `Response` object.
+- `meta`: Additional meta data to be saved with the response.
+- `xhr_captured`: Optional list of captured Playwright XHR/fetch responses to convert and attach to the returned Response.
+- `collect_history`: Optional boolean indicating whether to collect redirections history or not.
+
+**Returns**:
+
+`Response`: A fully populated `Response` object containing the page's URL, content, status, headers, cookies, and other derived metadata.
+
+<a id="scrapling.engines.toolbelt.convertor.ResponseFactory.from_async_playwright_response"></a>
+
+#### from\_async\_playwright\_response
+
+```python
+@classmethod
+async def from_async_playwright_response(
+        cls,
+        page: Optional[AsyncPage],
+        first_response: AsyncResponse,
+        final_response: Optional[AsyncResponse],
+        parser_arguments: Dict,
+        meta: Optional[Dict] = None,
+        xhr_captured: Optional[List[AsyncResponse]] = None,
+        collect_history: bool = True) -> Response
+```
+
+Transforms a Playwright response into an internal `Response` object, encapsulating
+
+the page's content, response status, headers, and relevant metadata.
+
+The function handles potential issues, such as empty or missing final responses,
+by falling back to the first response if necessary. Encoding and status text
+are also derived from the provided response headers or reasonable defaults.
+Additionally, the page content and cookies are extracted for further use.
+
+**Arguments**:
+
+- `page`: An asynchronous Playwright `Page` instance that represents the current browser page. Required to retrieve the page's URL, cookies, and content.
+- `final_response`: The last response received for the given request from the Playwright instance. Typically used as the main response object to derive status, headers, and other metadata.
+- `first_response`: An earlier or initial Playwright `Response` object that may serve as a fallback response in the absence of the final one.
+- `parser_arguments`: A dictionary containing additional arguments needed for parsing or further customization of the returned `Response`. These arguments are dynamically unpacked into
+the `Response` object.
+- `meta`: Additional meta data to be saved with the response.
+- `xhr_captured`: Optional list of captured async Playwright XHR/fetch responses to convert and attach to the returned Response.
+- `collect_history`: Optional boolean indicating whether to collect redirections history or not.
+
+**Returns**:
+
+`Response`: A fully populated `Response` object containing the page's URL, content, status, headers, cookies, and other derived metadata.
+
+<a id="scrapling.engines.toolbelt.convertor.ResponseFactory.from_http_request"></a>
+
+#### from\_http\_request
+
+```python
+@staticmethod
+def from_http_request(response: CurlResponse,
+                      parser_arguments: Dict,
+                      meta: Optional[Dict] = None) -> Response
+```
+
+Takes `curl_cffi` response and generates `Response` object from it.
+
+**Arguments**:
+
+- `response`: `curl_cffi` response object
+- `parser_arguments`: Additional arguments to be passed to the `Response` object constructor.
+- `meta`: Optional metadata dictionary to attach to the Response.
+
+**Returns**:
+
+A `Response` object that is the same as `Selector` object except it has these added attributes: `status`, `reason`, `cookies`, `headers`, and `request_headers`
+
+<a id="scrapling.engines.toolbelt.navigation"></a>
+
+# scrapling.engines.toolbelt.navigation
+
+Functions related to files and URLs
+
+<a id="scrapling.engines.toolbelt.navigation.create_intercept_handler"></a>
+
+#### create\_intercept\_handler
+
+```python
+def create_intercept_handler(
+        disable_resources: bool,
+        blocked_domains: Optional[Set[str]] = None) -> Callable
+```
+
+Create a route handler that blocks both resource types and specific domains.
+
+**Arguments**:
+
+- `disable_resources`: Whether to block default resource types.
+- `blocked_domains`: Set of domain names to block requests to.
+
+**Returns**:
+
+A sync route handler function.
+
+<a id="scrapling.engines.toolbelt.navigation.create_async_intercept_handler"></a>
+
+#### create\_async\_intercept\_handler
+
+```python
+def create_async_intercept_handler(
+        disable_resources: bool,
+        blocked_domains: Optional[Set[str]] = None) -> Callable
+```
+
+Create an async route handler that blocks both resource types and specific domains.
+
+**Arguments**:
+
+- `disable_resources`: Whether to block default resource types.
+- `blocked_domains`: Set of domain names to block requests to.
+
+**Returns**:
+
+An async route handler function.
+
+<a id="scrapling.engines.toolbelt.navigation.construct_proxy_dict"></a>
+
+#### construct\_proxy\_dict
+
+```python
+def construct_proxy_dict(proxy_string: str | Dict[str, str] | Tuple) -> Dict
+```
+
+Validate a proxy and return it in the acceptable format for Playwright
+
+Reference: https://playwright.dev/python/docs/network#http-proxy
+
+**Arguments**:
+
+- `proxy_string`: A string or a dictionary representation of the proxy.
+
+<a id="scrapling.engines.toolbelt"></a>
+
+# scrapling.engines.toolbelt
+
+<a id="scrapling.engines.toolbelt.ad_domains"></a>
+
+# scrapling.engines.toolbelt.ad\_domains
+
+Built-in ad/tracker domain list for use with block_ads=True.
+
+Source: Peter Lowe's ad and tracking server list https://pgl.yoyo.org/adservers/
+Used config: https://pgl.yoyo.org/adservers/serverlist.php?hostformat=plain&showintro=0&startyear=2000&mimetype=plaintext
 
 <a id="scrapling.engines.toolbelt.custom"></a>
 
@@ -3750,122 +3796,6 @@ def get(cls, status_code: int) -> str
 
 Get the phrase for a given HTTP status code.
 
-<a id="scrapling.engines.toolbelt.ad_domains"></a>
-
-# scrapling.engines.toolbelt.ad\_domains
-
-Built-in ad/tracker domain list for use with block_ads=True.
-
-Source: Peter Lowe's ad and tracking server list https://pgl.yoyo.org/adservers/
-Used config: https://pgl.yoyo.org/adservers/serverlist.php?hostformat=plain&showintro=0&startyear=2000&mimetype=plaintext
-
-<a id="scrapling.engines.toolbelt.fingerprints"></a>
-
-# scrapling.engines.toolbelt.fingerprints
-
-Functions related to generating headers and fingerprints generally
-
-<a id="scrapling.engines.toolbelt.fingerprints.get_os_name"></a>
-
-#### get\_os\_name
-
-```python
-@lru_cache(1, typed=True)
-def get_os_name() -> OSName | Tuple
-```
-
-Get the current OS name in the same format needed for browserforge, if the OS is Unknown, return None so browserforge uses all.
-
-**Returns**:
-
-Current OS name or `None` otherwise
-
-<a id="scrapling.engines.toolbelt.fingerprints.generate_headers"></a>
-
-#### generate\_headers
-
-```python
-def generate_headers(browser_mode: bool | str = False) -> Dict
-```
-
-Generate real browser-like headers using browserforge's generator
-
-**Arguments**:
-
-- `browser_mode`: If enabled, the headers created are used for playwright, so it has to match everything
-
-**Returns**:
-
-A dictionary of the generated headers
-
-<a id="scrapling.engines.toolbelt"></a>
-
-# scrapling.engines.toolbelt
-
-<a id="scrapling.engines.toolbelt.navigation"></a>
-
-# scrapling.engines.toolbelt.navigation
-
-Functions related to files and URLs
-
-<a id="scrapling.engines.toolbelt.navigation.create_intercept_handler"></a>
-
-#### create\_intercept\_handler
-
-```python
-def create_intercept_handler(
-        disable_resources: bool,
-        blocked_domains: Optional[Set[str]] = None) -> Callable
-```
-
-Create a route handler that blocks both resource types and specific domains.
-
-**Arguments**:
-
-- `disable_resources`: Whether to block default resource types.
-- `blocked_domains`: Set of domain names to block requests to.
-
-**Returns**:
-
-A sync route handler function.
-
-<a id="scrapling.engines.toolbelt.navigation.create_async_intercept_handler"></a>
-
-#### create\_async\_intercept\_handler
-
-```python
-def create_async_intercept_handler(
-        disable_resources: bool,
-        blocked_domains: Optional[Set[str]] = None) -> Callable
-```
-
-Create an async route handler that blocks both resource types and specific domains.
-
-**Arguments**:
-
-- `disable_resources`: Whether to block default resource types.
-- `blocked_domains`: Set of domain names to block requests to.
-
-**Returns**:
-
-An async route handler function.
-
-<a id="scrapling.engines.toolbelt.navigation.construct_proxy_dict"></a>
-
-#### construct\_proxy\_dict
-
-```python
-def construct_proxy_dict(proxy_string: str | Dict[str, str] | Tuple) -> Dict
-```
-
-Validate a proxy and return it in the acceptable format for Playwright
-
-Reference: https://playwright.dev/python/docs/network#http-proxy
-
-**Arguments**:
-
-- `proxy_string`: A string or a dictionary representation of the proxy.
-
 <a id="scrapling.engines.toolbelt.proxy_rotation"></a>
 
 # scrapling.engines.toolbelt.proxy\_rotation
@@ -3955,128 +3885,177 @@ def __len__() -> int
 
 Return the total number of configured proxies.
 
-<a id="scrapling.engines.toolbelt.convertor"></a>
+<a id="scrapling.engines.toolbelt.fingerprints"></a>
 
-# scrapling.engines.toolbelt.convertor
+# scrapling.engines.toolbelt.fingerprints
 
-<a id="scrapling.engines.toolbelt.convertor.ResponseFactory"></a>
+Functions related to generating headers and fingerprints generally
 
-## ResponseFactory Objects
+<a id="scrapling.engines.toolbelt.fingerprints.get_os_name"></a>
 
-```python
-class ResponseFactory()
-```
-
-Factory class for creating `Response` objects from various sources.
-
-This class provides multiple static and instance methods for building standardized `Response` objects
-from diverse input sources such as Playwright responses, asynchronous Playwright responses,
-and raw HTTP request responses. It supports handling response histories, constructing the proper
-response objects, and managing encoding, headers, cookies, and other attributes.
-
-<a id="scrapling.engines.toolbelt.convertor.ResponseFactory.from_playwright_response"></a>
-
-#### from\_playwright\_response
+#### get\_os\_name
 
 ```python
-@classmethod
-def from_playwright_response(cls,
-                             page: Optional[SyncPage],
-                             first_response: SyncResponse,
-                             final_response: Optional[SyncResponse],
-                             parser_arguments: Dict,
-                             meta: Optional[Dict] = None,
-                             xhr_captured: Optional[List[SyncResponse]] = None,
-                             collect_history: bool = True) -> Response
+@lru_cache(1, typed=True)
+def get_os_name() -> OSName | Tuple
 ```
 
-Transforms a Playwright response into an internal `Response` object, encapsulating
-
-the page's content, response status, headers, and relevant metadata.
-
-The function handles potential issues, such as empty or missing final responses,
-by falling back to the first response if necessary. Encoding and status text
-are also derived from the provided response headers or reasonable defaults.
-Additionally, the page content and cookies are extracted for further use.
-
-**Arguments**:
-
-- `page`: A synchronous Playwright `Page` instance that represents the current browser page. Required to retrieve the page's URL, cookies, and content.
-- `final_response`: The last response received for the given request from the Playwright instance. Typically used as the main response object to derive status, headers, and other metadata.
-- `first_response`: An earlier or initial Playwright `Response` object that may serve as a fallback response in the absence of the final one.
-- `parser_arguments`: A dictionary containing additional arguments needed for parsing or further customization of the returned `Response`. These arguments are dynamically unpacked into
-the `Response` object.
-- `meta`: Additional meta data to be saved with the response.
-- `xhr_captured`: Optional list of captured Playwright XHR/fetch responses to convert and attach to the returned Response.
-- `collect_history`: Optional boolean indicating whether to collect redirections history or not.
+Get the current OS name in the same format needed for browserforge, if the OS is Unknown, return None so browserforge uses all.
 
 **Returns**:
 
-`Response`: A fully populated `Response` object containing the page's URL, content, status, headers, cookies, and other derived metadata.
+Current OS name or `None` otherwise
 
-<a id="scrapling.engines.toolbelt.convertor.ResponseFactory.from_async_playwright_response"></a>
+<a id="scrapling.engines.toolbelt.fingerprints.generate_headers"></a>
 
-#### from\_async\_playwright\_response
+#### generate\_headers
 
 ```python
-@classmethod
-async def from_async_playwright_response(
-        cls,
-        page: Optional[AsyncPage],
-        first_response: AsyncResponse,
-        final_response: Optional[AsyncResponse],
-        parser_arguments: Dict,
-        meta: Optional[Dict] = None,
-        xhr_captured: Optional[List[AsyncResponse]] = None,
-        collect_history: bool = True) -> Response
+def generate_headers(browser_mode: bool | str = False) -> Dict
 ```
 
-Transforms a Playwright response into an internal `Response` object, encapsulating
-
-the page's content, response status, headers, and relevant metadata.
-
-The function handles potential issues, such as empty or missing final responses,
-by falling back to the first response if necessary. Encoding and status text
-are also derived from the provided response headers or reasonable defaults.
-Additionally, the page content and cookies are extracted for further use.
+Generate real browser-like headers using browserforge's generator
 
 **Arguments**:
 
-- `page`: An asynchronous Playwright `Page` instance that represents the current browser page. Required to retrieve the page's URL, cookies, and content.
-- `final_response`: The last response received for the given request from the Playwright instance. Typically used as the main response object to derive status, headers, and other metadata.
-- `first_response`: An earlier or initial Playwright `Response` object that may serve as a fallback response in the absence of the final one.
-- `parser_arguments`: A dictionary containing additional arguments needed for parsing or further customization of the returned `Response`. These arguments are dynamically unpacked into
-the `Response` object.
-- `meta`: Additional meta data to be saved with the response.
-- `xhr_captured`: Optional list of captured async Playwright XHR/fetch responses to convert and attach to the returned Response.
-- `collect_history`: Optional boolean indicating whether to collect redirections history or not.
+- `browser_mode`: If enabled, the headers created are used for playwright, so it has to match everything
 
 **Returns**:
 
-`Response`: A fully populated `Response` object containing the page's URL, content, status, headers, cookies, and other derived metadata.
+A dictionary of the generated headers
 
-<a id="scrapling.engines.toolbelt.convertor.ResponseFactory.from_http_request"></a>
+<a id="scrapling.spiders.links"></a>
 
-#### from\_http\_request
+# scrapling.spiders.links
+
+Pure URL discovery primitive
+
+<a id="scrapling.spiders.links.LinkExtractor"></a>
+
+## LinkExtractor Objects
 
 ```python
-@staticmethod
-def from_http_request(response: CurlResponse,
-                      parser_arguments: Dict,
-                      meta: Optional[Dict] = None) -> Response
+class LinkExtractor()
 ```
 
-Takes `curl_cffi` response and generates `Response` object from it.
+Extracts and filters URLs from a `Response` (or a single URL via `matches`).
+
+All matching is regex-based; allow/deny patterns can be plain strings (compiled
+with `re.compile`) or pre-compiled `re.Pattern` objects, individually or as an
+iterable.
 
 **Arguments**:
 
-- `response`: `curl_cffi` response object
-- `parser_arguments`: Additional arguments to be passed to the `Response` object constructor.
-- `meta`: Optional metadata dictionary to attach to the Response.
+- `allow`: Regex pattern(s) URLs must match to be kept. String, compiled `re.Pattern`,
+or an iterable of either. Empty means match all.
+- `deny`: Regex pattern(s) URLs must NOT match. Takes precedence over `allow`.
+- `allow_domains`: Domain(s) to keep. Matches the exact host or any subdomain
+(e.g. `"example.com"` matches `"api.example.com"`). String or iterable.
+- `deny_domains`: Domain(s) to exclude. Same matching rules as `allow_domains`.
+- `restrict_css`: CSS selectors to scope DOM extraction to. Empty means whole page.
+- `restrict_xpath`: XPath selectors to scope DOM extraction to. Empty means whole page.
+- `tags`: Element tags to look for links in. Default ("a", "area").
+- `attrs`: Attributes on those tags to read URLs from. Default ("href",).
+- `canonicalize`: Canonicalize URLs (sort query params, normalize path). Default True.
+- `strip`: Strip whitespace from extracted URLs. Default True.
+- `keep_fragment`: Preserve the URL fragment when canonicalizing. Default False.
+- `deny_extensions`: File extensions to drop. Default `IGNORED_EXTENSIONS`.
+- `process`: A function to do a process on the values extracted before using them. Return None to drop any value.
 
-**Returns**:
+<a id="scrapling.spiders.links.LinkExtractor.extract"></a>
 
-A `Response` object that is the same as `Selector` object except it has these added attributes: `status`, `reason`, `cookies`, `headers`, and `request_headers`
+#### extract
+
+```python
+def extract(response: "Response") -> List[str]
+```
+
+Return absolute, filtered, deduped URLs from `response`.
+
+<a id="scrapling.spiders.links.LinkExtractor.matches"></a>
+
+#### matches
+
+```python
+def matches(url: str) -> bool
+```
+
+URL-only filter (no response extraction).
+
+Applies allow/deny/allow_domains/deny_domains/deny_extensions to a single URL.
+Used by `SitemapSpider` to dispatch sitemap URLs through `CrawlRule`s without
+needing a `Response`.
+
+<a id="scrapling.spiders.checkpoint"></a>
+
+# scrapling.spiders.checkpoint
+
+<a id="scrapling.spiders.checkpoint.CheckpointData"></a>
+
+## CheckpointData Objects
+
+```python
+@dataclass
+class CheckpointData()
+```
+
+Container for checkpoint state.
+
+<a id="scrapling.spiders.checkpoint.CheckpointManager"></a>
+
+## CheckpointManager Objects
+
+```python
+class CheckpointManager()
+```
+
+Manages saving and loading checkpoint state to/from disk.
+
+<a id="scrapling.spiders.checkpoint.CheckpointManager.has_checkpoint"></a>
+
+#### has\_checkpoint
+
+```python
+async def has_checkpoint() -> bool
+```
+
+Check if a checkpoint exists.
+
+<a id="scrapling.spiders.checkpoint.CheckpointManager.save"></a>
+
+#### save
+
+```python
+async def save(data: CheckpointData) -> None
+```
+
+Save checkpoint data to disk atomically.
+
+<a id="scrapling.spiders.checkpoint.CheckpointManager.load"></a>
+
+#### load
+
+```python
+async def load() -> Optional[CheckpointData]
+```
+
+Load checkpoint data from disk.
+
+Returns None if no checkpoint exists or if loading fails.
+
+<a id="scrapling.spiders.checkpoint.CheckpointManager.cleanup"></a>
+
+#### cleanup
+
+```python
+async def cleanup() -> None
+```
+
+Delete checkpoint file after successful completion.
+
+<a id="scrapling.spiders"></a>
+
+# scrapling.spiders
 
 <a id="scrapling.spiders.session"></a>
 
@@ -4180,270 +4159,6 @@ def __len__() -> int
 ```
 
 Number of registered sessions.
-
-<a id="scrapling.spiders.engine"></a>
-
-# scrapling.spiders.engine
-
-<a id="scrapling.spiders.engine.CrawlerEngine"></a>
-
-## CrawlerEngine Objects
-
-```python
-class CrawlerEngine()
-```
-
-Orchestrates the crawling process.
-
-<a id="scrapling.spiders.engine.CrawlerEngine.request_pause"></a>
-
-#### request\_pause
-
-```python
-def request_pause() -> None
-```
-
-Request a graceful pause of the crawl.
-
-First call: requests graceful pause (waits for active tasks).
-Second call: forces immediate stop.
-
-<a id="scrapling.spiders.engine.CrawlerEngine.crawl"></a>
-
-#### crawl
-
-```python
-async def crawl() -> CrawlStats
-```
-
-Run the spider and return CrawlStats.
-
-<a id="scrapling.spiders.engine.CrawlerEngine.items"></a>
-
-#### items
-
-```python
-@property
-def items() -> ItemList
-```
-
-Access scraped items.
-
-<a id="scrapling.spiders.scheduler"></a>
-
-# scrapling.spiders.scheduler
-
-<a id="scrapling.spiders.scheduler.Scheduler"></a>
-
-## Scheduler Objects
-
-```python
-class Scheduler()
-```
-
-Priority queue with URL deduplication. (heapq)
-
-Higher priority requests are processed first.
-Duplicate URLs are filtered unless dont_filter=True.
-
-<a id="scrapling.spiders.scheduler.Scheduler.enqueue"></a>
-
-#### enqueue
-
-```python
-async def enqueue(request: Request) -> bool
-```
-
-Add a request to the queue.
-
-<a id="scrapling.spiders.scheduler.Scheduler.dequeue"></a>
-
-#### dequeue
-
-```python
-async def dequeue() -> Request
-```
-
-Get the next request to process.
-
-<a id="scrapling.spiders.scheduler.Scheduler.snapshot"></a>
-
-#### snapshot
-
-```python
-def snapshot() -> Tuple[List[Request], Set[bytes]]
-```
-
-Create a snapshot of the current state for checkpoints.
-
-<a id="scrapling.spiders.scheduler.Scheduler.restore"></a>
-
-#### restore
-
-```python
-def restore(data: "CheckpointData") -> None
-```
-
-Restore scheduler state from checkpoint data.
-
-**Arguments**:
-
-- `data`: CheckpointData containing requests and seen set
-
-<a id="scrapling.spiders.cache"></a>
-
-# scrapling.spiders.cache
-
-<a id="scrapling.spiders.cache.ResponseCacheManager"></a>
-
-## ResponseCacheManager Objects
-
-```python
-class ResponseCacheManager()
-```
-
-Caches HTTP responses to disk for replay during spider development.
-
-<a id="scrapling.spiders.result"></a>
-
-# scrapling.spiders.result
-
-<a id="scrapling.spiders.result.ItemList"></a>
-
-## ItemList Objects
-
-```python
-class ItemList(list)
-```
-
-A list of scraped items with export capabilities.
-
-<a id="scrapling.spiders.result.ItemList.to_json"></a>
-
-#### to\_json
-
-```python
-def to_json(path: Union[str, Path], *, indent: bool = False)
-```
-
-Export items to a JSON file.
-
-**Arguments**:
-
-- `path`: Path to the output file
-- `indent`: Pretty-print with 2-space indentation (slightly slower)
-
-<a id="scrapling.spiders.result.ItemList.to_jsonl"></a>
-
-#### to\_jsonl
-
-```python
-def to_jsonl(path: Union[str, Path])
-```
-
-Export items as JSON Lines (one JSON object per line).
-
-**Arguments**:
-
-- `path`: Path to the output file
-
-<a id="scrapling.spiders.result.CrawlStats"></a>
-
-## CrawlStats Objects
-
-```python
-@dataclass
-class CrawlStats()
-```
-
-Statistics for a crawl run.
-
-<a id="scrapling.spiders.result.CrawlResult"></a>
-
-## CrawlResult Objects
-
-```python
-@dataclass
-class CrawlResult()
-```
-
-Complete result from a spider run.
-
-<a id="scrapling.spiders.result.CrawlResult.completed"></a>
-
-#### completed
-
-```python
-@property
-def completed() -> bool
-```
-
-True if the crawl completed normally (not paused).
-
-<a id="scrapling.spiders.robotstxt"></a>
-
-# scrapling.spiders.robotstxt
-
-<a id="scrapling.spiders.robotstxt.RobotsTxtManager"></a>
-
-## RobotsTxtManager Objects
-
-```python
-class RobotsTxtManager()
-```
-
-Manages fetching, parsing, and caching of robots.txt files.
-
-<a id="scrapling.spiders.robotstxt.RobotsTxtManager.can_fetch"></a>
-
-#### can\_fetch
-
-```python
-async def can_fetch(url: str, sid: str) -> bool
-```
-
-Check if a URL can be fetched according to the domain's robots.txt.
-
-**Arguments**:
-
-- `url`: The full URL to check
-- `sid`: Session ID for fetching robots.txt if not yet cached
-
-<a id="scrapling.spiders.robotstxt.RobotsTxtManager.get_delay_directives"></a>
-
-#### get\_delay\_directives
-
-```python
-async def get_delay_directives(
-        url: str,
-        sid: str) -> tuple[Optional[float], Optional[tuple[int, int]]]
-```
-
-Return both crawl-delay and request-rate in a single parser lookup.
-
-**Arguments**:
-
-- `url`: Any URL on the domain to check
-- `sid`: Session ID for fetching robots.txt if not yet cached
-
-<a id="scrapling.spiders.robotstxt.RobotsTxtManager.prefetch"></a>
-
-#### prefetch
-
-```python
-async def prefetch(urls: list[str], sid: str) -> None
-```
-
-Pre-warm the robots.txt cache for a list of seed URLs concurrently.
-
-**Arguments**:
-
-- `urls`: Seed URLs whose domains should be pre-fetched (one per domain).
-- `sid`: Session ID to use for the robots.txt fetch requests.
-
-<a id="scrapling.spiders"></a>
-
-# scrapling.spiders
 
 <a id="scrapling.spiders.spider"></a>
 
@@ -4692,134 +4407,245 @@ def stats() -> CrawlStats
 
 Access current crawl stats (works during streaming).
 
-<a id="scrapling.spiders.checkpoint"></a>
+<a id="scrapling.spiders.robotstxt"></a>
 
-# scrapling.spiders.checkpoint
+# scrapling.spiders.robotstxt
 
-<a id="scrapling.spiders.checkpoint.CheckpointData"></a>
+<a id="scrapling.spiders.robotstxt.RobotsTxtManager"></a>
 
-## CheckpointData Objects
-
-```python
-@dataclass
-class CheckpointData()
-```
-
-Container for checkpoint state.
-
-<a id="scrapling.spiders.checkpoint.CheckpointManager"></a>
-
-## CheckpointManager Objects
+## RobotsTxtManager Objects
 
 ```python
-class CheckpointManager()
+class RobotsTxtManager()
 ```
 
-Manages saving and loading checkpoint state to/from disk.
+Manages fetching, parsing, and caching of robots.txt files.
 
-<a id="scrapling.spiders.checkpoint.CheckpointManager.has_checkpoint"></a>
+<a id="scrapling.spiders.robotstxt.RobotsTxtManager.can_fetch"></a>
 
-#### has\_checkpoint
+#### can\_fetch
 
 ```python
-async def has_checkpoint() -> bool
+async def can_fetch(url: str, sid: str) -> bool
 ```
 
-Check if a checkpoint exists.
-
-<a id="scrapling.spiders.checkpoint.CheckpointManager.save"></a>
-
-#### save
-
-```python
-async def save(data: CheckpointData) -> None
-```
-
-Save checkpoint data to disk atomically.
-
-<a id="scrapling.spiders.checkpoint.CheckpointManager.load"></a>
-
-#### load
-
-```python
-async def load() -> Optional[CheckpointData]
-```
-
-Load checkpoint data from disk.
-
-Returns None if no checkpoint exists or if loading fails.
-
-<a id="scrapling.spiders.checkpoint.CheckpointManager.cleanup"></a>
-
-#### cleanup
-
-```python
-async def cleanup() -> None
-```
-
-Delete checkpoint file after successful completion.
-
-<a id="scrapling.spiders.links"></a>
-
-# scrapling.spiders.links
-
-Pure URL discovery primitive
-
-<a id="scrapling.spiders.links.LinkExtractor"></a>
-
-## LinkExtractor Objects
-
-```python
-class LinkExtractor()
-```
-
-Extracts and filters URLs from a `Response` (or a single URL via `matches`).
-
-All matching is regex-based; allow/deny patterns can be plain strings (compiled
-with `re.compile`) or pre-compiled `re.Pattern` objects, individually or as an
-iterable.
+Check if a URL can be fetched according to the domain's robots.txt.
 
 **Arguments**:
 
-- `allow`: Regex pattern(s) URLs must match to be kept. String, compiled `re.Pattern`,
-or an iterable of either. Empty means match all.
-- `deny`: Regex pattern(s) URLs must NOT match. Takes precedence over `allow`.
-- `allow_domains`: Domain(s) to keep. Matches the exact host or any subdomain
-(e.g. `"example.com"` matches `"api.example.com"`). String or iterable.
-- `deny_domains`: Domain(s) to exclude. Same matching rules as `allow_domains`.
-- `restrict_css`: CSS selectors to scope DOM extraction to. Empty means whole page.
-- `restrict_xpath`: XPath selectors to scope DOM extraction to. Empty means whole page.
-- `tags`: Element tags to look for links in. Default ("a", "area").
-- `attrs`: Attributes on those tags to read URLs from. Default ("href",).
-- `canonicalize`: Canonicalize URLs (sort query params, normalize path). Default True.
-- `strip`: Strip whitespace from extracted URLs. Default True.
-- `keep_fragment`: Preserve the URL fragment when canonicalizing. Default False.
-- `deny_extensions`: File extensions to drop. Default `IGNORED_EXTENSIONS`.
-- `process`: A function to do a process on the values extracted before using them. Return None to drop any value.
+- `url`: The full URL to check
+- `sid`: Session ID for fetching robots.txt if not yet cached
 
-<a id="scrapling.spiders.links.LinkExtractor.extract"></a>
+<a id="scrapling.spiders.robotstxt.RobotsTxtManager.get_delay_directives"></a>
 
-#### extract
+#### get\_delay\_directives
 
 ```python
-def extract(response: "Response") -> List[str]
+async def get_delay_directives(
+        url: str,
+        sid: str) -> tuple[Optional[float], Optional[tuple[int, int]]]
 ```
 
-Return absolute, filtered, deduped URLs from `response`.
+Return both crawl-delay and request-rate in a single parser lookup.
 
-<a id="scrapling.spiders.links.LinkExtractor.matches"></a>
+**Arguments**:
 
-#### matches
+- `url`: Any URL on the domain to check
+- `sid`: Session ID for fetching robots.txt if not yet cached
+
+<a id="scrapling.spiders.robotstxt.RobotsTxtManager.prefetch"></a>
+
+#### prefetch
 
 ```python
-def matches(url: str) -> bool
+async def prefetch(urls: list[str], sid: str) -> None
 ```
 
-URL-only filter (no response extraction).
+Pre-warm the robots.txt cache for a list of seed URLs concurrently.
 
-Applies allow/deny/allow_domains/deny_domains/deny_extensions to a single URL.
-Used by `SitemapSpider` to dispatch sitemap URLs through `CrawlRule`s without
-needing a `Response`.
+**Arguments**:
+
+- `urls`: Seed URLs whose domains should be pre-fetched (one per domain).
+- `sid`: Session ID to use for the robots.txt fetch requests.
+
+<a id="scrapling.spiders.templates"></a>
+
+# scrapling.spiders.templates
+
+<a id="scrapling.spiders.templates.sitemap"></a>
+
+# scrapling.spiders.templates.sitemap
+
+Sitemap template spider.
+
+<a id="scrapling.spiders.templates.sitemap.SitemapResult"></a>
+
+## SitemapResult Objects
+
+```python
+@dataclass
+class SitemapResult()
+```
+
+Parsed sitemap body.
+
+`urls` holds the entries from a `<urlset>`; `sitemaps` holds child sitemap
+URLs from a `<sitemapindex>` (each of which is fetched recursively).
+
+<a id="scrapling.spiders.templates.sitemap.SitemapSpider"></a>
+
+## SitemapSpider Objects
+
+```python
+class SitemapSpider(Spider)
+```
+
+A Spider that seeds a crawl from sitemap(s), and follows the rules.
+
+Override `rules()` to return a list of `CrawlRule`s.
+
+If there are no rules provided, all non-sitemap urls will be redirected to `parse()`, which must be overridden or it will raise `NotImplementedError`.
+
+:cvar sitemap_urls: Explicit list of sitemap (or robots.txt) URLs to fetch.
+:cvar sitemap_follow: `LinkExtractor` filtering which child sitemaps inside a
+    `<sitemapindex>` to descend into. ``None`` means descend into all.
+:cvar sitemap_alternate_links: When enabled, alternate-language URLs are also
+    routed through `rules()`.
+
+<a id="scrapling.spiders.templates.sitemap.SitemapSpider.rules"></a>
+
+#### rules
+
+```python
+def rules() -> List[CrawlRule]
+```
+
+Override to define dispatch rules for sitemap URLs.
+
+<a id="scrapling.spiders.templates.sitemap.SitemapSpider.parse"></a>
+
+#### parse
+
+```python
+async def parse(
+    response: "Response"
+) -> AsyncGenerator[Union[Dict[str, Any], Request, None], None]
+```
+
+Default callback for processing responses
+
+<a id="scrapling.spiders.templates.crawler"></a>
+
+# scrapling.spiders.templates.crawler
+
+Generic spider templates that build on the `Spider` base.
+
+<a id="scrapling.spiders.templates.crawler.CrawlRule"></a>
+
+## CrawlRule Objects
+
+```python
+@dataclass
+class CrawlRule()
+```
+
+Rule for `CrawlSpider`: extract links from a response and dispatch them.
+
+**Arguments**:
+
+- `link_extractor`: `LinkExtractor` that produces URLs from each response.
+- `callback`: Bound method on the spider to call for each matched URL.
+Falls back to the spider's default ``parse()`` by default.
+- `priority`: Override the priority of the requests that will be dispatched.
+- `process_request`: Optional bound method to mutate each `Request` before
+it is yielded. Signature: ``(request, response) -> request``. Use it to
+add headers, change priority, or filter requests.
+
+<a id="scrapling.spiders.templates.crawler.CrawlSpider"></a>
+
+## CrawlSpider Objects
+
+```python
+class CrawlSpider(Spider)
+```
+
+A generic spider that can extract and follow links automatically based on crawl rules.
+
+Override `rules()` to return a list of `CrawlRule`s.
+
+You can start from it and override it as needed for more custom functionality, or just implement your own spider.
+
+<a id="scrapling.spiders.templates.crawler.CrawlSpider.rules"></a>
+
+#### rules
+
+```python
+def rules() -> List[CrawlRule]
+```
+
+Override to define link-following rules.
+
+<a id="scrapling.spiders.cache"></a>
+
+# scrapling.spiders.cache
+
+<a id="scrapling.spiders.cache.ResponseCacheManager"></a>
+
+## ResponseCacheManager Objects
+
+```python
+class ResponseCacheManager()
+```
+
+Caches HTTP responses to disk for replay during spider development.
+
+<a id="scrapling.spiders.engine"></a>
+
+# scrapling.spiders.engine
+
+<a id="scrapling.spiders.engine.CrawlerEngine"></a>
+
+## CrawlerEngine Objects
+
+```python
+class CrawlerEngine()
+```
+
+Orchestrates the crawling process.
+
+<a id="scrapling.spiders.engine.CrawlerEngine.request_pause"></a>
+
+#### request\_pause
+
+```python
+def request_pause() -> None
+```
+
+Request a graceful pause of the crawl.
+
+First call: requests graceful pause (waits for active tasks).
+Second call: forces immediate stop.
+
+<a id="scrapling.spiders.engine.CrawlerEngine.crawl"></a>
+
+#### crawl
+
+```python
+async def crawl() -> CrawlStats
+```
+
+Run the spider and return CrawlStats.
+
+<a id="scrapling.spiders.engine.CrawlerEngine.items"></a>
+
+#### items
+
+```python
+@property
+def items() -> ItemList
+```
+
+Access scraped items.
 
 <a id="scrapling.spiders.request"></a>
 
@@ -4907,120 +4733,294 @@ def __setstate__(state: dict[str, Any]) -> None
 
 Restore state from pickle - callback restored later via _restore_callback().
 
-<a id="scrapling.spiders.templates.crawler"></a>
+<a id="scrapling.spiders.scheduler"></a>
 
-# scrapling.spiders.templates.crawler
+# scrapling.spiders.scheduler
 
-Generic spider templates that build on the `Spider` base.
+<a id="scrapling.spiders.scheduler.Scheduler"></a>
 
-<a id="scrapling.spiders.templates.crawler.CrawlRule"></a>
-
-## CrawlRule Objects
+## Scheduler Objects
 
 ```python
-@dataclass
-class CrawlRule()
+class Scheduler()
 ```
 
-Rule for `CrawlSpider`: extract links from a response and dispatch them.
+Priority queue with URL deduplication. (heapq)
+
+Higher priority requests are processed first.
+Duplicate URLs are filtered unless dont_filter=True.
+
+<a id="scrapling.spiders.scheduler.Scheduler.enqueue"></a>
+
+#### enqueue
+
+```python
+async def enqueue(request: Request) -> bool
+```
+
+Add a request to the queue.
+
+<a id="scrapling.spiders.scheduler.Scheduler.dequeue"></a>
+
+#### dequeue
+
+```python
+async def dequeue() -> Request
+```
+
+Get the next request to process.
+
+<a id="scrapling.spiders.scheduler.Scheduler.snapshot"></a>
+
+#### snapshot
+
+```python
+def snapshot() -> Tuple[List[Request], Set[bytes]]
+```
+
+Create a snapshot of the current state for checkpoints.
+
+<a id="scrapling.spiders.scheduler.Scheduler.restore"></a>
+
+#### restore
+
+```python
+def restore(data: "CheckpointData") -> None
+```
+
+Restore scheduler state from checkpoint data.
 
 **Arguments**:
 
-- `link_extractor`: `LinkExtractor` that produces URLs from each response.
-- `callback`: Bound method on the spider to call for each matched URL.
-Falls back to the spider's default ``parse()`` by default.
-- `priority`: Override the priority of the requests that will be dispatched.
-- `process_request`: Optional bound method to mutate each `Request` before
-it is yielded. Signature: ``(request, response) -> request``. Use it to
-add headers, change priority, or filter requests.
+- `data`: CheckpointData containing requests and seen set
 
-<a id="scrapling.spiders.templates.crawler.CrawlSpider"></a>
+<a id="scrapling.spiders.result"></a>
 
-## CrawlSpider Objects
+# scrapling.spiders.result
+
+<a id="scrapling.spiders.result.ItemList"></a>
+
+## ItemList Objects
 
 ```python
-class CrawlSpider(Spider)
+class ItemList(list)
 ```
 
-A generic spider that can extract and follow links automatically based on crawl rules.
+A list of scraped items with export capabilities.
 
-Override `rules()` to return a list of `CrawlRule`s.
+<a id="scrapling.spiders.result.ItemList.to_json"></a>
 
-You can start from it and override it as needed for more custom functionality, or just implement your own spider.
-
-<a id="scrapling.spiders.templates.crawler.CrawlSpider.rules"></a>
-
-#### rules
+#### to\_json
 
 ```python
-def rules() -> List[CrawlRule]
+def to_json(path: Union[str, Path], *, indent: bool = False)
 ```
 
-Override to define link-following rules.
+Export items to a JSON file.
 
-<a id="scrapling.spiders.templates.sitemap"></a>
+**Arguments**:
 
-# scrapling.spiders.templates.sitemap
+- `path`: Path to the output file
+- `indent`: Pretty-print with 2-space indentation (slightly slower)
 
-Sitemap template spider.
+<a id="scrapling.spiders.result.ItemList.to_jsonl"></a>
 
-<a id="scrapling.spiders.templates.sitemap.SitemapResult"></a>
+#### to\_jsonl
 
-## SitemapResult Objects
+```python
+def to_jsonl(path: Union[str, Path])
+```
+
+Export items as JSON Lines (one JSON object per line).
+
+**Arguments**:
+
+- `path`: Path to the output file
+
+<a id="scrapling.spiders.result.CrawlStats"></a>
+
+## CrawlStats Objects
 
 ```python
 @dataclass
-class SitemapResult()
+class CrawlStats()
 ```
 
-Parsed sitemap body.
+Statistics for a crawl run.
 
-`urls` holds the entries from a `<urlset>`; `sitemaps` holds child sitemap
-URLs from a `<sitemapindex>` (each of which is fetched recursively).
+<a id="scrapling.spiders.result.CrawlResult"></a>
 
-<a id="scrapling.spiders.templates.sitemap.SitemapSpider"></a>
-
-## SitemapSpider Objects
+## CrawlResult Objects
 
 ```python
-class SitemapSpider(Spider)
+@dataclass
+class CrawlResult()
 ```
 
-A Spider that seeds a crawl from sitemap(s), and follows the rules.
+Complete result from a spider run.
 
-Override `rules()` to return a list of `CrawlRule`s.
+<a id="scrapling.spiders.result.CrawlResult.completed"></a>
 
-If there are no rules provided, all non-sitemap urls will be redirected to `parse()`, which must be overridden or it will raise `NotImplementedError`.
-
-:cvar sitemap_urls: Explicit list of sitemap (or robots.txt) URLs to fetch.
-:cvar sitemap_follow: `LinkExtractor` filtering which child sitemaps inside a
-    `<sitemapindex>` to descend into. ``None`` means descend into all.
-:cvar sitemap_alternate_links: When enabled, alternate-language URLs are also
-    routed through `rules()`.
-
-<a id="scrapling.spiders.templates.sitemap.SitemapSpider.rules"></a>
-
-#### rules
+#### completed
 
 ```python
-def rules() -> List[CrawlRule]
+@property
+def completed() -> bool
 ```
 
-Override to define dispatch rules for sitemap URLs.
+True if the crawl completed normally (not paused).
 
-<a id="scrapling.spiders.templates.sitemap.SitemapSpider.parse"></a>
+<a id="scrapling.cli"></a>
 
-#### parse
+# scrapling.cli
+
+<a id="scrapling.cli.extract"></a>
+
+#### extract
 
 ```python
-async def parse(
-    response: "Response"
-) -> AsyncGenerator[Union[Dict[str, Any], Request, None], None]
+@group(
+    help=
+    "Fetch web pages using various fetchers and extract full/selected HTML content as HTML, Markdown, or extract text content."
+)
+def extract()
 ```
 
-Default callback for processing responses
+Extract content from web pages and save to files
 
-<a id="scrapling.spiders.templates"></a>
+<a id="scrapling.cli.get"></a>
 
-# scrapling.spiders.templates
+#### get
+
+```python
+@extract.command(
+    help=
+    f"Perform a GET request and save the content to a file.\n\n{__OUTPUT_FILE_HELP__}"
+)
+@argument("url", required=True)
+@argument("output_file", required=True)
+@_common_http_options
+def get(url, output_file, headers, cookies, timeout, proxy, css_selector,
+        params, follow_redirects, verify, impersonate, stealthy_headers,
+        ai_targeted)
+```
+
+Perform a GET request and save the content to a file.
+
+<a id="scrapling.cli.post"></a>
+
+#### post
+
+```python
+@extract.command(
+    help=
+    f"Perform a POST request and save the content to a file.\n\n{__OUTPUT_FILE_HELP__}"
+)
+@argument("url", required=True)
+@argument("output_file", required=True)
+@_data_options
+@_common_http_options
+def post(url, output_file, data, json, headers, cookies, timeout, proxy,
+         css_selector, params, follow_redirects, verify, impersonate,
+         stealthy_headers, ai_targeted)
+```
+
+Perform a POST request and save the content to a file.
+
+<a id="scrapling.cli.put"></a>
+
+#### put
+
+```python
+@extract.command(
+    help=
+    f"Perform a PUT request and save the content to a file.\n\n{__OUTPUT_FILE_HELP__}"
+)
+@argument("url", required=True)
+@argument("output_file", required=True)
+@_data_options
+@_common_http_options
+def put(url, output_file, data, json, headers, cookies, timeout, proxy,
+        css_selector, params, follow_redirects, verify, impersonate,
+        stealthy_headers, ai_targeted)
+```
+
+Perform a PUT request and save the content to a file.
+
+<a id="scrapling.cli.delete"></a>
+
+#### delete
+
+```python
+@extract.command(
+    help=
+    f"Perform a DELETE request and save the content to a file.\n\n{__OUTPUT_FILE_HELP__}"
+)
+@argument("url", required=True)
+@argument("output_file", required=True)
+@_common_http_options
+def delete(url, output_file, headers, cookies, timeout, proxy, css_selector,
+           params, follow_redirects, verify, impersonate, stealthy_headers,
+           ai_targeted)
+```
+
+Perform a DELETE request and save the content to a file.
+
+<a id="scrapling.cli.fetch"></a>
+
+#### fetch
+
+```python
+@extract.command(
+    help=
+    f"Use DynamicFetcher to fetch content with browser automation.\n\n{__OUTPUT_FILE_HELP__}"
+)
+@argument("url", required=True)
+@argument("output_file", required=True)
+@_common_browser_options
+def fetch(url, output_file, headless, disable_resources, network_idle, timeout,
+          wait, css_selector, wait_selector, locale, real_chrome, proxy,
+          extra_headers, ai_targeted, dns_over_https, block_ads)
+```
+
+Opens up a browser and fetch content using DynamicFetcher.
+
+<a id="scrapling.cli.stealthy_fetch"></a>
+
+#### stealthy\_fetch
+
+```python
+@extract.command(
+    help=
+    f"Use StealthyFetcher to fetch content with advanced stealth features.\n\n{__OUTPUT_FILE_HELP__}"
+)
+@argument("url", required=True)
+@argument("output_file", required=True)
+@option(
+    "--block-webrtc/--allow-webrtc",
+    default=False,
+    help="Block WebRTC entirely (default: False)",
+)
+@option(
+    "--solve-cloudflare/--no-solve-cloudflare",
+    default=False,
+    help="Solve Cloudflare challenges (default: False)",
+)
+@option("--allow-webgl/--block-webgl",
+        default=True,
+        help="Allow WebGL (default: True)")
+@option(
+    "--hide-canvas/--show-canvas",
+    default=False,
+    help="Add noise to canvas operations (default: False)",
+)
+@_common_browser_options
+def stealthy_fetch(url, output_file, headless, disable_resources, network_idle,
+                   timeout, wait, css_selector, wait_selector, locale,
+                   real_chrome, proxy, extra_headers, block_webrtc,
+                   solve_cloudflare, allow_webgl, hide_canvas, ai_targeted,
+                   dns_over_https, block_ads)
+```
+
+Opens up a browser with advanced stealth features and fetch content using StealthyFetcher.
 
