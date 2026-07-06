@@ -2,8 +2,10 @@
 
 !!! success "Prerequisites"
 
-    1. You've completed or read the [Fetchers basics](../fetching/choosing.md) page to understand the different fetcher types and when to use each one.
-    2. You've completed or read the [Main classes](../parsing/main_classes.md) page to understand the [Selector](../parsing/main_classes.md#selector) and [Response](../fetching/choosing.md#response-object) classes.
+```
+1. You've completed or read the [Fetchers basics](../fetching/choosing.md) page to understand the different fetcher types and when to use each one.
+2. You've completed or read the [Main classes](../parsing/main_classes.md) page to understand the [Selector](../parsing/main_classes.md#selector) and [Response](../fetching/choosing.md#response-object) classes.
+```
 
 Scrapling's spider system is a Scrapy-inspired async crawling framework designed for concurrent, multi-session crawls with built-in pause/resume support. It brings together Scrapling's parsing engine and fetchers into a unified crawling API while adding scheduling, concurrency control, and checkpointing.
 
@@ -13,7 +15,7 @@ If you're familiar with Scrapy, you'll feel right at home. If not, don't worry -
 
 The diagram below shows how data flows through the spider system when a crawl is running:
 
-<img src="../assets/spider_architecture.png" title="Spider architecture diagram by @TrueSkills" alt="Spider architecture diagram by @TrueSkills" style="width: 70%;"/>
+![Spider architecture diagram by @TrueSkills](../.gitbook/assets/spider_architecture.png)
 
 Here's what happens step by step when you run a spider without many details:
 
@@ -24,7 +26,6 @@ Here's what happens step by step when you run a spider without many details:
 5. The **Crawler Engine** passes the [Response](../fetching/choosing.md#response-object) to the request's callback. The callback either yields a dictionary, which gets treated as a scraped item, or a follow-up request, which gets sent to the scheduler for queuing.
 6. The cycle repeats from step 2 until the scheduler is empty and no tasks are active, or the spider is paused.
 7. If `crawldir` is set while starting the spider, the **Crawler Engine** periodically saves a checkpoint (pending requests + seen URLs set) to disk. On graceful shutdown (Ctrl+C), a final checkpoint is saved. The next time the spider runs with the same `crawldir`, it resumes from where it left off, skipping `start_requests()` and restoring the scheduler state.
-
 
 ## Components
 
@@ -59,9 +60,9 @@ A priority queue with built-in URL deduplication. Requests are fingerprinted bas
 
 Manages one or more named session instances. Each session is one of:
 
-- [FetcherSession](../fetching/static.md)
-- [AsyncDynamicSession](../fetching/dynamic.md)
-- [AsyncStealthySession](../fetching/stealthy.md)
+* [FetcherSession](../fetching/static.md)
+* [AsyncDynamicSession](../fetching/dynamic.md)
+* [AsyncStealthySession](../fetching/stealthy.md)
 
 When a request comes in, the Session Manager routes it to the correct session based on the request's `sid` field. Sessions can be started with the spider start (default) or lazily (started on the first use).
 
@@ -77,13 +78,12 @@ An optional cache that, when development mode is enabled, stores every fetched r
 
 Scraped items are collected in an `ItemList` (a list subclass with `to_json()` and `to_jsonl()` export methods). Crawl statistics are tracked in a `CrawlStats` dataclass which contains a lot of useful info.
 
-
 ## Comparison with Scrapy
 
 If you're coming from Scrapy, here's how Scrapling's spider system maps:
 
 | Concept            | Scrapy                        | Scrapling                                                       |
-|--------------------|-------------------------------|-----------------------------------------------------------------|
+| ------------------ | ----------------------------- | --------------------------------------------------------------- |
 | Spider definition  | `scrapy.Spider` subclass      | `scrapling.spiders.Spider` subclass                             |
 | Initial requests   | `start_requests()`            | `async start_requests()`                                        |
 | Callbacks          | `def parse(self, response)`   | `async def parse(self, response)`                               |
