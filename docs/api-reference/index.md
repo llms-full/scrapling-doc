@@ -266,6 +266,21 @@ AsyncDynamicSession | AsyncStealthySession
 class ScraplingMCPServer()
 ```
 
+<a id="scrapling.core.ai.ScraplingMCPServer.__init__"></a>
+
+#### \_\_init\_\_
+
+```python
+def __init__(executable_path: Optional[str] = None)
+```
+
+Create a Scrapling MCP server.
+
+**Arguments**:
+
+- `executable_path`: Optional global Chromium-compatible browser executable path for browser tools.
+If omitted, the SCRAPLING_EXECUTABLE_PATH environment variable is used when set.
+
 <a id="scrapling.core.ai.ScraplingMCPServer.open_session"></a>
 
 #### open\_session
@@ -284,6 +299,7 @@ async def open_session(
         extra_headers: Optional[Dict[str, str]] = None,
         useragent: Optional[str] = None,
         cdp_url: Optional[str] = None,
+        executable_path: Optional[str] = None,
         timeout: int | float = 30000,
         disable_resources: bool = False,
         wait_selector: Optional[str] = None,
@@ -317,6 +333,7 @@ Use close_session to close the session when done, and list_sessions to see all a
 - `extra_headers`: A dictionary of extra headers to add to the request.
 - `useragent`: Pass a useragent string to be used. Otherwise the fetcher will generate a real Useragent of the same browser and use it.
 - `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
+- `executable_path`: Absolute path to a custom Chromium-compatible browser executable. Overrides the server-wide default for this session.
 - `timeout`: The timeout in milliseconds that is used in all operations and waits through the page. The default is 30,000.
 - `disable_resources`: Drop requests for unnecessary resources for a speed boost.
 - `wait_selector`: Wait for a specific CSS selector to be in a specific state.
@@ -527,6 +544,7 @@ async def fetch(url: str,
                 extra_headers: Optional[Dict[str, str]] = None,
                 useragent: Optional[str] = None,
                 cdp_url: Optional[str] = None,
+                executable_path: Optional[str] = None,
                 timeout: int | float = 30000,
                 disable_resources: bool = False,
                 wait_selector: Optional[str] = None,
@@ -567,6 +585,7 @@ rules. Defaults to the system default locale.
 - `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
 - `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
 - `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
+- `executable_path`: Absolute path to a custom Chromium-compatible browser executable. Overrides the server-wide default for this request.
 - `google_search`: Enabled by default, Scrapling will set a Google referer header.
 - `extra_headers`: A dictionary of extra headers to add to the request. _The referer set by `google_search` takes priority over the referer set here if used together._
 - `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
@@ -591,6 +610,7 @@ async def bulk_fetch(urls: List[str],
                      extra_headers: Optional[Dict[str, str]] = None,
                      useragent: Optional[str] = None,
                      cdp_url: Optional[str] = None,
+                     executable_path: Optional[str] = None,
                      timeout: int | float = 30000,
                      disable_resources: bool = False,
                      wait_selector: Optional[str] = None,
@@ -631,6 +651,7 @@ rules. Defaults to the system default locale.
 - `wait_selector_state`: The state to wait for the selector given with `wait_selector`. The default state is `attached`.
 - `real_chrome`: If you have a Chrome browser installed on your device, enable this, and the Fetcher will launch an instance of your browser and use it.
 - `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
+- `executable_path`: Absolute path to a custom Chromium-compatible browser executable. Overrides the server-wide default for this request.
 - `google_search`: Enabled by default, Scrapling will set a Google referer header.
 - `extra_headers`: A dictionary of extra headers to add to the request. _The referer set by `google_search` takes priority over the referer set here if used together._
 - `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
@@ -656,6 +677,7 @@ async def stealthy_fetch(url: str,
                          useragent: Optional[str] = None,
                          hide_canvas: bool = False,
                          cdp_url: Optional[str] = None,
+                         executable_path: Optional[str] = None,
                          timeout: int | float = 30000,
                          disable_resources: bool = False,
                          wait_selector: Optional[str] = None,
@@ -704,6 +726,7 @@ rules. Defaults to the system default locale.
 - `hide_canvas`: Add random noise to canvas operations to prevent fingerprinting.
 - `block_webrtc`: Forces WebRTC to respect proxy settings to prevent local IP address leak.
 - `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
+- `executable_path`: Absolute path to a custom Chromium-compatible browser executable. Overrides the server-wide default for this request.
 - `google_search`: Enabled by default, Scrapling will set a Google referer header.
 - `extra_headers`: A dictionary of extra headers to add to the request. _The referer set by `google_search` takes priority over the referer set here if used together._
 - `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
@@ -731,6 +754,7 @@ async def bulk_stealthy_fetch(
         useragent: Optional[str] = None,
         hide_canvas: bool = False,
         cdp_url: Optional[str] = None,
+        executable_path: Optional[str] = None,
         timeout: int | float = 30000,
         disable_resources: bool = False,
         wait_selector: Optional[str] = None,
@@ -779,6 +803,7 @@ rules. Defaults to the system default locale.
 - `hide_canvas`: Add random noise to canvas operations to prevent fingerprinting.
 - `block_webrtc`: Forces WebRTC to respect proxy settings to prevent local IP address leak.
 - `cdp_url`: Instead of launching a new browser instance, connect to this CDP URL to control real browsers through CDP.
+- `executable_path`: Absolute path to a custom Chromium-compatible browser executable. Overrides the server-wide default for this request.
 - `google_search`: Enabled by default, Scrapling will set a Google referer header.
 - `extra_headers`: A dictionary of extra headers to add to the request. _The referer set by `google_search` takes priority over the referer set here if used together._
 - `proxy`: The proxy to be used with requests, it can be a string or a dictionary with the keys 'server', 'username', and 'password' only.
@@ -1295,6 +1320,86 @@ def css_to_xpath(query: str) -> str
 ```
 
 Return the translated XPath version of a given CSS query
+
+<a id="scrapling.integrations"></a>
+
+# scrapling.integrations
+
+Integrations with third-party frameworks.
+
+Each integration lives in its own module and is imported explicitly, so its
+framework never becomes a required dependency of Scrapling. Example::
+
+from scrapling.integrations.scrapy import scrapling_response
+
+<a id="scrapling.integrations.scrapy"></a>
+
+# scrapling.integrations.scrapy
+
+Scrapy integration.
+
+Decorate Scrapy spider callbacks with `scrapling_response` to receive a Scrapling `Response`
+object instead of the Scrapy response, so you get Scrapling's full parsing API inside existing
+Scrapy projects without changing how the spider crawls.
+
+<a id="scrapling.integrations.scrapy.convert_response"></a>
+
+#### convert\_response
+
+```python
+def convert_response(response: ScrapyResponse,
+                     **selector_config: Any) -> Response
+```
+
+Convert a Scrapy response to a Scrapling `Response` object.
+
+Can be used directly anywhere you have a Scrapy response at hand (middlewares, pipelines, ...).
+
+**Arguments**:
+
+- `response`: The Scrapy response to convert.
+- `selector_config`: Configuration options passed to the `Response` constructor, like
+`huge_tree`, `keep_comments`, `keep_cdata`, `adaptive`, `storage`, `storage_args`, and `adaptive_domain`.
+
+**Returns**:
+
+A Scrapling `Response` object ready for parsing.
+
+<a id="scrapling.integrations.scrapy.scrapling_response"></a>
+
+#### scrapling\_response
+
+```python
+def scrapling_response(func: Optional[Callable] = None,
+                       **selector_config: Any) -> Callable
+```
+
+Decorator that converts the Scrapy response passed to a spider callback into a Scrapling `Response`.
+
+Works bare or parameterized, on any callback kind Scrapy supports (regular, generator,
+coroutine, and async generator functions)::
+
+    class MySpider(scrapy.Spider):
+        @scrapling_response
+        def parse(self, response):  # `response` is a Scrapling Response
+            product = response.find_by_text("Vans Old Skool", partial=True)
+            for similar in product.find_similar():
+                yield {"name": similar.get_all_text(strip=True)}
+
+        @scrapling_response(adaptive=True)
+        def parse_product(self, response):
+            ...
+
+**Arguments**:
+
+- `func`: The decorated callback. Left empty in the parameterized form.
+- `selector_config`: Configuration options passed to the `Response` constructor, like
+`huge_tree`, `keep_comments`, `keep_cdata`, `adaptive`, `storage`, `storage_args`, and `adaptive_domain`.
+
+**Returns**:
+
+The wrapped callback. The wrapper keeps the callback's kind, name, and docstring,
+so Scrapy's callback introspection keeps working.
 
 <a id="scrapling.fetchers.chrome"></a>
 
@@ -4768,7 +4873,17 @@ Add a request to the queue.
 async def dequeue() -> Request
 ```
 
-Get the next request to process.
+Get the next request to process (stays tracked until complete()).
+
+<a id="scrapling.spiders.scheduler.Scheduler.complete"></a>
+
+#### complete
+
+```python
+def complete(request: Request) -> None
+```
+
+Mark a request as finished so it stops being tracked for checkpoints.
 
 <a id="scrapling.spiders.scheduler.Scheduler.snapshot"></a>
 
