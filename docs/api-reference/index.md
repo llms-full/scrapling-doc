@@ -4690,6 +4690,26 @@ def rules() -> List[CrawlRule]
 
 Override to define link-following rules.
 
+<a id="scrapling.spiders.templates.shopify"></a>
+
+# scrapling.spiders.templates.shopify
+
+Spider template for extracting products from Shopify-powered websites.
+
+<a id="scrapling.spiders.templates.shopify.ShopifySpider"></a>
+
+## ShopifySpider Objects
+
+```python
+class ShopifySpider(Spider)
+```
+
+A spider that extracts all products from any Shopify-powered website through its JSON API.
+
+Set `target_website` to the store's domain (or set `start_urls`/`allowed_domains` instead), and the
+spider walks the store's `/collections.json` pages, then each collection's `products.json` pages,
+yielding one item per product variant without touching the website's HTML.
+
 <a id="scrapling.spiders.cache"></a>
 
 # scrapling.spiders.cache
@@ -5095,7 +5115,8 @@ Perform a DELETE request and save the content to a file.
 @_common_browser_options
 def fetch(url, output_file, headless, disable_resources, network_idle, timeout,
           wait, css_selector, wait_selector, locale, real_chrome, proxy,
-          extra_headers, ai_targeted, dns_over_https, block_ads)
+          extra_headers, ai_targeted, executable_path, dns_over_https,
+          block_ads)
 ```
 
 Opens up a browser and fetch content using DynamicFetcher.
@@ -5134,7 +5155,7 @@ def stealthy_fetch(url, output_file, headless, disable_resources, network_idle,
                    timeout, wait, css_selector, wait_selector, locale,
                    real_chrome, proxy, extra_headers, block_webrtc,
                    solve_cloudflare, allow_webgl, hide_canvas, ai_targeted,
-                   dns_over_https, block_ads)
+                   executable_path, dns_over_https, block_ads)
 ```
 
 Opens up a browser with advanced stealth features and fetch content using StealthyFetcher.
