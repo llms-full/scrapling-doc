@@ -86,6 +86,10 @@ MySpider().start()
   <br />
   <br />
 </div>
+<br/>
+
+<a href="https://www.novada.com/?d4vinci-scrapling" target="_blank" title="The All-in-One Solution for Every Data Scraping Scenario"><img src="https://raw.githubusercontent.com/D4Vinci/Scrapling/main/images/novada.jpg"></a>
+
 <!-- /sponsors -->
 
 <i><sub>Do you want to show your ad here? Click [here](https://github.com/sponsors/D4Vinci), choose a plan, and enjoy the rest of the perks!</sub></i>
@@ -99,7 +103,7 @@ MySpider().start()
 - 💾 **Pause & Resume**: Checkpoint-based crawl persistence. Press Ctrl+C for a graceful shutdown; restart to resume from where you left off.
 - 📡 **Streaming Mode**: Stream scraped items as they arrive via `async for item in spider.stream()` with real-time stats - ideal for UI, pipelines, and long-running crawls.
 - 🛡️ **Blocked Request Detection**: Automatic detection and retry of blocked requests with customizable logic.
-- 🎚️ **AutoThrottle**: Stop guessing delays. The spider tunes the delay of each domain on its own from how fast the website responds, then doubles it (or waits what `Retry-After` asks) whenever the website starts blocking or rate-limiting you, and speeds back up once it stops.
+- 🚦 **AutoThrottle**: Stop guessing delays. The spider tunes the delay of each domain on its own from how fast the website responds, then doubles it (or waits what `Retry-After` asks) whenever the website starts blocking or rate-limiting you, and speeds back up once it stops.
 - 🤖 **Robots.txt Compliance**: Optional `robots_txt_obey` flag that respects `Disallow`, `Crawl-delay`, and `Request-rate` directives with per-domain caching.
 - 🧪 **Development Mode**: Cache responses to disk on the first run and replay them on subsequent runs - iterate on your `parse()` logic without re-hitting the target servers.
 - 🧩 **Ready-made Spider Templates**: Skip the boilerplate with `CrawlSpider` for rule-based link following, `SitemapSpider` for sitemap/robots.txt-driven crawls, and `ShopifySpider` to pull every product out of any Shopify store through its JSON API, one item per variant.
