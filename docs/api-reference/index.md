@@ -696,6 +696,12 @@ async def parse(
 
 Default callback for processing responses
 
+<a id="scrapling.spiders.templates._utils"></a>
+
+# scrapling.spiders.templates.\_utils
+
+Shared helpers for template spiders.
+
 <a id="scrapling.spiders.templates.crawler"></a>
 
 # scrapling.spiders.templates.crawler
@@ -746,6 +752,95 @@ def rules() -> List[CrawlRule]
 ```
 
 Override to define link-following rules.
+
+<a id="scrapling.spiders.templates.feed"></a>
+
+# scrapling.spiders.templates.feed
+
+Feed template spiders for XML and CSV feeds.
+
+<a id="scrapling.spiders.templates.feed.XMLFeedSpider"></a>
+
+## XMLFeedSpider Objects
+
+```python
+class XMLFeedSpider(Spider)
+```
+
+A Spider that iterates over the nodes of an XML feed (RSS, Atom, product feeds, etc.).
+
+Override `parse_node()` to process each node matching `itertag`. Gzipped feeds are decompressed automatically.
+
+Each node is passed as a namespace-stripped `lxml` element, so `node.findtext("title")` and case-sensitive
+`node.xpath(...)` work on any feed without namespace maps.
+
+:cvar itertag: Name of the node to iterate over. A plain name ("item") matches regardless of namespace;
+    a prefixed name ("media:content") matches only the namespace the prefix maps to in `namespaces`.
+:cvar namespaces: Tuple of `(prefix, uri)` pairs defining the prefixes usable in `itertag`.
+
+<a id="scrapling.spiders.templates.feed.XMLFeedSpider.parse"></a>
+
+#### parse
+
+```python
+async def parse(
+    response: "Response"
+) -> AsyncGenerator[Union[Dict[str, Any], Request, None], None]
+```
+
+Iterate over the feed's `itertag` nodes and dispatch each one to `parse_node`.
+
+<a id="scrapling.spiders.templates.feed.XMLFeedSpider.parse_node"></a>
+
+#### parse\_node
+
+```python
+async def parse_node(
+    response: "Response", node: _Element
+) -> AsyncGenerator[Union[Dict[str, Any], Request, None], None]
+```
+
+Override to process one feed node; `node` is a namespace-stripped `lxml` element.
+
+<a id="scrapling.spiders.templates.feed.CSVFeedSpider"></a>
+
+## CSVFeedSpider Objects
+
+```python
+class CSVFeedSpider(Spider)
+```
+
+A Spider that iterates over the rows of a CSV feed.
+
+Override `parse_row()` to process each row as a dictionary. Gzipped feeds are decompressed automatically.
+
+:cvar delimiter: The character separating fields.
+:cvar quotechar: The character enclosing fields that contain special characters.
+:cvar headers: The column names. When left unset, the first row of the feed is used as the header.
+
+<a id="scrapling.spiders.templates.feed.CSVFeedSpider.parse"></a>
+
+#### parse
+
+```python
+async def parse(
+    response: "Response"
+) -> AsyncGenerator[Union[Dict[str, Any], Request, None], None]
+```
+
+Read the feed's rows and dispatch each one to `parse_row`.
+
+<a id="scrapling.spiders.templates.feed.CSVFeedSpider.parse_row"></a>
+
+#### parse\_row
+
+```python
+async def parse_row(
+    response: "Response", row: Dict[str, Any]
+) -> AsyncGenerator[Union[Dict[str, Any], Request, None], None]
+```
+
+Override to process one feed row as a `{column: value}` dictionary.
 
 <a id="scrapling.spiders.cache"></a>
 
@@ -3646,11 +3741,30 @@ Functions related to generating headers and fingerprints generally
 def get_os_name() -> OSName | Tuple
 ```
 
-Get the current OS name in the same format needed for browserforge, if the OS is Unknown, return None so browserforge uses all.
+Get the current OS name in the same format needed for browserforge, if the OS is Unknown, return all the OSes browserforge supports.
 
 **Returns**:
 
-Current OS name or `None` otherwise
+Current OS name or all supported OSes otherwise
+
+<a id="scrapling.engines.toolbelt.fingerprints.driven_browser_version"></a>
+
+#### driven\_browser\_version
+
+```python
+@lru_cache(2, typed=True)
+def driven_browser_version(package: str = "playwright") -> int | None
+```
+
+Get the Chromium major version the installed automation package drives, read from its bundled `browsers.json`.
+
+**Arguments**:
+
+- `package`: The automation package to inspect, e.g. `"playwright"` or `"patchright"`
+
+**Returns**:
+
+The Chromium major version, or `None` if it couldn't be determined
 
 <a id="scrapling.engines.toolbelt.fingerprints.generate_headers"></a>
 
@@ -4377,7 +4491,6 @@ async def open_session(
 Open a persistent browser session that can be reused across multiple fetch calls.
 
 This avoids the overhead of launching a new browser for each request.
-Use close_session to close the session when done, and list_sessions to see all active sessions.
 
 **Arguments**:
 
@@ -4495,17 +4608,13 @@ async def get(url: str,
 
 Make GET HTTP request to a URL and return a structured output of the result.
 
-Note: This is only suitable for low-mid protection levels. For high-protection levels or websites that require JS loading, use the other tools directly.
-Note: If the `css_selector` resolves to more than one element, all the elements will be returned.
+Only suitable for low-mid protection levels.
 
 **Arguments**:
 
 - `url`: The URL to request.
 - `impersonate`: Browser version to impersonate its fingerprint. It's using the latest chrome version by default.
-- `extraction_type`: The type of content to extract from the page. Defaults to "markdown". Options are:
-- Markdown will convert the page content to Markdown format.
-- HTML will return the raw HTML content of the page.
-- Text will return the text content of the page.
+- `extraction_type`: The type of content to extract from the page: "markdown" (default), "html", or "text".
 - `css_selector`: CSS selector to extract the content from the page. If main_content_only is True, then it will be executed on the main content of the page. Defaults to None.
 - `main_content_only`: Whether to extract only the main content of the page. Defaults to True. The main content here is the data inside the `<body>` tag.
 - `params`: Query string parameters for the request.
@@ -4555,17 +4664,13 @@ async def bulk_get(
 
 Make GET HTTP request to a group of URLs and for each URL, return a structured output of the result.
 
-Note: This is only suitable for low-mid protection levels. For high-protection levels or websites that require JS loading, use the other tools directly.
-Note: If the `css_selector` resolves to more than one element, all the elements will be returned.
+Only suitable for low-mid protection levels.
 
 **Arguments**:
 
 - `urls`: A list of the URLs to request.
 - `impersonate`: Browser version to impersonate its fingerprint. It's using the latest chrome version by default.
-- `extraction_type`: The type of content to extract from the page. Defaults to "markdown". Options are:
-- Markdown will convert the page content to Markdown format.
-- HTML will return the raw HTML content of the page.
-- Text will return the text content of the page.
+- `extraction_type`: The type of content to extract from the page: "markdown" (default), "html", or "text".
 - `css_selector`: CSS selector to extract the content from the page. If main_content_only is True, then it will be executed on the main content of the page. Defaults to None.
 - `main_content_only`: Whether to extract only the main content of the page. Defaults to True. The main content here is the data inside the `<body>` tag.
 - `params`: Query string parameters for the request.
@@ -4616,18 +4721,12 @@ async def fetch(url: str,
 
 Use playwright to open a browser to fetch a URL and return a structured output of the result.
 
-Note: This is only suitable for low-mid protection levels.
-Note: If the `css_selector` resolves to more than one element, all the elements will be returned.
-Note: If a `session_id` is provided (from open_session), the browser session will be reused instead of creating a new one.
-    When using a session, browser-level params (headless, proxy, locale, etc.) are ignored since they were set at session creation time.
+Only suitable for low-mid protection levels.
 
 **Arguments**:
 
 - `url`: The URL to request.
-- `extraction_type`: The type of content to extract from the page. Defaults to "markdown". Options are:
-- Markdown will convert the page content to Markdown format.
-- HTML will return the raw HTML content of the page.
-- Text will return the text content of the page.
+- `extraction_type`: The type of content to extract from the page: "markdown" (default), "html", or "text".
 - `css_selector`: CSS selector to extract the content from the page. If main_content_only is True, then it will be executed on the main content of the page. Defaults to None.
 - `main_content_only`: Whether to extract only the main content of the page. Defaults to True. The main content here is the data inside the `<body>` tag.
 - `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
@@ -4682,18 +4781,12 @@ async def bulk_fetch(urls: List[str],
 
 Use playwright to open a browser, then fetch a group of URLs at the same time, and for each page return a structured output of the result.
 
-Note: This is only suitable for low-mid protection levels.
-Note: If the `css_selector` resolves to more than one element, all the elements will be returned.
-Note: If a `session_id` is provided (from open_session), the browser session will be reused instead of creating a new one.
-    When using a session, browser-level params (headless, proxy, locale, etc.) are ignored since they were set at session creation time.
+Only suitable for low-mid protection levels.
 
 **Arguments**:
 
-- `urls`: A list of the URLs to request.
-- `extraction_type`: The type of content to extract from the page. Defaults to "markdown". Options are:
-- Markdown will convert the page content to Markdown format.
-- HTML will return the raw HTML content of the page.
-- Text will return the text content of the page.
+- `urls`: A list of the URLs to request. Batches bigger than 50 URLs are fetched through a pool of 50 concurrent pages.
+- `extraction_type`: The type of content to extract from the page: "markdown" (default), "html", or "text".
 - `css_selector`: CSS selector to extract the content from the page. If main_content_only is True, then it will be executed on the main content of the page. Defaults to None.
 - `main_content_only`: Whether to extract only the main content of the page. Defaults to True. The main content here is the data inside the `<body>` tag.
 - `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
@@ -4753,18 +4846,12 @@ async def stealthy_fetch(url: str,
 
 Use the stealthy fetcher to fetch a URL and return a structured output of the result.
 
-Note: This is the only suitable fetcher for high protection levels.
-Note: If the `css_selector` resolves to more than one element, all the elements will be returned.
-Note: If a `session_id` is provided (from open_session), the browser session will be reused instead of creating a new one.
-    When using a session, browser-level params (headless, proxy, locale, etc.) are ignored since they were set at session creation time.
+The only fetcher suitable for high-protection websites.
 
 **Arguments**:
 
 - `url`: The URL to request.
-- `extraction_type`: The type of content to extract from the page. Defaults to "markdown". Options are:
-- Markdown will convert the page content to Markdown format.
-- HTML will return the raw HTML content of the page.
-- Text will return the text content of the page.
+- `extraction_type`: The type of content to extract from the page: "markdown" (default), "html", or "text".
 - `css_selector`: CSS selector to extract the content from the page. If main_content_only is True, then it will be executed on the main content of the page. Defaults to None.
 - `main_content_only`: Whether to extract only the main content of the page. Defaults to True. The main content here is the data inside the `<body>` tag.
 - `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
@@ -4830,18 +4917,12 @@ async def bulk_stealthy_fetch(
 
 Use the stealthy fetcher to fetch a group of URLs at the same time, and for each page return a structured output of the result.
 
-Note: This is the only suitable fetcher for high protection levels.
-Note: If the `css_selector` resolves to more than one element, all the elements will be returned.
-Note: If a `session_id` is provided (from open_session), the browser session will be reused instead of creating a new one.
-    When using a session, browser-level params (headless, proxy, locale, etc.) are ignored since they were set at session creation time.
+The only fetcher suitable for high-protection websites.
 
 **Arguments**:
 
-- `urls`: A list of the URLs to request.
-- `extraction_type`: The type of content to extract from the page. Defaults to "markdown". Options are:
-- Markdown will convert the page content to Markdown format.
-- HTML will return the raw HTML content of the page.
-- Text will return the text content of the page.
+- `urls`: A list of the URLs to request. Batches bigger than 50 URLs are fetched through a pool of 50 concurrent pages.
+- `extraction_type`: The type of content to extract from the page: "markdown" (default), "html", or "text".
 - `css_selector`: CSS selector to extract the content from the page. If main_content_only is True, then it will be executed on the main content of the page. Defaults to None.
 - `main_content_only`: Whether to extract only the main content of the page. Defaults to True. The main content here is the data inside the `<body>` tag.
 - `headless`: Run the browser in headless/hidden (default), or headful/visible mode.
