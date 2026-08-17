@@ -68,6 +68,9 @@ MySpider().start()
   <a href="https://hypersolutions.co/?utm_source=github&utm_medium=readme&utm_campaign=scrapling" target="_blank" title="Bot Protection Bypass API for Akamai, DataDome, Incapsula & Kasada">
     <img src="https://raw.githubusercontent.com/D4Vinci/Scrapling/main/images/HyperSolutions.png" class="ad">
   </a>
+  <a href="https://birdproxies.com/t/scrapling" target="_blank" title="At Bird Proxies, we eliminate your pains such as banned IPs, geo restriction, and high costs so you can focus on your work.">
+    <img src="https://raw.githubusercontent.com/D4Vinci/Scrapling/main/images/BirdProxies.jpg" class="ad">
+  </a>
   <a href="https://evomi.com?utm_source=github&utm_medium=banner&utm_campaign=d4vinci-scrapling" target="_blank" title="Evomi is your Swiss Quality Proxy Provider, starting at $0.49/GB">
     <img src="https://raw.githubusercontent.com/D4Vinci/Scrapling/main/images/evomi.png" class="ad">
   </a>
@@ -83,12 +86,13 @@ MySpider().start()
   <a href="https://www.swiftproxy.net/?ref=D4Vinci" target="_blank" title="Scalable Solutions for Web Data Access">
     <img src="https://raw.githubusercontent.com/D4Vinci/Scrapling/main/images/SwiftProxy.png" class="ad">
   </a>
+  <a href="https://www.coreclaw.com/?utm_source=github&utm_medium=cpc&utm_campaign=scraping&utm_term=&utm_id=scraping" target="_blank" title="Real-Time Public Data, Ready to Use">
+    <img src="https://raw.githubusercontent.com/D4Vinci/Scrapling/main/images/CoreClaw.jpg" class="ad">
+  </a>
   <br />
   <br />
+    <a href="https://www.novada.com/?d4vinci-scrapling" target="_blank" title="The All-in-One Solution for Every Data Scraping Scenario"><img src="https://raw.githubusercontent.com/D4Vinci/Scrapling/main/images/novada.jpg"></a>
 </div>
-<br/>
-
-<a href="https://www.novada.com/?d4vinci-scrapling" target="_blank" title="The All-in-One Solution for Every Data Scraping Scenario"><img src="https://raw.githubusercontent.com/D4Vinci/Scrapling/main/images/novada.jpg"></a>
 
 <!-- /sponsors -->
 
@@ -150,35 +154,11 @@ MySpider().start()
 ## Star History
 Scrapling’s GitHub stars have grown steadily since its release (see chart below).
 
-<div id="chartContainer">
-  <a href="https://github.com/D4Vinci/Scrapling">
-    <img id="chartImage" alt="Star History Chart" loading="lazy" src="https://api.star-history.com/svg?repos=D4Vinci/Scrapling&type=Date" height="400"/>
+<div>
+  <a href="https://www.star-history.com/?repos=D4vinci%2FScrapling&type=date&legend=top-left">
+    <img alt="Star History Chart" loading="lazy" src="assets/star-history.png" style="height: 400px;"/>
   </a>
 </div>
-
-<script>
-const observer = new MutationObserver((mutations) => {
-  mutations.forEach((mutation) => {
-    if (mutation.attributeName === 'data-md-color-media') {
-      const colorMedia = document.body.getAttribute('data-md-color-media');
-      const isDarkScheme = document.body.getAttribute('data-md-color-scheme') === 'slate';
-      const chartImg = document.querySelector('#chartImage');
-      const baseUrl = 'https://api.star-history.com/svg?repos=D4Vinci/Scrapling&type=Date';
-      
-      if (colorMedia === '(prefers-color-scheme)' ? isDarkScheme : colorMedia.includes('dark')) {
-        chartImg.src = `${baseUrl}&theme=dark`;
-      } else {
-        chartImg.src = baseUrl;
-      }
-    }
-  });
-});
-
-observer.observe(document.body, {
-  attributes: true,
-  attributeFilter: ['data-md-color-media', 'data-md-color-scheme']
-});
-</script>
 
 
 ## Installation

@@ -129,6 +129,18 @@ MySpider().start()
   </tr>
   <tr>
     <td width="200">
+      <a href="https://birdproxies.com/t/scrapling" target="_blank" title="At Bird Proxies, we eliminate your pains such as banned IPs, geo restriction, and high costs so you can focus on your work.">
+        <img src="https://raw.githubusercontent.com/D4Vinci/Scrapling/main/images/BirdProxies.jpg">
+      </a>
+    </td>
+    <td>Hey, we built <a href="https://birdproxies.com/t/scrapling">
+        <b>BirdProxies</b>
+      </a> because proxies shouldn't be complicated or overpriced. Fast residential and ISP proxies in 195+ locations, fair pricing, and real support. <br />
+      <b>Try our FlappyBird game on the landing page for free data!</b>
+    </td>
+  </tr>
+  <tr>
+    <td width="200">
       <a href="https://evomi.com?utm_source=github&utm_medium=banner&utm_campaign=d4vinci-scrapling" target="_blank" title="Evomi is your Swiss Quality Proxy Provider, starting at $0.49/GB">
         <img src="https://raw.githubusercontent.com/D4Vinci/Scrapling/main/images/evomi.png">
       </a>
@@ -179,6 +191,16 @@ MySpider().start()
     </td>
     <td>
     <a href="https://www.swiftproxy.net/?ref=D4Vinci" target="_blank">Swiftproxy</a> provides scalable residential proxies with 80M+ IPs across 195+ countries, delivering fast, reliable connections, automatic rotation, and strong anti-block performance. Free trial available.
+    </td>
+  </tr>
+  <tr>
+    <td width="200">
+      <a href="https://www.coreclaw.com/?utm_source=github&utm_medium=cpc&utm_campaign=scraping&utm_term=&utm_id=scraping" target="_blank" title="Real-Time Public Data, Ready to Use">
+        <img src="https://raw.githubusercontent.com/D4Vinci/Scrapling/main/images/CoreClaw.jpg">
+      </a>
+    </td>
+    <td>
+    <a href="https://www.coreclaw.com/?utm_source=github&utm_medium=cpc&utm_campaign=scraping&utm_term=&utm_id=scraping" target="_blank">CoreClaw</a> provides Web Data APIs for AI agents. Access structured data from Google Maps, LinkedIn, Instagram, YouTube, Amazon and more.
     </td>
   </tr>
 </table>
