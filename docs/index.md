@@ -86,9 +86,6 @@ MySpider().start()
   <a href="https://www.swiftproxy.net/?ref=D4Vinci" target="_blank" title="Scalable Solutions for Web Data Access">
     <img src="https://raw.githubusercontent.com/D4Vinci/Scrapling/main/images/SwiftProxy.png" class="ad">
   </a>
-  <a href="https://www.coreclaw.com/?utm_source=github&utm_medium=cpc&utm_campaign=scraping&utm_term=&utm_id=scraping" target="_blank" title="Real-Time Public Data, Ready to Use">
-    <img src="https://raw.githubusercontent.com/D4Vinci/Scrapling/main/images/CoreClaw.jpg" class="ad">
-  </a>
   <a href="https://niuproxy.com/?utm_source=scrapling&utm_medium=scrapling&ref=scrapling" target="_blank" title="Affordable Residential in 190+ Countries">
     <img src="https://raw.githubusercontent.com/D4Vinci/Scrapling/main/images/niuproxy.png">
   </a>
